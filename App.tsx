@@ -86,7 +86,7 @@ const TWISTS: { key: Scenario['twist']; label: string; desc: string; city: strin
   },
 ];
 
-export default function App() {
+export default function App({ onExit }: { onExit?: () => void }) {
   // --- setup state (đơn giản hóa cho demo: nhập trước khi bấm Bắt đầu) ---
   const [started, setStarted] = useState(false);
   const [tenantName, setTenantName] = useState('Minh');
@@ -345,6 +345,11 @@ export default function App() {
   if (!started) {
     return (
       <KeyboardAvoidingView style={[styles.screen, styles.pad]} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+        {onExit ? (
+          <Pressable style={[styles.backBtn, { alignSelf: 'flex-start' }]} onPress={onExit}>
+            <Text style={styles.backText}>‹ Trang chủ</Text>
+          </Pressable>
+        ) : null}
         <Text style={styles.h1}>🤝 Đàm Phán Sống</Text>
         <Text style={styles.sub}>Luyện kỹ năng đàm phán / nói chuyện khó — bằng giọng nói thật.</Text>
         {progress && progress.sessions > 0 ? (
@@ -444,7 +449,7 @@ export default function App() {
         <Pressable style={styles.bigBtn} onPress={restartSameScenario}>
           <Text style={styles.bigBtnText}>🔁 Đàm phán lại tình huống này</Text>
         </Pressable>
-        <Pressable style={styles.bigBtn} onPress={backToSetup}>
+        <Pressable style={styles.bigBtn} onPress={onExit ?? backToSetup}>
           <Text style={styles.bigBtnText}>🏠 Về màn hình chính</Text>
         </Pressable>
       </ScrollView>
@@ -459,6 +464,11 @@ export default function App() {
         </View>
       )}
       <View style={styles.header}>
+        {onExit ? (
+          <Pressable style={styles.backBtn} onPress={onExit}>
+            <Text style={styles.backText}>‹ Trang chủ</Text>
+          </Pressable>
+        ) : null}
         <View style={styles.headerText}>
           <Text style={styles.h2}>
             🏠 {scenario?.roomType} — {fmt(scenario?.listedPrice ?? 0)}đ/tháng
@@ -597,6 +607,8 @@ const styles = StyleSheet.create({
   headerSub: { color: '#9fb0bf', fontSize: 12, marginTop: 2 },
   muteBtn: { backgroundColor: '#243040', borderRadius: 20, paddingVertical: 8, paddingHorizontal: 12 },
   muteText: { fontSize: 16 },
+  backBtn: { backgroundColor: '#243040', borderRadius: 20, paddingVertical: 8, paddingHorizontal: 12 },
+  backText: { color: '#fff', fontWeight: '700', fontSize: 14 },
   chat: { flex: 1 },
   bubble: { maxWidth: '85%', borderRadius: 14, padding: 10 },
   me: { alignSelf: 'flex-end', backgroundColor: '#2f81f7' },

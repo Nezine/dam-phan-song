@@ -4,6 +4,7 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import type { RoomId } from '../lib/rooms';
 import { ROOMS } from '../lib/rooms';
 import type { RoomProgress } from '../lib/roomProgress';
+import { DailyGoalCard, XpBar, xpForLevel } from '../components/gamification';
 
 type Props = {
   progress: RoomProgress;
@@ -21,7 +22,9 @@ function greeting(): string {
 
 export default function HomeScreen({ progress, onOpenMap, onStartRoom }: Props) {
   const currentRoom = ROOMS.find((r) => r.id === progress.currentRoomId) ?? ROOMS[0];
-  const xpPct = Math.min(100, Math.round((progress.xp / progress.xpForNextLevel) * 100));
+  // Tổng XP tích lũy = XP tích lũy tới cấp hiện tại + XP trong cấp — khớp với
+  // thang gamification (levelFromXp), để XpBar hiện đúng cấp/XP như tiến bộ.
+  const totalXp = xpForLevel(progress.level) + progress.xp;
   const suggested = currentRoom.scenarios[0];
 
   return (
@@ -59,16 +62,11 @@ export default function HomeScreen({ progress, onOpenMap, onStartRoom }: Props) 
         </View>
       </View>
       <View style={styles.levelBox}>
-        <View style={styles.levelRow}>
-          <Text style={styles.levelText}>Cấp {progress.level}</Text>
-          <Text style={styles.levelText}>
-            {progress.xp}/{progress.xpForNextLevel} XP
-          </Text>
-        </View>
-        <View style={styles.xpTrack}>
-          <View style={[styles.xpFill, { width: `${xpPct}%` }]} />
-        </View>
+        <XpBar totalXp={totalXp} />
       </View>
+
+      {/* Mục tiêu ngày */}
+      <DailyGoalCard roundsToday={progress.roundsToday} />
 
       {/* Bài học tâm lý hôm nay */}
       <View style={styles.lessonCard}>
@@ -104,11 +102,7 @@ const styles = StyleSheet.create({
   stat: { flex: 1, backgroundColor: '#243040', borderRadius: 12, paddingVertical: 12, alignItems: 'center', gap: 2 },
   statNum: { color: '#fff', fontSize: 18, fontWeight: '800' },
   statLabel: { color: '#9fb0bf', fontSize: 11 },
-  levelBox: { backgroundColor: '#1b232b', borderRadius: 12, padding: 12, gap: 8 },
-  levelRow: { flexDirection: 'row', justifyContent: 'space-between' },
-  levelText: { color: '#fff', fontWeight: '700', fontSize: 13 },
-  xpTrack: { height: 8, backgroundColor: '#243040', borderRadius: 4, overflow: 'hidden' },
-  xpFill: { height: '100%', backgroundColor: '#ffd43b', borderRadius: 4 },
+  levelBox: { backgroundColor: '#1b232b', borderRadius: 12, padding: 12 },
   lessonCard: { backgroundColor: '#0b2518', borderColor: '#2f9e44', borderWidth: 1, borderRadius: 16, padding: 16, gap: 6 },
   lessonTitle: { color: '#8ce99a', fontWeight: '800', fontSize: 16 },
   lessonText: { color: '#c3fae8', fontSize: 13, lineHeight: 19 },
