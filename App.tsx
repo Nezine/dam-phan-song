@@ -33,7 +33,7 @@ import type { Scenario, Turn } from './src/lib/types';
 const fmt = (n: number) => n.toLocaleString('vi-VN');
 const fmtTime = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
 
-const MOCK = !GEMINI_API_KEY; // không có key → MOCK MODE (banner đỏ trên màn hình, không đem demo như AI thật)
+const MOCK = !GEMINI_API_KEY && !GROQ_API_KEY;
 
 // File ghi âm nhỏ hơn mức này coi như không nghe được (bấm nhầm / im lặng) —
 // không gọi API transcribe. 500 bytes ≈ 0,1s âm thanh nén, dưới mức một từ nói.
@@ -135,7 +135,8 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
       const status = await AudioModule.requestRecordingPermissionsAsync();
       if (!status.granted) setError('Chưa có quyền micro');
       await setAudioModeAsync({ playsInSilentMode: false, allowsRecording: true });
-    })();
+    })().catch((e) => setError(friendlyError(e)));
+    return () => { void Speech.stop(); };
   }, []);
 
   // Tiến bộ đã lưu trên máy (P1-8).
@@ -258,6 +259,7 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
   }, [agreedPrice]);
 
   const resetSession = () => {
+    void Speech.stop();
     setTurns([]);
     setAgreedPrice(null);
     setError(null);
@@ -286,6 +288,11 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
       twist: preset?.key,
       opening: preset?.opening,
     };
+    if (s.targetPrice <= 0 || s.listedPrice <= 0 || s.targetPrice > s.listedPrice
+      || !Number.isFinite(s.targetPrice) || !Number.isFinite(s.listedPrice)) {
+      setError('Giá phải lớn hơn 0 và giá mục tiêu không được cao hơn giá niêm yết.');
+      return;
+    }
     resetSession();
     setScenario(s);
     setStarted(true);
@@ -343,6 +350,7 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
     let usedFallback = false;
     try {
       try {
+        if (!GEMINI_API_KEY) throw new Error('Gemini unavailable');
         reply = await customerTurn(scenario, turns, sellerText);
       } catch (geminiErr) {
         if (!GROQ_API_KEY) throw geminiErr;
@@ -408,17 +416,19 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
   };
 
   const onRecordPress = async () => {
+    if (busy || agreedPrice != null) return;
+    if (!GEMINI_API_KEY) {
+      setError('Chưa cấu hình nhận giọng nói. Dùng ô gửi chữ để đàm phán nhé.');
+      return;
+    }
     if (recState.isRecording) {
-      await recorder.stop();
-      const uri = recorder.uri;
-      if (!uri) {
-        setError('Không nghe rõ, anh nói lại giúp em nhé');
-        return;
-      }
       try {
         setBusy(true);
         setBusyPhase('transcribe');
         setError(null);
+        await recorder.stop();
+        const uri = recorder.uri;
+        if (!uri) throw new Error('Không nghe rõ');
         // SDK 58: FileSystem.readAsStringAsync (legacy) NÉM LỖI lúc chạy —
         // dùng API File mới. Kiểm tra file tồn tại + đủ lớn TRƯỚC khi gọi API,
         // để ghi âm rỗng/hỏng không bao giờ tới được Gemini.
@@ -449,6 +459,7 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
       setError(null);
       setRecSeconds(0);
       try {
+        await Speech.stop();
         await recorder.prepareToRecordAsync();
         recorder.record();
       } catch (e) {
@@ -466,7 +477,8 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
 
   if (!started) {
     return (
-      <KeyboardAvoidingView style={[styles.screen, styles.pad]} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      <KeyboardAvoidingView style={styles.screen} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+        <ScrollView contentContainerStyle={styles.pad} keyboardShouldPersistTaps="handled">
         {onExit ? (
           <Pressable style={[styles.backBtn, { alignSelf: 'flex-start' }]} onPress={onExit}>
             <Text style={styles.backText}>‹ Trang chủ</Text>
@@ -514,7 +526,9 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
             <Text style={styles.twistDesc}>{t.desc}</Text>
           </Pressable>
         ))}
-        {!GEMINI_API_KEY && <Text style={styles.err}>Chưa có EXPO_PUBLIC_GEMINI_API_KEY — sẽ chạy MOCK MODE</Text>}
+        {error && <Text style={styles.err}>{error}</Text>}
+        {MOCK && <Text style={styles.err}>Chưa có khóa AI — sẽ chạy MOCK MODE</Text>}
+        </ScrollView>
       </KeyboardAvoidingView>
     );
   }

@@ -1,5 +1,6 @@
 // Groq fallback (free): gpt-oss-20b JSON mode, dùng khi Gemini lỗi/quota.
 import type { Scenario, CustomerReply } from './types';
+import { fetchAiJson, parseReply } from './aiResponse';
 
 export const GROQ_API_KEY = process.env.EXPO_PUBLIC_GROQ_API_KEY ?? '';
 export const GROQ_MODEL = process.env.EXPO_PUBLIC_GROQ_MODEL ?? 'openai/gpt-oss-20b';
@@ -28,7 +29,7 @@ export async function groqCustomerTurn(
     })),
     { role: 'user', content: `${scenario.sellerName} vừa nói: "${sellerText}"` },
   ];
-  const res = await fetch(BASE, {
+  const json = await fetchAiJson(BASE, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${GROQ_API_KEY}` },
     body: JSON.stringify({
@@ -38,9 +39,7 @@ export async function groqCustomerTurn(
       response_format: { type: 'json_object' },
     }),
   });
-  if (!res.ok) throw new Error(`Groq ${res.status}: ${await res.text()}`);
-  const json = await res.json();
   const raw = json?.choices?.[0]?.message?.content;
   if (!raw) throw new Error('Groq: no reply');
-  return JSON.parse(raw) as CustomerReply;
+  return parseReply(raw);
 }

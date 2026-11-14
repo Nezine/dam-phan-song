@@ -1,4 +1,5 @@
 import type { Scenario, CustomerReply } from './types';
+import { fetchAiJson, parseReply } from './aiResponse';
 
 export const GEMINI_API_KEY = process.env.EXPO_PUBLIC_GEMINI_API_KEY ?? '';
 export const GEMINI_TEXT_MODEL = 'gemini-3.5-flash-lite';
@@ -53,7 +54,7 @@ export function mimeTypeForAudioUri(uri: string): string {
 }
 
 export async function transcribeAudio(base64Audio: string, mimeType = 'audio/mp4'): Promise<string> {
-  const res = await fetch(`${BASE}/${GEMINI_TEXT_MODEL}:generateContent`, {
+  const json = await fetchAiJson(`${BASE}/${GEMINI_TEXT_MODEL}:generateContent`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'x-goog-api-key': GEMINI_API_KEY },
     body: JSON.stringify({
@@ -67,8 +68,6 @@ export async function transcribeAudio(base64Audio: string, mimeType = 'audio/mp4
       ],
     }),
   });
-  if (!res.ok) throw new Error(`Gemini transcribe ${res.status}: ${await res.text()}`);
-  const json = await res.json();
   const text = json?.candidates?.[0]?.content?.parts?.[0]?.text;
   if (!text) throw new Error('No transcript returned');
   return String(text).trim();
@@ -82,7 +81,7 @@ export async function customerTurn(
   const convo = history
     .map((t) => `${t.speaker === 'seller' ? `${scenario.sellerName}` : 'Khách hàng'}: ${t.text}`)
     .join('\n');
-  const res = await fetch(`${BASE}/${GEMINI_TEXT_MODEL}:generateContent`, {
+  const json = await fetchAiJson(`${BASE}/${GEMINI_TEXT_MODEL}:generateContent`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'x-goog-api-key': GEMINI_API_KEY },
     body: JSON.stringify({
@@ -98,9 +97,7 @@ export async function customerTurn(
       generationConfig: { responseMimeType: 'application/json', responseSchema: replySchema, temperature: 0.9 },
     }),
   });
-  if (!res.ok) throw new Error(`Gemini customer ${res.status}: ${await res.text()}`);
-  const json = await res.json();
   const raw = json?.candidates?.[0]?.content?.parts?.[0]?.text;
   if (!raw) throw new Error('No customer reply');
-  return JSON.parse(raw) as CustomerReply;
+  return parseReply(raw);
 }
