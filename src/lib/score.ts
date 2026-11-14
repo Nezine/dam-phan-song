@@ -31,7 +31,15 @@ const fmt = (n: number) => n.toLocaleString('vi-VN');
 const norm = (s: string) => s.toLowerCase();
 
 // Extract VND amounts from Vietnamese text: "3tr2" -> 3.2M, "3,2 triệu" -> 3.2M,
-// "3200000" -> 3.2M, bare "3" in this context -> 3M.
+// "3200000" -> 3.2M, bare "3" in this context -> 3M — UNLESS the number is
+// followed by a duration/count word ("3 tháng", "2 người", "3 ngày"), which
+// is not a price at all and must be ignored.
+const NON_PRICE_FOLLOWERS = new Set([
+  'tháng', 'ngày', 'giờ', 'phút', 'giây', 'tuần', 'năm',
+  'người', 'lần', 'buổi', 'phòng', 'tầng', 'mét', 'm2', 'km',
+  'cái', 'chiếc', 'bạn', 'đứa', 'vé',
+]);
+
 function extractVnd(text: string): number[] {
   const out: number[] = [];
   const t = norm(text);
@@ -47,8 +55,14 @@ function extractVnd(text: string): number[] {
     if (unit === 'tỷ') out.push(raw * 1_000_000_000);
     else if (unit === 'tr' || unit === 'triệu') out.push(raw * 1_000_000);
     else if (unit === 'k' || unit === 'nghìn' || unit === 'ngàn') out.push(raw * 1_000);
-    else if (raw >= 1000) out.push(raw);
-    else if (raw >= 1 && raw <= 100) out.push(raw * 1_000_000);
+    else {
+      // Bare number: only a price when NOT followed by a duration/count word.
+      const after = t.slice(m.index + m[0].length).trimStart();
+      const nextWord = after.match(/^[a-zà-ỹ]+/)?.[0];
+      if (nextWord && NON_PRICE_FOLLOWERS.has(nextWord)) continue;
+      if (raw >= 1000) out.push(raw);
+      else if (raw >= 1 && raw <= 100) out.push(raw * 1_000_000);
+    }
   }
   return out;
 }
