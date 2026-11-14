@@ -165,10 +165,7 @@
 ## Fallback ladder (in order, never skip)
 
 1. Wait (inside the 30s turn budget). 2. Retry voice once — beat 3 only. 3. Type the exact
-   line into "Hoặc gõ tin nhắn…". 4. Labeled backup video, introduced out loud as
-   "video đã quay sẵn ở chế độ mock". **Never** show a rehearsal score screen. **Never**
-   present the backup video as live AI. There is **no live mock switch** — mock exists only
-   as the pre-recorded, labeled video.
+   line into "Hoặc gõ tin nhắn…". 4. **[ĐÃ GIẾT 15:36 — không còn video]** Say it plainly (one of the two canonical sentences) and speak beat 6 over the unfinished chat screen. **Never** show a rehearsal score screen. **Never** present anything pre-recorded as live AI. There is **no live mock switch**.
 
 ## Floor language (say exactly this)
 
