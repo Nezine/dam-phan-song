@@ -21,6 +21,7 @@ import {
 } from 'expo-audio';
 import * as FileSystem from 'expo-file-system';
 import { landlordTurn, transcribeAudio, GEMINI_API_KEY } from './src/lib/gemini';
+import { groqLandlordTurn, GROQ_API_KEY } from './src/lib/groq';
 import type { Scenario, Turn } from './src/lib/types';
 
 const fmt = (n: number) => n.toLocaleString('vi-VN');
@@ -38,6 +39,7 @@ export default function App() {
   const [turns, setTurns] = useState<Turn[]>([]);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [agreedPrice, setAgreedPrice] = useState<number | null>(null);
   const scrollRef = useRef<ScrollViewInstance | null>(null);
 
   const recorder = useAudioRecorder(RecordingPresets.HIGH_QUALITY);
@@ -74,19 +76,33 @@ export default function App() {
     if (!scenario) return;
     setBusy(true);
     setError(null);
+    setTurns((t) => [...t, { speaker: 'tenant', text: tenantText }]);
+    let reply;
+    let usedFallback = false;
     try {
-      setTurns((t) => [...t, { speaker: 'tenant', text: tenantText }]);
-      const reply = await landlordTurn(scenario, turns, tenantText);
-      setTurns((t) => [
-        ...t,
-        { speaker: 'landlord', text: reply.message, price: reply.currentPrice ?? undefined },
-      ]);
-      Speech.speak(reply.message, { language: 'vi-VN', rate: 1.0 });
+      try {
+        reply = await landlordTurn(scenario, turns, tenantText);
+      } catch (geminiErr) {
+        if (!GROQ_API_KEY) throw geminiErr;
+        usedFallback = true;
+        reply = await groqLandlordTurn(scenario, turns, tenantText);
+      }
     } catch (e) {
       setError(String(e));
-    } finally {
       setBusy(false);
+      return;
     }
+    setTurns((t) => [
+      ...t,
+      { speaker: 'landlord', text: reply.message, price: reply.currentPrice ?? undefined },
+    ]);
+    if (reply.agreed && reply.agreedPrice) {
+      setAgreedPrice(reply.agreedPrice);
+    } else {
+      Speech.speak(reply.message, { language: 'vi-VN', rate: 1.0 });
+    }
+    if (usedFallback) console.log('[fallback] dùng Groq');
+    setBusy(false);
   };
 
   const onRecordPress = async () => {
@@ -112,7 +128,7 @@ export default function App() {
     }
   };
 
-  const agreed = turns.length >= 2;
+  const saved = agreedPrice != null && scenario ? scenario.listedPrice - agreedPrice : 0;
 
   if (!started) {
     return (
@@ -161,6 +177,16 @@ export default function App() {
         {busy && <ActivityIndicator />}
         {error ? <Text style={styles.err}>{error}</Text> : null}
       </ScrollView>
+      {agreedPrice != null && (
+        <View style={styles.winCard}>
+          <Text style={styles.winTitle}>✅ CHỐT ĐƯỢC RỒI!</Text>
+          <Text style={styles.winPrice}>{fmt(agreedPrice)}đ/tháng</Text>
+          <Text style={styles.winSaved}>💰 Tiết kiệm {fmt(saved)}đ/tháng = {fmt(saved * 12)}đ/năm</Text>
+          <Pressable style={styles.bigBtn} onPress={() => { setAgreedPrice(null); setTurns([]); }}>
+            <Text style={styles.bigBtnText}>Đàm phán tình huống khác →</Text>
+          </Pressable>
+        </View>
+      )}
       <View style={styles.footer}>
         <Pressable
           style={[styles.micBtn, recState.isRecording && styles.micBtnActive]}
@@ -197,6 +223,22 @@ const styles = StyleSheet.create({
   bubbleText: { color: '#fff' },
   price: { color: '#8ce99a', fontWeight: '700', marginTop: 4 },
   footer: { padding: 14, paddingBottom: 28 },
+  winCard: {
+    position: 'absolute',
+    bottom: 110,
+    left: 12,
+    right: 12,
+    backgroundColor: '#0b2518',
+    borderColor: '#2f9e44',
+    borderWidth: 2,
+    borderRadius: 16,
+    padding: 16,
+    alignItems: 'center',
+    gap: 4,
+  },
+  winTitle: { color: '#8ce99a', fontWeight: '900', fontSize: 18 },
+  winPrice: { color: '#fff', fontWeight: '800', fontSize: 26 },
+  winSaved: { color: '#ffd43b', fontWeight: '700', textAlign: 'center', marginBottom: 8 },
   micBtn: { backgroundColor: '#243040', borderRadius: 24, paddingVertical: 16, alignItems: 'center' },
   micBtnActive: { backgroundColor: '#e03131' },
   micText: { color: '#fff', fontWeight: '700' },
