@@ -45,7 +45,7 @@ Chúng em cần 100 người dùng thử đầu tiên để đo nhu cầu thật
 
 - Trước 16:15: kill-and-reopen app trên OPPO A60, mở sẵn Phòng 1 · Giá sàn cứng (Hà Nội, rao 3,5tr, sàn 3,2tr). Để điện thoại ở chế độ không khóa màn hình.
 - Nhịp 3 và 5 có khoảng IM LẶNG thật — đừng nói chen vào lúc AI đang trả lời, giám khảo cần nghe nhân vật.
-- **Rủi ro lớn nhất (redteam chỉ ra): một lượt AI (ghi âm → transcribe → Gemini → đọc lại) không đảm bảo vừa trong ngân sách 30 giây/lượt, nhất là trên wifi hội trường.** Một lượt = tối đa 30 giây (nói + chờ). Hết ngân sách mà AI chưa trả lời thì đi tiếp phần nói của nhịp sau; chỉ quay lại cứu khi còn thời gian và không được cắt nhịp 5 hay 10 giây giữ màn hình điểm — thứ tự cứu: thử nói lại 1 lần (chỉ nhịp 3) → gõ đúng câu vào ô tin nhắn → mở video backup đã gắn nhãn, nói rõ là video quay sẵn ở chế độ mock. Không bao giờ giơ màn hình điểm của lượt tập trước. Không có nút chuyển sang mock live — mock chỉ là video đã quay sẵn, đã gắn nhãn.
+- **Rủi ro lớn nhất (redteam chỉ ra): một lượt AI (ghi âm → transcribe → Gemini → đọc lại) không đảm bảo vừa trong ngân sách 30 giây/lượt, nhất là trên wifi hội trường.** Một lượt = tối đa 30 giây (nói + chờ). Hết ngân sách mà AI chưa trả lời thì đi tiếp phần nói của nhịp sau; chỉ quay lại cứu khi còn thời gian và không được cắt nhịp 5 hay 10 giây giữ màn hình điểm — thứ tự cứu: thử nói lại 1 lần (chỉ nhịp 3) → gõ đúng câu vào ô tin nhắn. Không có video dự phòng (Tuấn đã giết — không quay gì nữa), không bao giờ giơ màn hình điểm của lượt tập trước. Nếu tới nhịp 5 vẫn không có gì để chốt thì nói thẳng: lượt trực tiếp chưa chốt được nên chưa có điểm, rồi nói nhịp 6 trên nền màn hình chat dở dang. Không có nút chuyển sang mock live.
 - Câu 2 đã tính để chốt đúng sàn (3,2tr): nếu chủ trọ trả giá khác, cứ chốt theo giá nó đưa miễn là ≥ sàn, điểm số vẫn hiện.
 - Các câu nói trong nhịp 3 và 6 được đánh dấu CÓ THỂ BỎ — nếu demo lố giờ, bỏ chúng trước, không bỏ nhịp 5.
 
@@ -64,7 +64,7 @@ Chưa ship — chỉ có Phòng 1 hôm nay. Tiếp theo, theo kế hoạch: ti�
 
 ## Những điểm đã sửa theo redteam (Codex call 3)
 
-1. **Demo vừa đồng hồ:** bản nháp đầu nói liên tục trong lúc demo chạy — không khả thi. Bản cuối chèn khoảng IM LẶNG thật ở nhịp 3 và 5, đánh dấu câu droppable, và có thang cứu theo runbook (thử lại → gõ chữ → video backup đã gắn nhãn).
+1. **Demo vừa đồng hồ:** bản nháp đầu nói liên tục trong lúc demo chạy — không khả thi. Bản cuối chèn khoảng IM LẶNG thật ở nhịp 3 và 5, đánh dấu câu droppable, và có thang cứu theo runbook (thử lại → gõ chữ; không có video dự phòng).
 2. **Bỏ claim chưa chứng minh:** bản nháp nói "sau quy tắc" mơ hồ → sửa thành "sáu quy tắc cố định"; freemium chỉ nói là hướng đi, không nói "các phòng cốt lõi miễn phí" như đã chốt.
 3. **Thị trường:** bản nháp gắn nhãn TAM/SAM/SOM rỗng, không số, không nguồn. Bản cuối GIỮ nhãn (slide địa điểm yêu cầu) nhưng nói thẳng là chưa có số liệu đủ tin cậy, chỉ đưa mục tiêu đo được (100 người tuần đầu).
 4. **Khung rộng:** bản nháp mở đầu bằng tiền trọ rồi mới gỡ. Bản cuối mở bằng "cuộc nói chuyện khó" nói chung, tiền trọ chỉ là một ví dụ trong liệt kê, Phòng 1 được gọi là "phòng đầu tiên".
