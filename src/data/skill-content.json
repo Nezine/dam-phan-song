@@ -1,0 +1,1069 @@
+{
+  "version": 1,
+  "generated": "2026-11-14",
+  "rooms": [
+    {
+      "exercises": [
+        {
+          "prompt": "Bạn là khách hàng đang phân vân mua một khóa học online giá 499.000đ. Tôi sẽ đóng vai người bán và thử tặng bạn một tài liệu miễn phí thật hữu ích trước khi nhắc tới giá. Sau đó bạn hãy nói cho tôi biết: món quà đó có khiến bạn muốn nghe tiếp không, và vì sao? Cuối cùng, hãy góp ý 1 câu để tôi làm tốt hơn.",
+          "source": "https://hbr.org/2013/07/the-uses-and-abuses-of-influence",
+          "title": "Tập cho đi trước trong 1 phút"
+        },
+        {
+          "prompt": "Bạn là chủ một quán cà phê nhỏ, đang nhập kho bằng sổ tay và hay nhầm số lượng. Tôi sẽ hỏi bạn lần lượt 4 câu theo SPIN: tình huống hiện tại, vấn đề gặp phải, hệ quả của vấn đề, và giá trị nếu giải quyết được. Bạn hãy trả lời tự nhiên như một chủ quán thật. Sau 4 câu, hãy chấm xem câu hỏi nào của tôi khơi ra được nhiều thông tin nhất.",
+          "source": "https://www.retorio.com/blog/what-spin-selling",
+          "title": "Luyện chuỗi 4 câu hỏi SPIN"
+        },
+        {
+          "prompt": "Bạn là khách hàng và sẽ nói “Đắt quá, tôi không mua đâu” với một sản phẩm bất kỳ mà tôi đang bán. Tôi phải thực hiện đúng 4 bước: lắng nghe hết, thừa nhận lo lắng của bạn, hỏi sâu để tìm lý do thật, rồi mới đáp lại. Bạn hãy phản ứng thật như ngoài đời, và sau đó nói rõ tôi đã bỏ qua bước nào (nếu có).",
+          "source": "https://blog.hubspot.com/sales/handling-common-sales-objections",
+          "title": "Đối đáp với từ chối “Đắt quá”"
+        },
+        {
+          "prompt": "Bạn là khách vừa chia sẻ 3 nhu cầu: tiết kiệm thời gian, dễ dùng cho nhân viên mới, và chi phí vừa túi tiền. Tôi sẽ tóm tắt lại 3 nhu cầu đó bằng lời của bạn rồi đề nghị bước tiếp theo. Bạn hãy kiểm tra xem tôi có tóm tắt đúng ý bạn không, có nhét thêm tính năng nào bạn không cần không, rồi mới quyết định có đồng ý bước tiếp hay không.",
+          "source": "https://www.pipedrive.com/en/blog/how-to-close-a-sale",
+          "title": "Chốt sale bằng tóm tắt nhu cầu"
+        },
+        {
+          "prompt": "Bạn là khách hàng đang lo lắng về một điều gì đó khi mua hàng (giá, chất lượng, thời gian giao, hay uy tín người bán — bạn tự chọn một). Hãy nói ra lo lắng đó theo cách vòng vo, không nói thẳng. Tôi phải lắng nghe và nhắc lại đúng ý bạn bằng câu “Nếu em nghe đúng thì anh/chị đang lo về… phải không ạ?” trước khi đưa ra bất kỳ giải pháp nào. Bạn chấm xem tôi có nghe đúng không.",
+          "source": "https://www.pipedrive.com/en/blog/how-to-close-a-sale",
+          "title": "Nghe lại và xác nhận trước khi bán"
+        }
+      ],
+      "id": "sales-persuasion",
+      "milestones": [
+        {
+          "description": "Hiểu 6 nguyên tắc Cialdini và đặt được câu hỏi SPIN cơ bản thay vì rao tính năng.",
+          "level": 1,
+          "title": "Người bán biết lắng nghe"
+        },
+        {
+          "description": "Vượt qua từ chối về giá, nhu cầu và thời điểm bằng khung LAER mà không cãi nhau với khách.",
+          "level": 2,
+          "title": "Người xử lý từ chối"
+        },
+        {
+          "description": "Tóm tắt đúng nhu cầu khách và chốt đơn bằng summary/assumptive close trong một buổi role-play hoàn chỉnh.",
+          "level": 3,
+          "title": "Người chốt đơn tự tin"
+        }
+      ],
+      "quiz": [
+        {
+          "correct": 2,
+          "explanation": "Khi được giúp trước, người ta cảm thấy có nghĩa vụ đáp lại — đó là quy tắc reciprocity.",
+          "options": [
+            "Khách chỉ mua khi được giảm giá sâu",
+            "Khách chỉ tin người có chức danh cao",
+            "Khi bạn giúp khách trước, khách cảm thấy muốn đáp lại",
+            "Khách mua vì sợ hết hàng"
+          ],
+          "question": "Theo Cialdini, nguyên tắc “có qua có lại” (reciprocity) hoạt động như thế nào?",
+          "source": "https://hbr.org/2013/07/the-uses-and-abuses-of-influence"
+        },
+        {
+          "correct": 0,
+          "explanation": "Social proof là việc khách làm theo những người giống mình; các đáp án khác thuộc authority, scarcity và ép chốt.",
+          "options": [
+            "“Nhiều chủ quán giống anh đã dùng và hài lòng với gói này.”",
+            "“Tôi là giám đốc nên anh cứ tin tôi.”",
+            "“Chỉ còn 1 suất duy nhất hôm nay.”",
+            "“Anh ký vào đây là xong.”"
+          ],
+          "question": "Câu nào sau đây là ví dụ đúng của bằng chứng xã hội (social proof)?",
+          "source": "https://hbr.org/2013/07/the-uses-and-abuses-of-influence"
+        },
+        {
+          "correct": 3,
+          "explanation": "Implication là câu hỏi khơi ra hệ quả và chi phí của vấn đề, khiến khách tự thấy cần hành động.",
+          "options": [
+            "Situation (Tình huống)",
+            "Problem (Vấn đề)",
+            "Need-payoff (Giá trị)",
+            "Implication (Hệ quả)"
+          ],
+          "question": "Trong SPIN, câu hỏi “Nếu tình trạng này kéo dài, mỗi tháng anh mất bao nhiêu tiền?” thuộc loại nào?",
+          "source": "https://www.retorio.com/blog/what-spin-selling"
+        },
+        {
+          "correct": 1,
+          "explanation": "Nghiên cứu của Rackham cho thấy câu hỏi Implication là yếu tố dự báo thành công mạnh nhất vì nó giúp khách tự cảm thấy sự cấp bách.",
+          "options": [
+            "Situation (Tình huống)",
+            "Implication (Hệ quả)",
+            "Need-payoff (Giá trị)",
+            "Câu hỏi về giá"
+          ],
+          "question": "Theo SPIN, loại câu hỏi nào được xem là yếu tố dự báo thành công mạnh nhất trong các thương vụ lớn?",
+          "source": "https://www.retorio.com/blog/what-spin-selling"
+        },
+        {
+          "correct": 2,
+          "explanation": "LAER bắt đầu bằng Listen (lắng nghe) rồi Acknowledge (thừa nhận); trả lời vội thường đáp sai lý do thật đằng sau.",
+          "options": [
+            "Giảm giá ngay để giữ khách",
+            "Cãi lại rằng sản phẩm xứng đáng với giá đó",
+            "Lắng nghe hết và thừa nhận lo lắng của khách là hợp lý",
+            "Chuyển sang nói về tính năng khác"
+          ],
+          "question": "Khách nói “Đắt quá”. Theo khung LAER của HubSpot, bước đầu tiên đúng đắn là gì?",
+          "source": "https://blog.hubspot.com/sales/handling-common-sales-objections"
+        },
+        {
+          "correct": 1,
+          "explanation": "Hầu hết từ chối đều xoay quanh budget (ngân sách), authority (thẩm quyền), need (nhu cầu) và timing (thời điểm).",
+          "options": [
+            "Giá, màu sắc, thương hiệu, quảng cáo",
+            "Ngân sách, thẩm quyền quyết định, nhu cầu, thời điểm",
+            "Tuổi, giới tính, địa điểm, nghề nghiệp",
+            "Chất lượng, bảo hành, giao hàng, đổi trả"
+          ],
+          "question": "Bốn nhóm từ chối phổ biến nhất trong bán hàng (thường nhớ bằng BANT) là gì?",
+          "source": "https://blog.hubspot.com/sales/handling-common-sales-objections"
+        },
+        {
+          "correct": 1,
+          "explanation": "Chốt giả định nói như thể khách đã quyết định mua, chỉ còn hỏi “khi nào / bằng cách nào” triển khai.",
+          "options": [
+            "Summary close (chốt tóm tắt)",
+            "Assumptive close (chốt giả định)",
+            "Urgency close (chốt tạo gấp)",
+            "Soft close (chốt nhẹ)"
+          ],
+          "question": "“Anh muốn giao hàng thứ Năm hay thứ Bảy ạ?” là ví dụ của kỹ thuật đóng sale nào?",
+          "source": "https://www.pipedrive.com/en/blog/how-to-close-a-sale"
+        },
+        {
+          "correct": 2,
+          "explanation": "Summary close hiệu quả khi nhắc lại kết quả/lợi ích khách quan tâm, không phải liệt kê tính năng sản phẩm.",
+          "options": [
+            "Tóm tắt quá ngắn gọn",
+            "Tóm tắt tính năng thay vì kết quả khách muốn đạt được",
+            "Nhắc lại tên khách quá nhiều lần",
+            "Hỏi khách có muốn mua không"
+          ],
+          "question": "Lỗi thường gặp nhất khi dùng summary close (chốt tóm tắt) là gì?",
+          "source": "https://www.pipedrive.com/en/blog/how-to-close-a-sale"
+        },
+        {
+          "correct": 2,
+          "explanation": "Soft close dùng câu hỏi trực tiếp nhưng ít áp lực, phù hợp với khách còn nghi ngại và giúp đo mức sẵn sàng mua.",
+          "options": [
+            "Urgency close — gây áp lực bằng deadline giả",
+            "Assumptive close — giả định khách đã mua",
+            "Soft close — hỏi nhẹ, ít áp lực để thăm dò mức sẵn sàng",
+            "Ép khách ký ngay trong buổi gặp"
+          ],
+          "question": "Khi khách còn do dự và chưa chắc chắn, kỹ thuật đóng sale nào phù hợp nhất?",
+          "source": "https://www.pipedrive.com/en/blog/how-to-close-a-sale"
+        }
+      ],
+      "sources": [
+        "https://blog.hubspot.com/sales/handling-common-sales-objections",
+        "https://hbr.org/2013/07/the-uses-and-abuses-of-influence",
+        "https://www.pipedrive.com/en/blog/how-to-close-a-sale",
+        "https://www.retorio.com/blog/what-spin-selling"
+      ],
+      "techniques": [
+        {
+          "example": "Tặng khách bản dùng thử 7 ngày kèm hướng dẫn tận tay, rồi hỏi: “Anh thấy phần nào hữu ích nhất, em hỗ trợ anh triển khai nhé?”",
+          "how_to": "Chủ động giúp khách trước (tư vấn miễn phí, mẫu thử, tài liệu hữu ích) rồi mới đề nghị mua, và khi khách cảm ơn thì nhận rõ đó là hành động hợp tác chứ đừng gạt đi.",
+          "name": "Cho đi trước (Reciprocity — Có qua có lại)",
+          "source": "https://hbr.org/2013/07/the-uses-and-abuses-of-influence"
+        },
+        {
+          "example": "“Nhiều chủ quán cà phê ở Hà Nội dùng gói này đều quay lại mua thêm — chị Lan ở Cầu Giấy bảo tiết kiệm được 2 giờ nhập liệu mỗi ngày.”",
+          "how_to": "Cho khách thấy những người giống họ đã mua và hài lòng, càng cụ thể và càng giống khách càng thuyết phục.",
+          "name": "Bằng chứng xã hội (Social Proof)",
+          "source": "https://hbr.org/2013/07/the-uses-and-abuses-of-influence"
+        },
+        {
+          "example": "“Theo hướng dẫn của chuyên gia kế toán bên em, hộ kinh doanh nhỏ nên dùng gói này vì khớp đúng quy định xuất hóa đơn hiện tại.”",
+          "how_to": "Dẫn chứng từ chuyên gia hoặc người thực sự am hiểu lĩnh vực, chứ không chỉ dựa vào chức danh của mình.",
+          "name": "Uy tín chuyên môn (Authority)",
+          "source": "https://hbr.org/2013/07/the-uses-and-abuses-of-influence"
+        },
+        {
+          "example": "Khách đồng ý dùng thử 3 ngày; đến ngày thứ 3 nhắc: “Anh đã bảo muốn cắt giờ nhập liệu — mình chốt gói tháng để giữ đúng mục tiêu đó nhé?”",
+          "how_to": "Xin một cam kết nhỏ, tự nguyện và công khai (dùng thử, điền nhu cầu, hẹn buổi demo), rồi nhắc lại cam kết đó khi đề nghị bước tiếp theo.",
+          "name": "Cam kết nhỏ trước, lớn sau (Commitment & Consistency)",
+          "source": "https://hbr.org/2013/07/the-uses-and-abuses-of-influence"
+        },
+        {
+          "example": "“Quán mình hiện nhập kho bằng tay ạ? (Tình huống) — Có hay nhầm số lượng không? (Vấn đề) — Mỗi lần nhầm thì mất bao lâu kiểm lại? (Hệ quả) — Nếu không còn nhầm nữa thì anh tiết kiệm được gì? (Giá trị)”",
+          "how_to": "Hỏi theo đúng thứ tự: Tình huống (hiện tại ra sao) → Vấn đề (đâu đang trục trặc) → Hệ quả (nó tốn bao nhiêu tiền/thời gian) → Giá trị khi giải quyết (khách tự nói ra lợi ích).",
+          "name": "Hỏi theo SPIN: khơi nhu cầu thay vì rao tính năng",
+          "source": "https://www.retorio.com/blog/what-spin-selling"
+        },
+        {
+          "example": "Khách: “Đắt quá.” — “Em hiểu, ngân sách là điều cần cân nhắc ạ. Anh thấy đắt so với khoản nào, hay lo chưa chắc thu lại được? (hỏi sâu) — Nếu em cho anh xem quán tương tự đã thu hồi vốn sau 2 tháng thì sao ạ?”",
+          "how_to": "Khi khách phản đối, đừng cãi ngay: để khách nói hết, thừa nhận lo lắng là hợp lý, hỏi sâu để tìm lý do thật đằng sau, rồi mới trả lời đúng vào lý do đó.",
+          "name": "Xử lý từ chối theo LAER: Lắng nghe — Thừa nhận — Khám phá — Đáp lại",
+          "source": "https://blog.hubspot.com/sales/handling-common-sales-objections"
+        },
+        {
+          "example": "“Vậy mình chốt: gói này giúp anh hết nhầm kho và tiết kiệm 2 giờ mỗi ngày. Anh muốn giao hàng thứ Năm hay thứ Bảy ạ?”",
+          "how_to": "Tóm tắt lại đúng nhu cầu và lợi ích khách đã tự nói ra, rồi hỏi về bước triển khai (khi nào, giao ra sao) thay vì hỏi “anh có mua không?”.",
+          "name": "Đóng sale bằng tóm tắt + chốt giả định (Summary & Assumptive Close)",
+          "source": "https://www.pipedrive.com/en/blog/how-to-close-a-sale"
+        },
+        {
+          "example": "Khách ngập ngừng về giá: “Nếu em nghe đúng thì anh lo chi phí tháng đầu hơi cao, đúng không ạ?” — khách gật đầu rồi mới bàn phương án trả theo quý.",
+          "how_to": "Nghe hết câu khách nói, nhắc lại ý khách bằng lời của mình để xác nhận (“Nếu em nghe đúng thì anh đang lo về… phải không ạ?”), rồi mới đưa giải pháp.",
+          "name": "Lắng nghe chủ động trước khi đáp (Active Listening)",
+          "source": "https://www.pipedrive.com/en/blog/how-to-close-a-sale"
+        }
+      ],
+      "title_vi": "Thuyết phục mua hàng"
+    },
+    {
+      "exercises": [
+        {
+          "prompt": "Hãy tưởng tượng bạn đang đàm phán lương với một công ty. Viết trong một câu: nếu không đạt thỏa thuận, bạn sẽ làm gì cụ thể? Sau đó tôi sẽ hỏi bạn: phương án đó có chắc chắn không, và bạn có thể làm gì ngay tuần này để nó mạnh hơn?",
+          "source": "https://www.pon.harvard.edu/daily/batna/take-your-batna-to-the-next-level/",
+          "title": "Viết BATNA của bạn trong một câu"
+        },
+        {
+          "prompt": "Chọn một vị trí bạn muốn ứng tuyển và nói cho tôi biết: bạn đã tra được khoảng lương thị trường nào, và bạn sẽ mở đầu bằng con số nào? Tôi sẽ đóng vai nhà tuyển dụng và phản hồi, rồi cùng bạn chỉnh lại con số cho vừa tham vọng vừa có căn cứ.",
+          "source": "https://en.wikipedia.org/wiki/Anchoring_effect",
+          "title": "Tập neo giá bằng khoảng lương có căn cứ"
+        },
+        {
+          "prompt": "Kể cho tôi 3 thành tích cụ thể bạn đã làm được ở công việc hiện tại hoặc dự án gần nhất — mỗi cái gồm việc bạn làm và kết quả ra sao. Tôi sẽ giúp bạn biến chúng thành câu nói ngắn gọn để dùng khi xin tăng lương.",
+          "source": "https://www.mindtools.com/akgh4iu/how-to-ask-for-a-pay-raise/",
+          "title": "Lập danh sách bằng chứng giá trị của bạn"
+        },
+        {
+          "prompt": "Tôi sẽ đóng vai nhà tuyển dụng nói: 'Ngân sách cho vị trí này khá hạn chế.' Hãy trả lời bằng một câu mirroring hoặc labeling, rồi tôi sẽ nói tiếp như nhà tuyển dụng thật và bạn luyện thêm một lượt nữa.",
+          "source": "https://www.businessfloss.com/books/never-split-the-difference",
+          "title": "Luyện mirroring và labeling trong 2 phút"
+        },
+        {
+          "prompt": "Cho tôi biết chi phí sinh hoạt mỗi tháng của bạn, số giờ bạn làm freelance được mỗi tuần, và các khoản thuế hay bảo hiểm bạn phải tự lo. Tôi sẽ cùng bạn tính ra mức giá sàn tối thiểu và mức giá chào ban đầu nên báo cho khách.",
+          "source": "https://finovadaily.com/how-to-negotiate-salary-as-a-freelancer/",
+          "title": "Tính giá sàn freelance của bạn"
+        }
+      ],
+      "id": "income-negotiation",
+      "milestones": [
+        {
+          "description": "Biết BATNA của mình và tra được khoảng lương thị trường trước mỗi buổi đàm phán.",
+          "level": 1,
+          "title": "Người chuẩn bị kỹ"
+        },
+        {
+          "description": "Đưa ra con số mở đầu có căn cứ, chứng minh giá trị bằng thành tích cụ thể và đàm phán cả gói thu nhập.",
+          "level": 2,
+          "title": "Người neo giá tự tin"
+        },
+        {
+          "description": "Dùng mirroring, labeling và câu hỏi hiệu chỉnh để dẫn dắt cuộc trò chuyện, và biết khi nào nên chốt hoặc rời bàn.",
+          "level": 3,
+          "title": "Bậc thầy đàm phán thu nhập"
+        }
+      ],
+      "quiz": [
+        {
+          "correct": 2,
+          "explanation": "BATNA là Best Alternative to a Negotiated Agreement — lựa chọn tốt nhất nếu không đạt được thỏa thuận.",
+          "options": [
+            "Mức lương cao nhất bạn từng nhận",
+            "Mức lương tối thiểu bạn chấp nhận được",
+            "Phương án tốt nhất bạn sẽ làm nếu đàm phán thất bại",
+            "Mức lương trung bình trên thị trường"
+          ],
+          "question": "BATNA là gì?",
+          "source": "https://www.pon.harvard.edu/daily/batna/take-your-batna-to-the-next-level/"
+        },
+        {
+          "correct": 0,
+          "explanation": "BATNA mạnh cho biết thỏa thuận nào đáng chấp nhận và khi nào nên bỏ đi, nên bạn không bị ép nhận deal tệ.",
+          "options": [
+            "Vì nó cho bạn biết khi nào nên chấp nhận và khi nào nên rời bàn đàm phán",
+            "Vì nó giúp bạn giấu mức lương hiện tại",
+            "Vì nó đảm bảo nhà tuyển dụng phải đồng ý",
+            "Vì nó thay thế hoàn toàn việc nghiên cứu thị trường"
+          ],
+          "question": "Vì sao BATNA mạnh giúp bạn đàm phán lương tự tin hơn?",
+          "source": "https://www.pon.harvard.edu/daily/batna/take-your-batna-to-the-next-level/"
+        },
+        {
+          "correct": 3,
+          "explanation": "Con số mở đầu đặt ra điểm tham chiếu, và các đề xuất sau thường xoay quanh nó.",
+          "options": [
+            "Luôn chấp nhận con số đầu tiên được đưa ra",
+            "Chỉ đàm phán khi đã có nhiều lời mời làm việc",
+            "Giữ kín mức lương mong muốn đến cuối buổi",
+            "Con số đầu tiên trở thành điểm tham chiếu ảnh hưởng đến các con số sau đó"
+          ],
+          "question": "Hiệu ứng neo giá (anchoring) trong đàm phán lương nghĩa là gì?",
+          "source": "https://en.wikipedia.org/wiki/Anchoring_effect"
+        },
+        {
+          "correct": 2,
+          "explanation": "Lương dựa trên giá trị bạn tạo ra và mặt bằng thị trường, không dựa trên nhu cầu cá nhân hay lương đồng nghiệp.",
+          "options": [
+            "Bạn cần tiền vì chi phí sinh hoạt tăng",
+            "Đồng nghiệp cùng vị trí lương cao hơn bạn",
+            "Giá trị bạn mang lại cho tổ chức và mức lương thị trường của vị trí",
+            "Bạn đã làm việc ở công ty lâu nhất"
+          ],
+          "question": "Khi xin tăng lương, lập luận nào thuyết phục nhất theo MindTools?",
+          "source": "https://www.mindtools.com/akgh4iu/how-to-ask-for-a-pay-raise/"
+        },
+        {
+          "correct": 0,
+          "explanation": "Mirroring là lặp lại vài từ then chốt với giọng tò mò, giúp đối phương tự mở rộng thông tin và cảm thấy được lắng nghe.",
+          "options": [
+            "Lặp lại 1-3 từ quan trọng đối phương vừa nói rồi im lặng để họ nói thêm",
+            "Nhại lại toàn bộ câu của đối phương để chọc tức họ",
+            "Nói 'Tôi hiểu' thật nhanh để chuyển chủ đề",
+            "Đưa ra con số cao gấp đôi để gây sốc"
+          ],
+          "question": "Theo Chris Voss, kỹ thuật 'mirroring' là gì?",
+          "source": "https://www.businessfloss.com/books/never-split-the-difference"
+        },
+        {
+          "correct": 1,
+          "explanation": "Labeling là gọi tên cảm xúc bạn nghe thấy; gọi tên cảm xúc tiêu cực thường giúp xoa dịu nó.",
+          "options": [
+            "Đe dọa bằng tối hậu thư",
+            "Labeling — gọi tên cảm xúc để xoa dịu căng thẳng",
+            "Chia đôi chênh lệch để chốt nhanh",
+            "Neo giá bằng con số tròn"
+          ],
+          "question": "Câu 'Có vẻ như anh/chị đang lo về ngân sách' là ví dụ của kỹ thuật nào?",
+          "source": "https://www.businessfloss.com/books/never-split-the-difference"
+        },
+        {
+          "correct": 2,
+          "explanation": "Tổng thu nhập gồm nhiều phần; khi lương cứng bị kẹt, các phúc lợi khác vẫn có thể đàm phán được.",
+          "options": [
+            "Nhận ngay và không hỏi thêm",
+            "Đưa tối hậu thư nghỉ việc",
+            "Đàm phán các phần khác của gói thu nhập như ngày phép, thưởng, làm việc linh hoạt",
+            "Giảm khối lượng công việc ngay lập tức"
+          ],
+          "question": "Khi công ty nói không thể tăng lương cứng, bạn nên làm gì?",
+          "source": "https://www.mindtools.com/akgh4iu/how-to-ask-for-a-pay-raise/"
+        },
+        {
+          "correct": 1,
+          "explanation": "Câu hỏi mở bắt đầu bằng 'Làm thế nào…' khiến đối phương cùng giải quyết vấn đề của bạn thay vì phòng thủ.",
+          "options": [
+            "'Anh/chị có đồng ý tăng lương cho tôi không?'",
+            "'Làm thế nào chúng ta có thể đạt được mức lương phản ánh đúng giá trị tôi mang lại?'",
+            "'Tôi muốn lương cao hơn, đúng không?'",
+            "'Nếu không tăng thì tôi nghỉ, được chứ?'"
+          ],
+          "question": "Câu hỏi hiệu chỉnh (calibrated question) tốt trong đàm phán lương là câu nào?",
+          "source": "https://www.businessfloss.com/books/never-split-the-difference"
+        },
+        {
+          "correct": 3,
+          "explanation": "Giá sàn là mức thấp nhất đủ bù chi phí; giá chào nên cao hơn giá sàn để còn dư địa thương lượng và bù thời gian không bill được.",
+          "options": [
+            "Báo giá thấp nhất có thể để chắc chắn có việc",
+            "Hỏi khách muốn trả bao nhiêu rồi nhận luôn",
+            "Báo giá theo cảm tính, không cần tính toán",
+            "Tính giá sàn tối thiểu từ chi phí, thuế và phúc lợi tự lo, rồi báo giá cao hơn mức đó"
+          ],
+          "question": "Freelancer nên làm gì trước khi báo giá cho khách hàng mới?",
+          "source": "https://finovadaily.com/how-to-negotiate-salary-as-a-freelancer/"
+        }
+      ],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Anchoring_effect",
+        "https://finovadaily.com/how-to-negotiate-salary-as-a-freelancer/",
+        "https://www.businessfloss.com/books/never-split-the-difference",
+        "https://www.mindtools.com/akgh4iu/how-to-ask-for-a-pay-raise/",
+        "https://www.pon.harvard.edu/daily/batna/take-your-batna-to-the-next-level/"
+      ],
+      "techniques": [
+        {
+          "example": "Bạn đang đàm phán lương với công ty A nhưng vẫn giữ lời mời phỏng vấn ở công ty B và phương án ở lại công ty hiện tại — đó chính là BATNA của bạn.",
+          "how_to": "Trước buổi đàm phán, liệt kê mọi lựa chọn nếu không đạt thỏa thuận, chọn ra lựa chọn tốt nhất và dùng nó làm điểm tựa để quyết định khi nào nên dừng lại.",
+          "name": "BATNA — Chuẩn bị phương án dự phòng tốt nhất",
+          "source": "https://www.pon.harvard.edu/daily/batna/take-your-batna-to-the-next-level/"
+        },
+        {
+          "example": "Khi được hỏi mức lương mong muốn, bạn nói một khoảng dựa trên dữ liệu thị trường thay vì nói 'bao nhiêu cũng được', để cuộc trò chuyện xoay quanh khoảng đó.",
+          "how_to": "Đưa ra con số đầu tiên một cách có căn cứ, vì con số mở đầu sẽ trở thành điểm tham chiếu cho toàn bộ cuộc thương lượng sau đó.",
+          "name": "Anchoring — Neo giá bằng con số đầu tiên",
+          "source": "https://en.wikipedia.org/wiki/Anchoring_effect"
+        },
+        {
+          "example": "Trước buổi phỏng vấn, bạn ghi lại khoảng lương của vị trí tương đương trên các trang việc làm và dùng nó làm căn cứ khi trình bày mức mong muốn.",
+          "how_to": "Tra cứu mức lương trung bình của vị trí, khu vực và cấp bậc của bạn từ nhiều nguồn công khai trước khi đưa ra con số.",
+          "name": "Nghiên cứu dữ liệu thị trường lương",
+          "source": "https://www.mindtools.com/akgh4iu/how-to-ask-for-a-pay-raise/"
+        },
+        {
+          "example": "Khi xin tăng lương, bạn trình bày: 'Tôi đã rút ngắn thời gian xử lý đơn hàng của nhóm và nhận được thư khen từ khách hàng trong quý vừa rồi.'",
+          "how_to": "Liệt kê những kết quả đo được bạn đã tạo ra — doanh thu, chi phí tiết kiệm được, vấn đề đã giải quyết — thay vì chỉ nói về nhu cầu cá nhân.",
+          "name": "Chứng minh giá trị bằng thành tích cụ thể",
+          "source": "https://www.mindtools.com/akgh4iu/how-to-ask-for-a-pay-raise/"
+        },
+        {
+          "example": "Nhà tuyển dụng nói 'Ngân sách cho vị trí này khá hạn chế', bạn đáp: 'Ngân sách khá hạn chế?' rồi chờ họ giải thích thêm về khung ngân sách thật.",
+          "how_to": "Lặp lại 1-3 từ quan trọng cuối cùng đối phương vừa nói rồi im lặng để họ nói thêm, và gọi tên cảm xúc bạn nghe thấy bằng câu 'Có vẻ như…'",
+          "name": "Mirroring và Labeling — Lắng nghe kiểu Chris Voss",
+          "source": "https://www.businessfloss.com/books/never-split-the-difference"
+        },
+        {
+          "example": "Khi bị ép nhận mức lương thấp, bạn hỏi: 'Với khối lượng công việc này, làm thế nào để mức đó phản ánh đúng giá trị tôi mang lại?'",
+          "how_to": "Thay vì ra yêu cầu trực tiếp, hãy hỏi câu mở đầu bằng 'Làm thế nào…' hoặc 'Điều gì…', rồi tóm tắt lại quan điểm của đối phương cho tới khi họ nói 'Đúng vậy'.",
+          "name": "Câu hỏi hiệu chỉnh và 'That's right'",
+          "source": "https://www.businessfloss.com/books/never-split-the-difference"
+        },
+        {
+          "example": "Công ty không tăng được lương cơ bản, bạn đề xuất thêm ngày phép và hỗ trợ học chứng chỉ chuyên môn thay cho phần chênh lệch.",
+          "how_to": "Nếu lương cứng không nhích được, hãy đàm phán các phần khác của gói thu nhập: thưởng, ngày nghỉ, làm việc linh hoạt, ngân sách học tập.",
+          "name": "Đàm phán tổng thu nhập, không chỉ lương cứng",
+          "source": "https://www.mindtools.com/akgh4iu/how-to-ask-for-a-pay-raise/"
+        },
+        {
+          "example": "Bạn tính ra giá sàn của mình rồi mới báo giá cho khách; khi khách trả thấp hơn giá sàn, bạn đề xuất giảm phạm vi công việc thay vì giảm giá.",
+          "how_to": "Cộng chi phí sinh hoạt, thuế và chi phí phúc lợi tự lo, chia cho số giờ làm được trong tháng để ra mức giá tối thiểu — không bao giờ nhận việc dưới mức đó.",
+          "name": "Freelance: Tính giá sàn tối thiểu trước khi báo giá",
+          "source": "https://finovadaily.com/how-to-negotiate-salary-as-a-freelancer/"
+        }
+      ],
+      "title_vi": "Đàm phán thu nhập"
+    },
+    {
+      "exercises": [
+        {
+          "prompt": "Hãy chọn một khái niệm trong đàm phán mà bạn muốn dạy lại, ví dụ BATNA. Giờ bạn hãy giải thích nó cho tôi như thể tôi là một người chưa từng nghe tới đàm phán, chỉ dùng lời đơn giản, không thuật ngữ. Tôi sẽ chỉ ra chỗ nào bạn giải thích còn mơ hồ, rồi bạn quay lại xem lại và dạy lại lần nữa cho tới khi rõ ràng.",
+          "source": "https://abakcus.com/articles/feynman-technique",
+          "title": "Dạy lại một khái niệm bằng kỹ thuật Feynman"
+        },
+        {
+          "prompt": "Hãy chọn một chủ đề bạn muốn dạy, ví dụ cách mở đầu một cuộc đàm phán. Đầu tiên, viết một câu hỏi ở tầng Nhớ và một câu ở tầng Hiểu. Sau đó, thiết kế một tình huống thực hành ở tầng Vận dụng và một câu hỏi ở tầng Sáng tạo, yêu cầu học viên tự đề xuất một cách mở đầu mới. Tôi sẽ góp ý xem các câu hỏi của bạn đã đúng tầng chưa.",
+          "source": "https://en.wikipedia.org/wiki/Bloom's_taxonomy",
+          "title": "Leo thang Bloom cho một bài giảng ngắn"
+        },
+        {
+          "prompt": "Hãy thiết kế một đoạn dạy 15 phút về kỹ năng lắng nghe trong đàm phán, trong đó học viên phải làm việc chứ không chỉ nghe bạn nói. Hãy đưa vào một lần dừng để thảo luận theo cặp và một hoạt động Think-Pair-Share với một câu hỏi mở. Tôi sẽ đóng vai học viên và phản hồi xem đoạn dạy của bạn có thực sự khiến tôi phải suy nghĩ không.",
+          "source": "https://cft.vanderbilt.edu/wp-content/uploads/sites/59/Active-Learning.pdf",
+          "title": "Thiết kế một đoạn học chủ động 15 phút"
+        },
+        {
+          "prompt": "Hãy chọn một kỹ năng khó mà bạn muốn dạy, ví dụ xử lý khi đối tác nói không. Hãy chia nó thành ba bước từ dễ tới khó, làm mẫu bước đầu tiên cho tôi xem, rồi hướng dẫn tôi luyện bước thứ hai cùng bạn. Cuối cùng, hãy nói rõ bạn sẽ rút hỗ trợ nào đi để tôi tự làm bước thứ ba một mình.",
+          "source": "https://helpfulprofessor.com/scaffolding-examples-in-education/",
+          "title": "Dựng giàn giáo cho một kỹ năng khó"
+        },
+        {
+          "prompt": "Tôi sẽ đóng vai một học viên hỏi bạn một câu hóc búa mà bạn chưa chuẩn bị trước, ví dụ: Nếu đối tác biết rõ điểm yếu của mình thì còn đàm phán thế nào? Hãy trả lời ngay trước mặt tôi: ghi nhận câu hỏi, nói rõ phần nào bạn biết và phần nào bạn chưa chắc, rồi đề xuất cách cả lớp cùng tìm đáp án. Tôi sẽ nhận xét xem bạn có giữ được bình tĩnh và uy tín không.",
+          "source": "https://ellii.com/blog/tips-on-how-to-answer-students-questions",
+          "title": "Ứng phó với câu hỏi khó của học viên"
+        }
+      ],
+      "id": "teaching",
+      "milestones": [
+        {
+          "description": "Giải thích được một khái niệm bằng lời đơn giản theo kỹ thuật Feynman và trả lời được câu hỏi Hiểu ở tầng Bloom.",
+          "level": 1,
+          "title": "Người dạy lại được"
+        },
+        {
+          "description": "Thiết kế được một đoạn dạy có hoạt động chủ động và giàn giáo nâng dần, kèm một kiểm tra nhỏ trong lúc học để biết học viên hiểu tới đâu.",
+          "level": 2,
+          "title": "Người thiết kế bài học"
+        },
+        {
+          "description": "Dẫn được một buổi dạy hoàn chỉnh từ mở đầu bằng câu chuyện tới thực hành, xử lý bình tĩnh câu hỏi khó và điều chỉnh bài giảng theo phản hồi của học viên.",
+          "level": 3,
+          "title": "Người dẫn dắt lớp học"
+        }
+      ],
+      "quiz": [
+        {
+          "correct": 1,
+          "explanation": "Feynman bắt đầu bằng việc chọn một khái niệm đủ nhỏ để giải thích trong một hai trang, vì càng cụ thể càng dễ phát hiện chỗ mình chưa hiểu.",
+          "options": [
+            "Đọc lại toàn bộ giáo trình một lượt",
+            "Chọn một khái niệm nhỏ, cụ thể để giải thích lại",
+            "Làm thật nhiều bài tập trắc nghiệm",
+            "Ghi chép lại mọi thuật ngữ chuyên môn"
+          ],
+          "question": "Bước đầu tiên của kỹ thuật Feynman là gì?",
+          "source": "https://abakcus.com/articles/feynman-technique"
+        },
+        {
+          "correct": 2,
+          "explanation": "Chỗ giải thích bị khựng lại chính là nơi hiểu biết yếu nhất; quay lại tài liệu gốc để lấp đúng chỗ đó rồi giải thích lại là cốt lõi của kỹ thuật này.",
+          "options": [
+            "Bạn nên bỏ qua phần đó và giảng phần khác",
+            "Bạn cần học thuộc định nghĩa đó ngay",
+            "Đó chính là lỗ hổng hiểu biết cần quay lại tài liệu gốc để lấp",
+            "Bạn nên đổi sang một chủ đề dễ hơn"
+          ],
+          "question": "Theo kỹ thuật Feynman, khi bạn giải thích mà bí hoặc phải dùng thuật ngữ mình không định nghĩa được, điều đó có nghĩa là gì?",
+          "source": "https://abakcus.com/articles/feynman-technique"
+        },
+        {
+          "correct": 0,
+          "explanation": "Bản sửa đổi năm 2001 xếp sáu tầng từ thấp lên cao là Nhớ, Hiểu, Vận dụng, Phân tích, Đánh giá và Sáng tạo ở đỉnh.",
+          "options": [
+            "Sáng tạo (Create)",
+            "Nhớ (Remember)",
+            "Đánh giá (Evaluate)",
+            "Vận dụng (Apply)"
+          ],
+          "question": "Trong thang Bloom bản sửa đổi năm 2001, tầng tư duy cao nhất là tầng nào?",
+          "source": "https://en.wikipedia.org/wiki/Bloom's_taxonomy"
+        },
+        {
+          "correct": 3,
+          "explanation": "Vận dụng là dùng kiến thức đã học vào một tình huống mới; so sánh hai chiến lược thuộc tầng Phân tích, còn liệt kê và định nghĩa thuộc tầng Nhớ.",
+          "options": [
+            "Hãy liệt kê các bước chuẩn bị đàm phán.",
+            "Hãy định nghĩa thế nào là BATNA.",
+            "Hãy dùng các bước chuẩn bị đã học để lập kế hoạch cho một buổi đàm phán thật sắp tới.",
+            "Hãy so sánh hai chiến lược đàm phán và chỉ ra điểm khác nhau."
+          ],
+          "question": "Câu hỏi nào sau đây thuộc tầng Vận dụng (Apply) của thang Bloom?",
+          "source": "https://en.wikipedia.org/wiki/Bloom's_taxonomy"
+        },
+        {
+          "correct": 1,
+          "explanation": "Think-Pair-Share là: nghĩ hoặc viết đáp án một mình, trao đổi với một bạn cặp, rồi chia sẻ với lớp và nghe giảng viên chốt lại.",
+          "options": [
+            "Nghe giảng, ghi chép, làm bài tập về nhà",
+            "Suy nghĩ một mình, thảo luận với bạn cặp, rồi chia sẻ với cả lớp",
+            "Đọc tài liệu, thi thử, chấm điểm lẫn nhau",
+            "Xem video, trả lời trắc nghiệm, nghe giảng lại"
+          ],
+          "question": "Theo hướng dẫn học chủ động của Vanderbilt, kỹ thuật Think-Pair-Share gồm các bước nào?",
+          "source": "https://cft.vanderbilt.edu/wp-content/uploads/sites/59/Active-Learning.pdf"
+        },
+        {
+          "correct": 0,
+          "explanation": "Pause Procedure là dừng khoảng hai phút sau mỗi 12 đến 18 phút giảng để học viên thảo luận và sắp xếp lại ghi chép, giúp củng cố hiểu biết ngay trong buổi học.",
+          "options": [
+            "Dừng giảng mỗi 12 đến 18 phút để học viên thảo luận và sắp xếp lại ghi chép theo cặp",
+            "Cho học viên nghỉ giải lao dài giữa buổi học",
+            "Tạm dừng toàn bộ khóa học khi học viên mệt",
+            "Dừng bài giảng để phát bài kiểm tra cuối kỳ"
+          ],
+          "question": "Kỹ thuật Pause Procedure trong học chủ động được thực hiện như thế nào?",
+          "source": "https://cft.vanderbilt.edu/wp-content/uploads/sites/59/Active-Learning.pdf"
+        },
+        {
+          "correct": 2,
+          "explanation": "Scaffolding là hỗ trợ tạm thời để học viên làm được việc vượt quá khả năng tự làm của mình, rồi rút dần hỗ trợ khi năng lực tăng lên, với nhiệm vụ khó dần lên.",
+          "options": [
+            "Cho học viên tự học hoàn toàn không cần hỗ trợ",
+            "Hỗ trợ tạm thời rồi rút dần khi học viên đã tự làm được, bắt đầu từ nhiệm vụ dễ tới khó dần",
+            "Chỉ dạy những học viên giỏi nhất trong lớp",
+            "Dạy cùng một nội dung lặp đi lặp lại nhiều lần"
+          ],
+          "question": "Scaffolding trong giảng dạy có nghĩa là gì?",
+          "source": "https://helpfulprofessor.com/scaffolding-examples-in-education/"
+        },
+        {
+          "correct": 3,
+          "explanation": "Đánh giá trong quá trình học là kiểm tra nhỏ, không chấm điểm trong lúc học — như Muddiest Point hay phiếu thoát lớp — để điều chỉnh việc dạy ngay, khác với bài thi cuối kỳ để xếp loại.",
+          "options": [
+            "Bài thi cuối kỳ để xếp loại học viên",
+            "Phiếu thoát lớp hỏi học viên điều gì còn mơ hồ nhất sau buổi học",
+            "Bài kiểm tra đầu vào để phân lớp",
+            "Chứng chỉ hoàn thành khóa học"
+          ],
+          "question": "Đâu là một ví dụ đúng của đánh giá trong quá trình học (formative assessment)?",
+          "source": "https://www.edutopia.org/article/29-high-impact-formative-assessment-strategies/"
+        },
+        {
+          "correct": 1,
+          "explanation": "Đừng bịa đáp án vì học viên sẽ kiểm chứng và mất niềm tin; thừa nhận chưa biết, hẹn trả lời lại và cùng lớp tìm đáp án vừa giữ uy tín vừa dạy học viên cách tự tìm hiểu.",
+          "options": [
+            "Bịa một đáp án nghe có vẻ hợp lý để giữ uy tín",
+            "Nói đó chỉ là ngoại lệ nên không cần quan tâm",
+            "Thừa nhận chưa biết, hứa tìm hiểu và trả lời lại, hoặc biến câu hỏi thành hoạt động cả lớp cùng tìm đáp án",
+            "Giả vờ không nghe thấy và giảng tiếp"
+          ],
+          "question": "Khi học viên hỏi một câu bạn chưa biết đáp án, cách xử lý tốt nhất theo các hướng dẫn dành cho giáo viên là gì?",
+          "source": "https://ellii.com/blog/tips-on-how-to-answer-students-questions"
+        }
+      ],
+      "sources": [
+        "https://abakcus.com/articles/feynman-technique",
+        "https://cft.vanderbilt.edu/wp-content/uploads/sites/59/Active-Learning.pdf",
+        "https://ellii.com/blog/tips-on-how-to-answer-students-questions",
+        "https://en.wikipedia.org/wiki/Bloom's_taxonomy",
+        "https://helpfulprofessor.com/scaffolding-examples-in-education/",
+        "https://www.edutopia.org/article/29-high-impact-formative-assessment-strategies/"
+      ],
+      "techniques": [
+        {
+          "example": "Muốn dạy về lãi kép, bạn giải thích: tiền lãi sinh ra lại tiếp tục sinh lãi, giống như quả cầu tuyết lăn càng lúc càng to — nếu bí ở chỗ vì sao lãi tăng nhanh theo thời gian thì quay lại xem lại công thức rồi dạy lại.",
+          "how_to": "Chọn một khái niệm nhỏ, giải thích lại bằng lời đơn giản như đang dạy cho một bạn mới học, đánh dấu chỗ nào bí hoặc phải dùng thuật ngữ, rồi quay lại tài liệu gốc để lấp đúng chỗ đó và giải thích lại.",
+          "name": "Kỹ thuật Feynman — học bằng cách dạy lại",
+          "source": "https://abakcus.com/articles/feynman-technique"
+        },
+        {
+          "example": "Dạy kỹ năng đàm phán: đầu tiên học viên nhớ được các bước chuẩn bị, rồi hiểu vì sao cần chuẩn bị, rồi vận dụng vào một tình huống giả định và tự sáng tạo chiến lược cho ca thật của mình.",
+          "how_to": "Thiết kế bài dạy đi từ thấp lên cao: Nhớ, Hiểu, Vận dụng, Phân tích, Đánh giá, Sáng tạo; đừng dừng ở mức nhớ thuộc lòng mà đẩy học viên lên tầng vận dụng và sáng tạo.",
+          "name": "Thang Bloom — dạy theo từng tầng tư duy",
+          "source": "https://en.wikipedia.org/wiki/Bloom's_taxonomy"
+        },
+        {
+          "example": "Sau mỗi 15 phút giảng, dừng 2 phút để học viên viết ra điều quan trọng nhất vừa học được rồi trao đổi với người ngồi cạnh trước khi bạn giảng tiếp.",
+          "how_to": "Xen kẽ bài giảng bằng hoạt động ngắn: dừng lại cho học viên thảo luận theo cặp, viết lại những gì vừa nhớ được, hoặc dự đoán kết quả trước khi bạn giải thích.",
+          "name": "Học chủ động — để học viên làm, không chỉ nghe",
+          "source": "https://cft.vanderbilt.edu/wp-content/uploads/sites/59/Active-Learning.pdf"
+        },
+        {
+          "example": "Dạy viết email thuyết phục: đầu tiên bạn làm mẫu một email hoàn chỉnh, rồi cùng học viên viết chung một bản nháp có khung gợi ý, cuối cùng học viên tự viết một email mới không còn khung gợi ý.",
+          "how_to": "Chia nhiệm vụ khó thành các bước nhỏ, làm mẫu trước, luyện cùng học viên, rồi rút dần gợi ý và ví dụ mẫu cho tới khi học viên tự làm được một mình.",
+          "name": "Dạy theo giàn giáo (scaffolding) — nâng dần, rút dần hỗ trợ",
+          "source": "https://helpfulprofessor.com/scaffolding-examples-in-education/"
+        },
+        {
+          "example": "Cuối buổi, mỗi học viên viết một câu trả lời cho câu hỏi: Điều gì hôm nay còn khiến bạn bối rối nhất? Bạn đọc nhanh các phiếu đó để quyết định buổi sau ôn lại phần nào.",
+          "how_to": "Dùng các kiểm tra nhỏ, không chấm điểm trong lúc dạy — như phiếu thoát lớp, điểm còn mơ hồ nhất, hoặc bài kiểm tra nhanh một câu — để biết học viên đang hiểu tới đâu và điều chỉnh bài giảng ngay.",
+          "name": "Đánh giá trong quá trình học (formative assessment)",
+          "source": "https://www.edutopia.org/article/29-high-impact-formative-assessment-strategies/"
+        },
+        {
+          "example": "Khi dạy về sức mạnh của việc lắng nghe trong đàm phán, kể câu chuyện một lần bạn thua một thương vụ chỉ vì ngắt lời đối tác, rồi rút ra bài học: lắng nghe là để hiểu, không phải để chờ tới lượt mình nói.",
+          "how_to": "Mở đầu một khái niệm khó bằng một câu chuyện thật hoặc một phép so sánh quen thuộc, rồi mới gắn khái niệm vào câu chuyện đó để học viên nhớ được ý chính.",
+          "name": "Kể chuyện và dùng phép so sánh khi dạy",
+          "source": "https://helpfulprofessor.com/scaffolding-examples-in-education/"
+        },
+        {
+          "example": "Học viên hỏi một tình huống đàm phán bạn chưa gặp bao giờ, bạn đáp: Câu hỏi hay đấy, tôi chưa có đáp án chắc chắn — tôi sẽ kiểm tra lại và trả lời bạn vào đầu buổi sau, còn giờ cả lớp thử đề xuất hướng xử lý xem sao.",
+          "how_to": "Khi gặp câu hỏi chưa trả lời được, đừng bịa đáp án: ghi nhận câu hỏi, khen người hỏi, nói rõ bạn sẽ tìm hiểu và trả lời lại vào buổi sau, hoặc biến câu hỏi thành bài tập cả lớp cùng tìm đáp án.",
+          "name": "Xử lý câu hỏi khó — thành thật khi chưa biết",
+          "source": "https://ellii.com/blog/tips-on-how-to-answer-students-questions"
+        }
+      ],
+      "title_vi": "Giảng dạy"
+    },
+    {
+      "exercises": [
+        {
+          "prompt": "Hãy chọn một chủ đề bạn muốn thuyết trình và viết thông điệp chính của nó trong 1–2 câu. Sau đó liệt kê 3 ý bạn định nói và kiểm tra cùng tôi: ý nào không gắn với throughline thì cắt bỏ, ý nào còn thiếu để dẫn khán giả đi trọn hành trình?",
+          "source": "https://blog.acumenacademy.org/overcome-fear-of-public-speaking",
+          "title": "Viết throughline trong 2 câu"
+        },
+        {
+          "prompt": "Hãy cùng tôi tập thở ngay bây giờ: hít vào đếm 8, thở ra đếm 12, lặp lại 3 lần. Sau đó bạn nói cho tôi biết cơ thể mình cảm thấy khác thế nào, và chúng ta sẽ đặt một câu tự nhủ ngắn gọn để bạn dùng trước khi bước lên sân khấu.",
+          "source": "https://www.toastmasters.org/magazine/magazine-issues/2023/apr/back-to-the-basics-keeping-your-cool",
+          "title": "Luyện thở 8–12 trước giờ lên sân khấu"
+        },
+        {
+          "prompt": "Hãy viết 1 phút mở đầu cho bài nói của bạn bằng một câu hỏi gây tò mò hoặc một câu chuyện ngắn, rồi đọc to cho tôi nghe. Tôi sẽ góp ý xem câu mở đầu đã đủ lôi cuốn chưa và giúp bạn chỉnh cho gọn, sau đó bạn đọc lại lần nữa.",
+          "source": "https://blog.acumenacademy.org/overcome-fear-of-public-speaking",
+          "title": "Thuộc lòng 1 phút mở đầu"
+        },
+        {
+          "prompt": "Hãy chọn một đoạn 5 câu trong bài nói của bạn và đọc to cho tôi nghe với tốc độ chậm hơn bình thường, dừng 2 giây trước câu quan trọng nhất. Tôi sẽ nhận xét nhịp điệu và chỗ dừng của bạn, rồi bạn đọc lại đoạn đó một lần nữa.",
+          "source": "https://www.mindtools.com/aj0cg4r/better-public-speaking-video/",
+          "title": "Nói chậm và dừng đúng chỗ"
+        },
+        {
+          "prompt": "Hãy trình bày ngắn gọn trong 2 phút về một ý kiến bạn tin tưởng, cố ý dùng cả ba: một câu xây dựng uy tín của bạn, một câu chuyện chạm cảm xúc, một lý lẽ có bằng chứng. Sau đó tôi sẽ chỉ ra bạn đã dùng mỗi yếu tố ở đâu và chỗ nào còn yếu.",
+          "source": "https://en.wikipedia.org/wiki/Modes_of_persuasion",
+          "title": "Thuyết trình thử với ethos–pathos–logos"
+        }
+      ],
+      "id": "public-speaking",
+      "milestones": [
+        {
+          "description": "Nói trọn một bài ngắn 2 phút mà không đọc nguyên văn, thở đều và giữ được ánh mắt với khán giả.",
+          "level": 1,
+          "title": "Đứng vững trên sân khấu"
+        },
+        {
+          "description": "Xây dựng được bài nói có throughline rõ ràng, mở đầu và kết thúc thuộc lòng, dùng đủ ethos–pathos–logos.",
+          "level": 2,
+          "title": "Bài nói có xương sống"
+        },
+        {
+          "description": "Thuyết trình trôi chảy trước đám đông, điều khiển được giọng và nhịp điệu, xử lý câu hỏi bình tĩnh bằng cách dừng lại suy nghĩ rồi trả lời.",
+          "level": 3,
+          "title": "Diễn giả tự tin"
+        }
+      ],
+      "quiz": [
+        {
+          "correct": 1,
+          "explanation": "Ethos là sự thuyết phục bằng uy tín, phẩm chất và năng lực của người trình bày.",
+          "options": [
+            "Lập luận bằng số liệu và logic",
+            "Sức thuyết phục đến từ uy tín và sự đáng tin của người nói",
+            "Cảm xúc mà bài nói gợi lên ở khán giả",
+            "Thời điểm thích hợp để trình bày"
+          ],
+          "question": "Ethos trong tu từ học là gì?",
+          "source": "https://en.wikipedia.org/wiki/Modes_of_persuasion"
+        },
+        {
+          "correct": 2,
+          "explanation": "Pathos mạnh nhất khi người nói thể hiện sự đồng thuận với giá trị nền tảng của người nghe.",
+          "options": [
+            "Khi người nói dùng thật nhiều số liệu",
+            "Khi người nói đọc thuộc lòng toàn bộ bài",
+            "Khi người nói đồng điệu với một giá trị mà khán giả đã tin tưởng",
+            "Khi bài nói càng dài càng tốt"
+          ],
+          "question": "Pathos hiệu quả nhất khi nào?",
+          "source": "https://en.wikipedia.org/wiki/Modes_of_persuasion"
+        },
+        {
+          "correct": 0,
+          "explanation": "Logos là lời kêu gọi tới lý trí: sự thật, bằng chứng và lập luận có cấu trúc.",
+          "options": [
+            "Lập luận bằng lý lẽ, bằng chứng và cấu trúc rõ ràng",
+            "Sự nổi tiếng của người nói",
+            "Cảm giác sợ sân khấu",
+            "Kỹ thuật dùng slide đẹp"
+          ],
+          "question": "Logos là gì?",
+          "source": "https://en.wikipedia.org/wiki/Modes_of_persuasion"
+        },
+        {
+          "correct": 3,
+          "explanation": "Anderson khuyên nên viết và thuộc lòng phút mở đầu và câu kết để giảm lo lắng và tăng tác động.",
+          "options": [
+            "Ứng biến hoàn toàn tại chỗ",
+            "Chỉ chuẩn bị phần giữa, đầu và cuối tự nhiên sẽ hay",
+            "Viết ra và thuộc lòng 1 phút mở đầu cùng những câu kết",
+            "Đọc nguyên văn từ giấy cho chắc chắn"
+          ],
+          "question": "Theo Chris Anderson (TED), nên làm gì với phần mở đầu và kết thúc của bài nói?",
+          "source": "https://blog.acumenacademy.org/overcome-fear-of-public-speaking"
+        },
+        {
+          "correct": 1,
+          "explanation": "Throughline là chủ đề trung tâm nối mọi ý lại; ý nào không gắn với nó thì nên cắt bỏ.",
+          "options": [
+            "Danh sách slide của bài thuyết trình",
+            "Sợi chỉ xuyên suốt: chủ đề kết nối mọi ý trong bài, tóm tắt được trong 1–2 câu",
+            "Phần hỏi đáp cuối buổi",
+            "Giọng đọc của người nói"
+          ],
+          "question": "“Throughline” của một bài nói là gì?",
+          "source": "https://blog.acumenacademy.org/overcome-fear-of-public-speaking"
+        },
+        {
+          "correct": 0,
+          "explanation": "Hít sâu bằng cơ hoành với nhịp thở ra dài hơn hít vào giúp kích hoạt hệ thần kinh phó giao cảm và làm dịu cơ thể.",
+          "options": [
+            "Thở nông và nhanh để tỉnh táo",
+            "Hít thở sâu bằng cơ hoành, thở ra dài hơn hít vào",
+            "Nín thở càng lâu càng tốt",
+            "Thở bằng miệng thật mạnh"
+          ],
+          "question": "Theo Toastmasters, cách thở nào giúp làm dịu lo lắng trước khi nói?",
+          "source": "https://www.toastmasters.org/magazine/magazine-issues/2023/apr/back-to-the-basics-keeping-your-cool"
+        },
+        {
+          "correct": 2,
+          "explanation": "Lo lắng dễ làm bạn nói quá nhanh, nên hãy ép mình chậm lại; dừng một chút khiến bạn trông bình tĩnh và tự tin hơn.",
+          "options": [
+            "Nói càng nhanh để xong sớm",
+            "Cố tình nói chậm lại và đừng ngại dừng để sắp xếp suy nghĩ",
+            "Đọc nhanh notes để không quên ý",
+            "Tránh nhìn khán giả"
+          ],
+          "question": "Khi hồi hộp khiến bạn nói quá nhanh, MindTools khuyên nên làm gì?",
+          "source": "https://www.mindtools.com/aj0cg4r/better-public-speaking-video/"
+        },
+        {
+          "correct": 3,
+          "explanation": "Đọc nguyên văn sẽ cắt đứt kết nối với khán giả; hãy dùng thẻ gợi ý ý chính và nói tự nhiên.",
+          "options": [
+            "Đọc nguyên văn từng chữ cho chính xác",
+            "Không mang theo gì cả",
+            "Ghi các ý chính lên thẻ gợi ý và chỉ liếc khi cần, nói tự nhiên như trò chuyện với một người",
+            "Viết toàn bộ bài lên slide rồi đọc slide"
+          ],
+          "question": "MindTools khuyên dùng notes như thế nào khi thuyết trình?",
+          "source": "https://www.mindtools.com/aj0cg4r/better-public-speaking-video/"
+        },
+        {
+          "correct": 1,
+          "explanation": "Tập trung vào điều khán giả sẽ nhận được giúp mục đích của bạn lớn hơn nỗi sợ của chính mình.",
+          "options": [
+            "Để khán giả không để ý tới mình",
+            "Vì bài thuyết trình là để truyền đạt điều có ích cho khán giả, mục đích lớn hơn nỗi sợ",
+            "Để quên hết nội dung bài nói",
+            "Để không cần chuẩn bị trước"
+          ],
+          "question": "Theo Toastmasters, vì sao nên hướng sự chú ý vào khán giả thay vì vào bản thân khi lo lắng?",
+          "source": "https://www.toastmasters.org/magazine/magazine-issues/2023/apr/back-to-the-basics-keeping-your-cool"
+        }
+      ],
+      "sources": [
+        "https://blog.acumenacademy.org/overcome-fear-of-public-speaking",
+        "https://en.wikipedia.org/wiki/Modes_of_persuasion",
+        "https://www.mindtools.com/aj0cg4r/better-public-speaking-video/",
+        "https://www.mindtools.com/awsk48f/a-z-guide-to-getting-the-best-from-your-voice/",
+        "https://www.toastmasters.org/magazine/magazine-issues/2023/apr/back-to-the-basics-keeping-your-cool"
+      ],
+      "techniques": [
+        {
+          "example": "Trước khi trình bày giải pháp tiết kiệm điện, bạn nói: “Tôi đã theo dõi hóa đơn điện của ký túc xá mình trong 3 tháng và thử 5 cách khác nhau.”",
+          "how_to": "Mở đầu bằng cách cho khán giả thấy bạn đủ hiểu biết và đáng tin về chủ đề: nêu kinh nghiệm, chuyên môn hoặc lý do bạn quan tâm tới vấn đề.",
+          "name": "Ethos — Xây dựng uy tín của người nói",
+          "source": "https://en.wikipedia.org/wiki/Modes_of_persuasion"
+        },
+        {
+          "example": "Kể về lần đầu bạn run tay khi thuyết trình trước lớp, để cả lớp thấy mình không đơn độc trước khi bạn chia sẻ cách vượt qua.",
+          "how_to": "Kể một câu chuyện hoặc hình ảnh khiến khán giả đồng cảm với một giá trị họ đã tin, rồi mới dẫn tới lập luận của bạn.",
+          "name": "Pathos — Chạm tới cảm xúc khán giả",
+          "source": "https://en.wikipedia.org/wiki/Modes_of_persuasion"
+        },
+        {
+          "example": "“Nên thuyết trình bằng dàn ý thay vì đọc thuộc lòng, vì dàn ý giúp bạn nhìn khán giả, còn đọc thuộc lòng khiến bạn cúi mặt vào giấy.”",
+          "how_to": "Sắp xếp ý theo trình tự rõ ràng, đưa ra lý do và bằng chứng cụ thể cho mỗi luận điểm, tránh chỉ nói chung chung.",
+          "name": "Logos — Lập luận bằng lý lẽ và bằng chứng",
+          "source": "https://en.wikipedia.org/wiki/Modes_of_persuasion"
+        },
+        {
+          "example": "Throughline: “Sự dễ tổn thương là điều đáng trân trọng, không phải để giấu đi” — mọi câu chuyện trong bài đều quay về ý này.",
+          "how_to": "Tóm tắt thông điệp chính trong 1–2 câu, rồi cắt bỏ mọi ý không gắn với sợi chỉ đó và sắp xếp các ý còn lại thành một hành trình có thứ tự.",
+          "name": "Throughline — Một sợi chỉ xuyên suốt bài nói",
+          "source": "https://blog.acumenacademy.org/overcome-fear-of-public-speaking"
+        },
+        {
+          "example": "Mở đầu: “Có bao nhiêu bạn ở đây từng run đến mức quên mất mình định nói gì?” — Kết: “Tuần này, hãy đăng ký nói một lần trước lớp.”",
+          "how_to": "Viết và thuộc lòng 1 phút mở đầu và những câu kết, mở bằng kịch tính, câu hỏi gây tò mò hoặc hình ảnh ấn tượng, kết bằng bức tranh lớn hoặc lời kêu gọi hành động cụ thể.",
+          "name": "Mở đầu và kết thúc mạnh (theo Chris Anderson, TED)",
+          "source": "https://blog.acumenacademy.org/overcome-fear-of-public-speaking"
+        },
+        {
+          "example": "Hít vào đếm 8, thở ra đếm 12, lặp lại vài lần; nhảy nhẹ và lắc tay chân, rồi tự nhủ: “Mình đã chuẩn bị kỹ, mình nói cho khán giả, không phải cho nỗi sợ.”",
+          "how_to": "Trước khi lên sân khấu, hít thở sâu bằng cơ hoành với nhịp thở ra dài hơn nhịp hít vào, vận động nhẹ để xả adrenaline, tự nhủ một câu trấn an và hình dung mình nói thành công.",
+          "name": "Quản lý lo lắng: thở, vận động, tự nói tích cực",
+          "source": "https://www.toastmasters.org/magazine/magazine-issues/2023/apr/back-to-the-basics-keeping-your-cool"
+        },
+        {
+          "example": "Đọc một câu nhấn vào một từ khác nhau mỗi lần để tập biểu cảm giọng; khi hồi hộp, dừng 2 giây, hít thở rồi nói tiếp câu quan trọng nhất.",
+          "how_to": "Phát âm rõ từng từ, thay đổi cao độ và âm lượng ở ý quan trọng, cố tình nói chậm khi hồi hộp, và dừng lại để lấy lại suy nghĩ thay vì nói vội.",
+          "name": "Giọng nói và nhịp điệu: rõ ràng, chậm lại, biết dừng",
+          "source": "https://www.mindtools.com/awsk48f/a-z-guide-to-getting-the-best-from-your-voice/"
+        },
+        {
+          "example": "Trước khi nói, quét mắt khắp phòng một lượt, chọn một người ở giữa phòng để bắt đầu, rồi chuyển ánh nhìn sang các khu vực khác khi đổi ý.",
+          "how_to": "Đứng thẳng, hai chân vững, vai mở, nhìn vào mắt từng người trong khán giả, mỉm cười và nói như đang trò chuyện với một người thay vì đọc notes.",
+          "name": "Ngôn ngữ cơ thể và giao tiếp bằng mắt",
+          "source": "https://www.mindtools.com/aj0cg4r/better-public-speaking-video/"
+        }
+      ],
+      "title_vi": "Diễn giả / Nói trước đám đông"
+    },
+    {
+      "exercises": [
+        {
+          "prompt": "Hãy kể cho tôi một việc gần đây bạn nghĩ 'mình không làm được'. Tôi sẽ cùng bạn viết lại thành câu tư duy phát triển và tìm 1 bước luyện nhỏ nhất cho ngày mai. Bạn sẵn sàng kể chưa?",
+          "source": "https://www.mindtools.com/asbakxx/dwecks-fixed-and-growth-mindsets",
+          "title": "Đổi câu nói tư duy cố định"
+        },
+        {
+          "prompt": "Chọn một kỹ năng bạn muốn giỏi lên, ví dụ đàm phán hoặc quản lý tiền. Hãy nói cho tôi biết bạn đang ở mức nào, và tôi sẽ gợi ý một cải thiện nhỏ chỉ 1% mà bạn làm được trong 10 phút hôm nay.",
+          "source": "https://jamesclear.com/marginal-gains",
+          "title": "Tìm 1% của hôm nay"
+        },
+        {
+          "prompt": "Bạn nhận được bao nhiêu tiền trong tháng này, và khoản nào là bắt buộc phải chi? Hãy chia sẻ con số, tôi sẽ cùng bạn chọn một mức tiết kiệm ngay từ đầu tháng mà bạn vẫn sống thoải mái được.",
+          "source": "https://www.investopedia.com/are-you-paying-yourself-first-11729093",
+          "title": "Lập kế hoạch trả cho mình trước"
+        },
+        {
+          "prompt": "Hãy nói một mục tiêu tiền bạc hoặc học tập mà bạn đang ấp ủ. Tôi sẽ hỏi bạn 5 câu theo SMART để cùng biến nó thành mục tiêu cụ thể, đo được và có thời hạn rõ ràng.",
+          "source": "https://www.mindtools.com/your-toolkit/coaching-goals/smart-goals/",
+          "title": "Biến ước mơ thành mục tiêu SMART"
+        },
+        {
+          "prompt": "Chọn một tình huống thuyết phục bạn hay vấp, ví dụ mở đầu cuộc trò chuyện hoặc từ chối khéo. Hãy thử nói với tôi trong 1 phút, tôi sẽ chỉ ra đúng 1 điểm yếu nhất và cùng bạn luyện lại điểm đó 3 lần.",
+          "source": "https://en.wikipedia.org/wiki/Practice_(learning_method)",
+          "title": "Buổi luyện tập có chủ đích 15 phút"
+        }
+      ],
+      "id": "wealth-mindset",
+      "milestones": [
+        {
+          "description": "Nhận ra tư duy cố định của mình và duy trì được 1 thói quen nhỏ mỗi ngày trong 1 tuần.",
+          "level": 1,
+          "title": "Người bắt đầu có hệ thống"
+        },
+        {
+          "description": "Đặt được 1 mục tiêu SMART và tự động tiết kiệm một phần thu nhập ngay khi nhận tiền.",
+          "level": 2,
+          "title": "Người trả cho mình trước"
+        },
+        {
+          "description": "Luyện đều đặn đúng điểm yếu, nhận phản hồi và cải thiện rõ rệt trong đàm phán lẫn quản lý tiền.",
+          "level": 3,
+          "title": "Người luyện tập có chủ đích"
+        }
+      ],
+      "quiz": [
+        {
+          "correct": 1,
+          "explanation": "Tư duy phát triển tin rằng năng lực có thể rèn luyện và phát triển, còn tư duy cố định tin năng lực là bất biến.",
+          "options": [
+            "Năng lực là cố định từ khi sinh ra",
+            "Năng lực có thể phát triển nhờ nỗ lực và học hỏi",
+            "Thành công chỉ do tài năng bẩm sinh",
+            "Thất bại chứng tỏ mình không có năng khiếu"
+          ],
+          "question": "Theo Carol Dweck, người có tư duy phát triển (growth mindset) tin điều gì?",
+          "source": "https://www.mindtools.com/asbakxx/dwecks-fixed-and-growth-mindsets"
+        },
+        {
+          "correct": 3,
+          "explanation": "Clear viết: thói quen là lãi kép của việc cải thiện bản thân — cải thiện nhỏ lặp lại sẽ tích lũy lớn theo thời gian.",
+          "options": [
+            "Một cuộc đua tốc độ",
+            "Một món quà may mắn",
+            "Một kỳ thi chỉ cần học thuộc",
+            "Lãi kép của việc cải thiện bản thân"
+          ],
+          "question": "James Clear ví thói quen giống với điều gì?",
+          "source": "https://jamesclear.com/marginal-gains"
+        },
+        {
+          "correct": 0,
+          "explanation": "Trả cho mình trước là dành tiền tiết kiệm ngay từ đầu, thay vì tiết kiệm phần còn lại sau khi đã chi tiêu.",
+          "options": [
+            "Tiết kiệm một phần thu nhập ngay khi nhận tiền, trước khi chi tiêu",
+            "Tiêu hết tiền rồi mới tính chuyện tiết kiệm",
+            "Vay tiền để đầu tư trước rồi trả sau",
+            "Chỉ tiết kiệm khi cuối tháng còn dư tiền"
+          ],
+          "question": "'Trả cho mình trước' nghĩa là gì?",
+          "source": "https://www.investopedia.com/are-you-paying-yourself-first-11729093"
+        },
+        {
+          "correct": 2,
+          "explanation": "Mục tiêu đo được phải có tiêu chí rõ ràng để theo dõi tiến độ và xác định khi nào thành công.",
+          "options": [
+            "Thật tham vọng dù không làm được",
+            "Giữ kín, không nói với ai",
+            "Đo lường được tiến độ và biết khi nào đạt được",
+            "Không cần thời hạn cụ thể"
+          ],
+          "question": "Trong SMART, chữ M (Measurable) yêu cầu mục tiêu phải thế nào?",
+          "source": "https://www.mindtools.com/your-toolkit/coaching-goals/smart-goals/"
+        },
+        {
+          "correct": 2,
+          "explanation": "Luyện tập có chủ đích chia kỹ năng thành mảnh nhỏ, tập trung vào điểm yếu, có mục tiêu rõ và phản hồi tức thì.",
+          "options": [
+            "Luyện càng lâu càng tốt, không cần mục tiêu",
+            "Chỉ luyện phần mình đã giỏi để tự tin hơn",
+            "Nhắm đúng điểm yếu, có mục tiêu rõ ràng và phản hồi ngay",
+            "Luyện một mình, không cần ai góp ý"
+          ],
+          "question": "Điểm khác biệt cốt lõi của luyện tập có chủ đích so với luyện tập chung chung là gì?",
+          "source": "https://en.wikipedia.org/wiki/Practice_(learning_method)"
+        },
+        {
+          "correct": 1,
+          "explanation": "Mục tiêu này cụ thể, đo được bằng số tiền, khả thi, liên quan đến tài chính và có thời hạn 3 tháng.",
+          "options": [
+            "Muốn giàu có trong tương lai",
+            "Tiết kiệm 3 triệu đồng trong 3 tháng bằng cách để riêng 250 nghìn mỗi tuần",
+            "Cố gắng học giỏi hơn",
+            "Kiếm thật nhiều tiền càng sớm càng tốt"
+          ],
+          "question": "Mục tiêu nào dưới đây là SMART nhất?",
+          "source": "https://www.mindtools.com/your-toolkit/coaching-goals/smart-goals/"
+        },
+        {
+          "correct": 0,
+          "explanation": "Chuyển khoản tự động giúp tiền tiết kiệm rời khỏi tài khoản chi tiêu ngay, tránh cám dỗ và không cần dựa vào ý chí.",
+          "options": [
+            "Tự động chuyển tiền vào tài khoản tiết kiệm ngay khi nhận lương",
+            "Nhớ tiết kiệm khi rảnh rỗi",
+            "Giữ hết tiền trong ví để dễ lấy",
+            "Chờ cuối tháng xem còn bao nhiêu rồi mới tiết kiệm"
+          ],
+          "question": "Theo Investopedia, cách thực hiện 'trả cho mình trước' hiệu quả nhất là gì?",
+          "source": "https://www.investopedia.com/are-you-paying-yourself-first-11729093"
+        },
+        {
+          "correct": 2,
+          "explanation": "Quy tắc 'never miss twice': một lần lỡ không sao, điều gây hại là để lỗi nhỏ kéo dài thành chuỗi.",
+          "options": [
+            "Bỏ luôn vì đã phá vỡ chuỗi",
+            "Đợi sang tháng sau bắt đầu lại từ đầu",
+            "Quay lại ngay hôm sau — đừng để lỡ hai lần liên tiếp",
+            "Tăng gấp đôi hôm sau để bù lại"
+          ],
+          "question": "Theo James Clear, nếu lỡ một ngày không duy trì thói quen thì nên làm gì?",
+          "source": "https://jamesclear.com/marginal-gains"
+        },
+        {
+          "correct": 3,
+          "explanation": "Clear nhấn mạnh hệ thống lớn hơn mục tiêu: thành công đến từ những lựa chọn tốt hơn 1% lặp lại mỗi ngày.",
+          "options": [
+            "Chỉ mục tiêu lớn mới quan trọng",
+            "Động lực bùng nổ trong một tuần",
+            "May mắn và thời điểm",
+            "Hệ thống hằng ngày — vì làm chủ thói quen quan trọng hơn đạt một kết quả đơn lẻ"
+          ],
+          "question": "Theo James Clear, điều gì quyết định tiến bộ dài hạn hơn: mục tiêu lớn hay hệ thống hằng ngày?",
+          "source": "https://jamesclear.com/marginal-gains"
+        }
+      ],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Practice_(learning_method)",
+        "https://jamesclear.com/marginal-gains",
+        "https://www.investopedia.com/are-you-paying-yourself-first-11729093",
+        "https://www.mindtools.com/asbakxx/dwecks-fixed-and-growth-mindsets",
+        "https://www.mindtools.com/your-toolkit/coaching-goals/smart-goals/"
+      ],
+      "techniques": [
+        {
+          "example": "Thuyết phục thất bại một lần thì ghi lại 1 lỗi cụ thể và luyện lại, thay vì kết luận mình không có năng khiếu.",
+          "how_to": "Khi gặp khó, đổi câu 'Mình không giỏi việc này' thành 'Mình chưa giỏi việc này — cần luyện thêm bước nào?'.",
+          "name": "Tư duy phát triển (Growth Mindset)",
+          "source": "https://www.mindtools.com/asbakxx/dwecks-fixed-and-growth-mindsets"
+        },
+        {
+          "example": "Mỗi ngày đọc 2 trang sách về tài chính hoặc luyện 5 phút mở đầu bài thuyết phục, thay vì chờ một buổi học dài.",
+          "how_to": "Mỗi ngày chỉ cải thiện một chi tiết nhỏ trong kỹ năng hoặc thói quen tiền bạc, rồi lặp lại đều đặn.",
+          "name": "Tốt hơn 1% mỗi ngày — lãi kép thói quen",
+          "source": "https://jamesclear.com/marginal-gains"
+        },
+        {
+          "example": "Nhận 2 triệu đồng tiền làm thêm thì chuyển ngay 200 nghìn vào tài khoản tiết kiệm riêng trước khi mua sắm.",
+          "how_to": "Ngay khi có thu nhập, chuyển một phần cố định vào tiết kiệm trước rồi mới chi tiêu phần còn lại.",
+          "name": "Trả cho mình trước (Pay Yourself First)",
+          "source": "https://www.investopedia.com/are-you-paying-yourself-first-11729093"
+        },
+        {
+          "example": "Thay vì 'muốn giàu', viết: 'Tiết kiệm 3 triệu đồng trong 3 tháng bằng cách để riêng 250 nghìn mỗi tuần'.",
+          "how_to": "Viết mục tiêu đủ 5 yếu tố: Cụ thể, Đo được, Khả thi, Liên quan, Có thời hạn.",
+          "name": "Mục tiêu SMART",
+          "source": "https://www.mindtools.com/your-toolkit/coaching-goals/smart-goals/"
+        },
+        {
+          "example": "Thay vì thuyết phục lại cả bài, chỉ luyện riêng 30 giây mở đầu cho tới khi trôi chảy rồi mới ghép vào bài đầy đủ.",
+          "how_to": "Chia kỹ năng thành mảnh nhỏ, luyện đúng điểm yếu nhất với mục tiêu rõ ràng và phản hồi ngay sau mỗi lần thử.",
+          "name": "Luyện tập có chủ đích (Deliberate Practice)",
+          "source": "https://en.wikipedia.org/wiki/Practice_(learning_method)"
+        },
+        {
+          "example": "Đặt lịch 20h mỗi tối luyện đàm phán 15 phút, thay vì chỉ đặt mục tiêu 'giỏi đàm phán trong năm nay'.",
+          "how_to": "Đặt lịch cố định cho việc quan trọng và xây hệ thống lặp lại, thay vì chỉ đặt một mục tiêu lớn rồi chờ động lực.",
+          "name": "Hệ thống quan trọng hơn mục tiêu",
+          "source": "https://jamesclear.com/marginal-gains"
+        },
+        {
+          "example": "Hôm qua quên tiết kiệm tuần này thì hôm nay chuyển tiền ngay, đừng đợi sang tuần sau mới bắt đầu lại.",
+          "how_to": "Lỡ một ngày thì hôm sau quay lại ngay; sai lầm chỉ thành vấn đề khi nó kéo dài thành chuỗi.",
+          "name": "Không bỏ lỡ hai lần liên tiếp (Never Miss Twice)",
+          "source": "https://jamesclear.com/marginal-gains"
+        }
+      ],
+      "title_vi": "Tư duy làm giàu + Cải thiện bản thân"
+    }
+  ]
+}
