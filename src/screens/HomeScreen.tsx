@@ -4,6 +4,7 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import type { RoomId } from '../lib/rooms';
 import { ROOMS } from '../lib/rooms';
 import type { RoomProgress } from '../lib/roomProgress';
+import { LEVELS } from '../lib/roadmap';
 import { DailyGoalCard, XpBar, xpForLevel } from '../components/gamification';
 
 type Props = {
@@ -20,16 +21,28 @@ function greeting(): string {
   return 'Chào buổi tối';
 }
 
+// Bài học hôm nay lấy THẬT từ lộ trình (roadmap.ts) — xoay theo ngày trong năm,
+// không còn đoạn văn cứng. Lộ trình có 21 bài học tâm lý, mỗi bài gắn 1 mục học.
+const ALL_LESSONS = LEVELS.flatMap((l) => l.items);
+
+function lessonOfDay(): { title: string; lesson: string } {
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 0);
+  const day = Math.floor((now.getTime() - start.getTime()) / 86400000);
+  return ALL_LESSONS[day % ALL_LESSONS.length];
+}
+
 export default function HomeScreen({ progress, onOpenMap, onStartRoom }: Props) {
   const currentRoom = ROOMS.find((r) => r.id === progress.currentRoomId) ?? ROOMS[0];
   // Tổng XP tích lũy = XP tích lũy tới cấp hiện tại + XP trong cấp — khớp với
   // thang gamification (levelFromXp), để XpBar hiện đúng cấp/XP như tiến bộ.
   const totalXp = xpForLevel(progress.level) + progress.xp;
   const suggested = currentRoom.scenarios[0];
+  const lesson = lessonOfDay();
 
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.pad}>
-      <Text style={styles.h1}>{greeting()}, Minh 👋</Text>
+      <Text style={styles.h1}>{greeting()} 👋</Text>
       <Text style={styles.sub}>Luyện nói chuyện khó — mỗi ngày một vòng.</Text>
 
       {/* Luyện hôm nay */}
@@ -51,8 +64,8 @@ export default function HomeScreen({ progress, onOpenMap, onStartRoom }: Props) 
           <Text style={styles.statLabel}>ngày liên tiếp</Text>
         </View>
         <View style={styles.stat}>
-          <Text style={styles.statNum}>{progress.sessionsThisWeek}</Text>
-          <Text style={styles.statLabel}>buổi tuần này</Text>
+          <Text style={styles.statNum}>{progress.sessionsTotal}</Text>
+          <Text style={styles.statLabel}>vòng đã luyện</Text>
         </View>
         <View style={styles.stat}>
           <Text style={styles.statNum}>
@@ -68,14 +81,11 @@ export default function HomeScreen({ progress, onOpenMap, onStartRoom }: Props) 
       {/* Mục tiêu ngày */}
       <DailyGoalCard roundsToday={progress.roundsToday} />
 
-      {/* Bài học tâm lý hôm nay */}
+      {/* Bài học tâm lý hôm nay — nội dung thật từ lộ trình, xoay theo ngày */}
       <View style={styles.lessonCard}>
         <Text style={styles.cardLabel}>🧠 BÀI HỌC HÔM NAY</Text>
-        <Text style={styles.lessonTitle}>Neo giá trước, nhượng bộ sau</Text>
-        <Text style={styles.lessonText}>
-          Ai đưa con số đầu tiên thường dẫn dắt cả cuộc mặc cả. Hãy chủ động neo trước,
-          rồi nhượng bộ từng bước nhỏ — đừng nhảy giá ngay khi đối phương ép.
-        </Text>
+        <Text style={styles.lessonTitle}>{lesson.title}</Text>
+        <Text style={styles.lessonText}>{lesson.lesson}</Text>
       </View>
 
       {/* Vào bản đồ phòng tập */}

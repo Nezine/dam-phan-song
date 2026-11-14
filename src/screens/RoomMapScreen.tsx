@@ -1,10 +1,17 @@
 // Màn Bản đồ phòng tập — 5 phòng, từ thuê trọ đến gọi vốn.
 // Thuê trọ chỉ là Phòng 1; mỗi phòng có bộ tình huống, độ khó, trạng thái khóa/mở riêng.
+// Phòng khóa hoặc chưa có vòng luyện KHÔNG nuốt tap: bấm vào hiện thông báo
+// nói rõ lý do (chưa đủ điều kiện mở / vòng luyện sắp có) rồi tự ẩn sau vài giây.
+import { useEffect, useRef, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import type { Room, RoomId } from '../lib/rooms';
 import { ROOMS, difficultyLabel } from '../lib/rooms';
 import { isRoomUnlocked } from '../lib/roomProgress';
 import type { RoomProgress } from '../lib/roomProgress';
+
+// Chỉ Phòng 1 đã có vòng đàm phán thật. Phòng khác dù đã mở khóa vẫn chưa
+// có luồng để vào — bấm vào phải nói rõ "sắp có", không được giả vờ vào được.
+const PLAYABLE_ROOMS: RoomId[] = ['rent'];
 
 type Props = {
   progress: RoomProgress;
@@ -23,6 +30,21 @@ function DifficultyDots({ d }: { d: 1 | 2 | 3 }) {
 
 export default function RoomMapScreen({ progress, onBack, onEnterRoom }: Props) {
   const xpPct = Math.min(100, Math.round((progress.xp / progress.xpForNextLevel) * 100));
+  const [notice, setNotice] = useState<string | null>(null);
+  const noticeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(
+    () => () => {
+      if (noticeTimer.current) clearTimeout(noticeTimer.current);
+    },
+    [],
+  );
+
+  const showNotice = (text: string) => {
+    setNotice(text);
+    if (noticeTimer.current) clearTimeout(noticeTimer.current);
+    noticeTimer.current = setTimeout(() => setNotice(null), 3500);
+  };
 
   return (
     <View style={styles.screen}>
@@ -46,18 +68,34 @@ export default function RoomMapScreen({ progress, onBack, onEnterRoom }: Props) 
         </View>
       </View>
 
+      {notice && (
+        <View style={styles.notice}>
+          <Text style={styles.noticeText}>{notice}</Text>
+        </View>
+      )}
+
       <ScrollView style={styles.list} contentContainerStyle={styles.listPad}>
         {ROOMS.map((room: Room, i: number) => {
           const unlocked = isRoomUnlocked(room, progress);
           const done = progress.roomsCompleted.includes(room.id);
           const isCurrent = progress.currentRoomId === room.id;
+          const hasFlow = PLAYABLE_ROOMS.includes(room.id);
           return (
             <View key={room.id}>
               {i > 0 && <View style={styles.connector} />}
               <Pressable
                 style={[styles.card, !unlocked && styles.cardLocked, done && styles.cardDone]}
-                onPress={() => unlocked && onEnterRoom(room.id)}
-                disabled={!unlocked}
+                onPress={() => {
+                  if (!unlocked) {
+                    showNotice(`🔒 ${room.title} chưa mở — ${room.unlockText}`);
+                    return;
+                  }
+                  if (!hasFlow) {
+                    showNotice(`🕒 ${room.title} sắp có — vòng luyện đang được làm, quay lại sau nhé.`);
+                    return;
+                  }
+                  onEnterRoom(room.id);
+                }}
               >
                 <View style={styles.cardTop}>
                   <Text style={styles.roomIcon}>{room.icon}</Text>
@@ -67,7 +105,15 @@ export default function RoomMapScreen({ progress, onBack, onEnterRoom }: Props) 
                     <Text style={styles.roomTag}>{room.tagline}</Text>
                   </View>
                   <Text style={styles.badge}>
-                    {done ? '✅ Xong' : unlocked ? (isCurrent ? '▶ Đang luyện' : 'Mở') : '🔒 Khóa'}
+                    {done
+                      ? '✅ Xong'
+                      : !unlocked
+                        ? '🔒 Khóa'
+                        : !hasFlow
+                          ? '🕒 Sắp có'
+                          : isCurrent
+                            ? '▶ Đang luyện'
+                            : 'Mở'}
                   </Text>
                 </View>
                 <Text style={styles.roomDesc}>{room.desc}</Text>
@@ -81,9 +127,8 @@ export default function RoomMapScreen({ progress, onBack, onEnterRoom }: Props) 
                 <View style={styles.cardFoot}>
                   <DifficultyDots d={room.difficulty} />
                   {!unlocked && <Text style={styles.unlockText}>{room.unlockText}</Text>}
-                  {unlocked && !done && (
-                    <Text style={styles.enterText}>{room.id === 'rent' ? 'Vào luyện →' : 'Vào luyện →'}</Text>
-                  )}
+                  {unlocked && hasFlow && !done && <Text style={styles.enterText}>Vào luyện →</Text>}
+                  {unlocked && !hasFlow && !done && <Text style={styles.soonText}>🕒 Sắp có</Text>}
                 </View>
               </Pressable>
             </View>
@@ -108,6 +153,17 @@ const styles = StyleSheet.create({
   xpTrack: { flex: 1, height: 8, backgroundColor: '#243040', borderRadius: 4, overflow: 'hidden' },
   xpFill: { height: '100%', backgroundColor: '#ffd43b', borderRadius: 4 },
   list: { flex: 1 },
+  notice: {
+    backgroundColor: '#243040',
+    borderColor: '#2f81f7',
+    borderWidth: 1,
+    borderRadius: 12,
+    padding: 12,
+    marginHorizontal: 20,
+    marginBottom: 4,
+  },
+  noticeText: { color: '#fff', fontSize: 13, lineHeight: 18 },
+  soonText: { color: '#ffd43b', fontSize: 11, fontWeight: '700' },
   listPad: { paddingHorizontal: 20, paddingBottom: 32 },
   connector: { width: 2, height: 18, backgroundColor: '#243040', marginLeft: 34, marginVertical: 0 },
   card: { backgroundColor: '#1b232b', borderRadius: 16, padding: 16, gap: 8 },
