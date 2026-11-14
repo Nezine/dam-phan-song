@@ -11,7 +11,7 @@ Dành cho người cầm điện thoại demo trên sân khấu. Đọc kỹ tr�
 1. **Chỉ 2 lượt nói live** (nhịp 3 và nhịp 5). Không thêm lượt thứ 3 dù AI trả lời hay — không đủ giờ.
 2. **Chỉ khoe điểm của vòng đang diễn live.** Vòng chưa chốt thì không có màn hình điểm — không bao giờ giơ màn hình điểm tập trước mà không nói rõ đó là bản tập trước.
 3. **Sàn chạm được, không xuống thấp hơn.** Nói đúng câu này: "chạm sàn ở lượt 2, không xuống thấp hơn". Không nói "giá không bao giờ giảm".
-4. **Video dự phòng không phải AI live.** Mỗi lần mở video phải nói trước một câu: "Đây là video đã quay sẵn ở chế độ mock" (xem mục 4).
+4. **Không có video dự phòng.** Tuấn đã giết video (15:36) — nếu AI chết hẳn thì nói thẳng và đi nhịp 6, không mở video nào (xem mục 4).
 
 ## 1. Checklist trước demo (16:00–16:10 — làm xong trước 16:10, không làm sát giờ)
 
@@ -36,7 +36,7 @@ Dành cho người cầm điện thoại demo trên sân khấu. Đọc kỹ tr�
 | 16:17:30–16:18:00 | 6. Lời mời | Giữ màn hình điểm, nhìn khán giả, nói nhịp 6. |
 
 **Thứ tự cắt khi lố giờ** (chỉ cắt theo thứ tự này, không cắt lung tung):
-1. Câu điều khoản riêng (câu 2) — đã bỏ khỏi live, chỉ dùng khi quay video.
+1. Câu điều khoản riêng (câu 2) — đã bỏ khỏi live (video đã giết, câu này không dùng nữa).
 2. Lượt thử lại giọng nói (retry) — xem mục 5.
 3. Phần nói thêm ở nhịp 4 (thị trường) — nói ngắn lại, không bỏ nhịp.
 4. Phần nói thêm ở nhịp 6 — giữ lại câu mời 100 người dùng thử.
@@ -79,8 +79,8 @@ Dành cho người cầm điện thoại demo trên sân khấu. Đọc kỹ tr�
 
 ### B. Không chốt (chủ nhà không đồng ý ở câu chốt nhịp 5)
 
-- Không bịa điểm, không giơ màn hình điểm tập trước. Nói: **"Lượt trực tiếp chưa chốt được, nên app chưa tạo màn hình chấm điểm. Đây là video dự phòng đã quay sẵn ở chế độ mock — màn hình chấm điểm trong video không phải kết quả của lượt vừa rồi."**
-- Mở video dự phòng (đã gắn nhãn "Cảnh quay dự phòng (mock mode)" trên khung hình). Nếu hết giờ thì bỏ video, nói thẳng nhịp 6 trên nền màn hình chat dở dang.
+- Không bịa điểm, không giơ màn hình điểm tập trước. Nói: **"Lượt trực tiếp chưa chốt được, nên app chưa tạo màn hình chấm điểm."**
+- Không có video dự phòng (Tuấn đã giết — không quay gì nữa). Nói thẳng nhịp 6 trên nền màn hình chat dở dang.
 
 ### C. AI chết hẳn (không có phản hồi nào — xem thang xử lý ở mục 5)
 
@@ -93,9 +93,9 @@ Dành cho người cầm điện thoại demo trên sân khấu. Đọc kỹ tr�
 | 1. Chờ | Im lặng chờ AI trả lời. Tối đa **30 giây cho cả lượt (nói + chờ)** (không phải 12 giây — độ trễ ở venue chưa đo, đừng hứa 12 giây). Thử lại/gõ chữ diễn ra NGOÀI ngân sách này: chúng ăn thời gian nói của nhịp sau (cắt phần nói thêm ở nhịp 4 trước, rồi nhịp 6), không bao giờ cắt câu chốt nhịp 5 hay 10 giây giữ màn hình điểm. | Quá 30 giây không có gì → bước 2. |
 | 2. Thử lại giọng nói (chỉ 1 lần, chỉ ở nhịp 3) | Bấm ghi âm lại, nói đúng câu đó lần nữa. | Vẫn không được → bước 3. Ở **nhịp 5 không thử lại giọng nói** — mất thời gian của câu chốt, gõ luôn (bước 3). |
 | 3. Gõ chữ | Gõ đúng câu đó vào ô **"Hoặc gõ tin nhắn…"** rồi gửi. | Vẫn không có trả lời → bước 4. |
-| 4. Video dự phòng | Nói trước: **"Mạng trực tiếp không chạy được, đây là video đã quay sẵn ở chế độ mock."** Rồi mở video (đã gắn nhãn mock trên khung hình). | — |
+| 4. Nói thẳng + nhịp 6 | Nói: **"Mạng trực tiếp không chạy được, lượt này chưa chốt nên chưa có điểm."** Rồi nói nhịp 6 trên nền màn hình chat dở dang. Không có video dự phòng. | — |
 
-**Lưu ý về mock mode:** không có nút chuyển sang mock giữa chừng — mock hay live là do Metro có key hay không lúc khởi động. Nên trong thang trên **không có bước "chuyển sang mock live"**. Mock chỉ tồn tại dưới dạng video đã quay sẵn, đã gắn nhãn.
+**Lưu ý về mock mode:** không có nút chuyển sang mock giữa chừng — mock hay live là do Metro có key hay không lúc khởi động. Nên trong thang trên **không có bước "chuyển sang mock live"**. Mock không tồn tại dưới dạng nào trên sân khấu hôm nay — không có video dự phòng.
 
 ## 6. Khoảnh khắc màn hình điểm (chỉ làm khi vòng live đã chốt)
 
@@ -113,7 +113,7 @@ Dành cho người cầm điện thoại demo trên sân khấu. Đọc kỹ tr�
 - Không nói "emulator = 0 điểm" — Lu.ma cho phép demo bằng điện thoại hoặc emulator. Nói demo bằng điện thoại thật vì nó thuyết phục hơn, không nói đó là quy định.
 - "100 người tuần đầu" là **mục tiêu**, không phải số người dùng đã có.
 - Không nói "giá không bao giờ giảm" — nói "chạm sàn ở lượt 2, không xuống thấp hơn".
-- Không trình bày video dự phòng như AI live — luôn nói trước nó là video quay sẵn ở chế độ mock.
+- Không trình bày thứ gì đã quay sẵn như AI live — hôm nay không có video dự phòng.
 - Không bịa lại lời chủ nhà nếu TTS nghe không rõ — chỉ tóm tắt những gì **hiện chữ trên màn hình**. Nếu màn hình cũng không hiện gì, đừng bịa, đi thang xử lý (mục 5).
 - Không mở vòng mới sau khi vòng đã chốt. Không sửa kịch bản giữa chừng.
 
