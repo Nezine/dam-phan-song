@@ -461,10 +461,10 @@ export default function App() {
       <View style={styles.header}>
         <View style={styles.headerText}>
           <Text style={styles.h2}>
-            🏠 {scenario?.roomType} — {fmt(scenario?.listedPrice ?? 0)}đ/tháng
+            🎯 Phòng 1 · Luyện đàm phán
           </Text>
           <Text style={styles.headerSub}>
-            {twistLabel} • Đối phương đang giữ: {fmt(currentPrice)}đ/tháng
+            {twistLabel} • {scenario?.roomType} {fmt(scenario?.listedPrice ?? 0)}đ/tháng • Đối phương đang giữ: {fmt(currentPrice)}đ/tháng
           </Text>
         </View>
         <Pressable style={styles.muteBtn} onPress={() => setMuted((m) => !m)}>
