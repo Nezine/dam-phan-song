@@ -7,6 +7,7 @@ Backup video cho bài nộp Codex. Quay trên OPPO A60 (screen record + mic), m�
 - Kill-and-reopen app trước khi quay. Quay một mạch nếu được; chỉ cắt **thời gian chờ chết** (lúc AI đang trả lời), nhưng **giữ lại ~1s trạng thái đang xử lý** trên màn hình để không tạo cảm giác AI trả lời tức thì.
 - Mọi chữ/số trên màn hình phải là **kết quả thật của lượt quay đó** — không dựng trước điểm số, không dựng trước câu yếu, không dựng trước giá chốt. Nếu lượt quay chốt khác 3.2tr, giữ nguyên kết quả thật, sửa lời thoại cho khớp.
 - Voiceover (VO) chỉ 61 từ (~24s). Phần lớn thời lượng là tiếng thật trong app: giọng người tập + giọng chủ nhà (TTS) + tiếng thao tác.
+- Các câu thoại trong video là kịch bản riêng của vòng quay đó, không phải câu live trên sân khấu — đừng tập nhầm.
 
 ## Shot list (mục tiêu 82s)
 
