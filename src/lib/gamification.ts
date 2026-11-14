@@ -10,6 +10,7 @@ export type GamificationStats = {
   streakDays: number; // số ngày luyện liên tiếp hiện tại
   maxStreakDays: number; // chuỗi dài nhất từng đạt
   roundsToday: number; // số vòng đã luyện hôm nay
+  dailyGoalAwardedToday: boolean; // đã nhận thưởng mục tiêu ngày hôm nay chưa
 };
 
 // XP cần để lên từ cấp L lên L+1.
@@ -42,6 +43,7 @@ export const XP_REWARD = {
   winDeal: 100, // chốt được thỏa thuận
   goodTactic: 20, // dùng 1 chiến thuật tốt (do thang chấm quyết định)
   streakBonus: 30, // luyện đủ 3 ngày liên tiếp (cộng 1 lần/ngày khi đạt mốc)
+  dailyGoal: 50, // đạt mục tiêu ngày (cộng 1 lần/ngày, qua awardDailyGoal)
 } as const;
 
 export type Badge = {
@@ -122,3 +124,17 @@ export const allBadges = (s: GamificationStats): Badge[] => [
 
 export const unlockedBadgeCount = (s: GamificationStats): number =>
   allBadges(s).filter((b) => b.unlocked).length;
+
+// Thưởng mục tiêu ngày: cộng XP_REWARD.dailyGoal đúng 1 lần khi roundsToday
+// đạt mục tiêu trong ngày. Trả về stats mới + awarded (false nếu chưa đạt
+// hoặc đã nhận rồi — chống cộng lặp).
+export function awardDailyGoal(
+  s: GamificationStats,
+  targetRounds = 1,
+): { stats: GamificationStats; awarded: boolean } {
+  if (s.roundsToday < targetRounds || s.dailyGoalAwardedToday) return { stats: s, awarded: false };
+  return {
+    stats: { ...s, totalXp: s.totalXp + XP_REWARD.dailyGoal, dailyGoalAwardedToday: true },
+    awarded: true,
+  };
+}

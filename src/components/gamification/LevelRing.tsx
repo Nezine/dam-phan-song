@@ -38,7 +38,7 @@ export const LevelRing = ({ totalXp, size = SIZE }: Props) => {
 const styles = StyleSheet.create({
   ring: { alignItems: 'center', justifyContent: 'center' },
   dot: { position: 'absolute', width: DOT, height: DOT, borderRadius: DOT / 2 },
-  dotOn: { backgroundColor: '#ffd43b' },
+  dotOn: { backgroundColor: '#2f81f7' },
   dotOff: { backgroundColor: '#243040' },
   center: { alignItems: 'center' },
   levelNum: { color: '#fff', fontWeight: '900', fontSize: 26 },

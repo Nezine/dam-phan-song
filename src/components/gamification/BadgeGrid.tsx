@@ -50,8 +50,8 @@ const styles = StyleSheet.create({
   icon: { fontSize: 26 },
   lockedIcon: { fontSize: 22 },
   badgeTitle: { color: '#fff', fontWeight: '700', fontSize: 12, textAlign: 'center' },
-  badgeDesc: { color: '#9fb0bf', fontSize: 10, textAlign: 'center' },
+  badgeDesc: { color: '#9fb0bf', fontSize: 11, textAlign: 'center' },
   lockedText: { color: '#9fb0bf' },
   miniTrack: { height: 4, width: '100%', borderRadius: 2, backgroundColor: '#243040', overflow: 'hidden', marginTop: 2 },
-  miniFill: { height: '100%', backgroundColor: '#ffd43b' },
+  miniFill: { height: '100%', backgroundColor: '#2f81f7' },
 });

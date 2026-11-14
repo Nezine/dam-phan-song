@@ -1,14 +1,15 @@
 // Thẻ mục tiêu ngày: luyện đủ N vòng trong ngày để nhận thưởng XP.
 // Khi đạt mục tiêu thì đổi trạng thái thành "đã xong" (xanh lá).
 import { StyleSheet, Text, View } from 'react-native';
+import { XP_REWARD } from '../../lib/gamification';
 
 type Props = {
   roundsToday: number;
   targetRounds?: number; // mặc định 1 vòng/ngày
-  rewardXp?: number; // XP thưởng khi đạt mục tiêu, mặc định 50
+  rewardXp?: number; // XP thưởng khi đạt mục tiêu, mặc định XP_REWARD.dailyGoal
 };
 
-export const DailyGoalCard = ({ roundsToday, targetRounds = 1, rewardXp = 50 }: Props) => {
+export const DailyGoalCard = ({ roundsToday, targetRounds = 1, rewardXp = XP_REWARD.dailyGoal }: Props) => {
   const done = roundsToday >= targetRounds;
   const progress = Math.min(1, roundsToday / targetRounds);
   const remaining = Math.max(0, targetRounds - roundsToday);
