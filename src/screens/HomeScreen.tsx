@@ -5,12 +5,14 @@ import type { RoomId } from '../lib/rooms';
 import { ROOMS } from '../lib/rooms';
 import type { RoomProgress } from '../lib/roomProgress';
 import { LEVELS } from '../lib/roadmap';
-import { DailyGoalCard, XpBar, xpForLevel } from '../components/gamification';
+import { BadgeGrid, DailyGoalCard, XpBar, unlockedBadgeCount, xpForLevel } from '../components/gamification';
+import type { GamificationStats } from '../lib/gamification';
 
 type Props = {
   progress: RoomProgress;
   onOpenMap: () => void;
   onStartRoom: (roomId: RoomId) => void;
+  onQuickStart: () => void;
 };
 
 function greeting(): string {
@@ -32,18 +34,39 @@ function lessonOfDay(): { title: string; lesson: string } {
   return ALL_LESSONS[day % ALL_LESSONS.length];
 }
 
-export default function HomeScreen({ progress, onOpenMap, onStartRoom }: Props) {
+export default function HomeScreen({ progress, onOpenMap, onStartRoom, onQuickStart }: Props) {
   const currentRoom = ROOMS.find((r) => r.id === progress.currentRoomId) ?? ROOMS[0];
   // Tổng XP tích lũy = XP tích lũy tới cấp hiện tại + XP trong cấp — khớp với
   // thang gamification (levelFromXp), để XpBar hiện đúng cấp/XP như tiến bộ.
   const totalXp = xpForLevel(progress.level) + progress.xp;
   const suggested = currentRoom.scenarios[0];
   const lesson = lessonOfDay();
+  // Suy ra GamificationStats từ tiến bộ thật (docs/retention-mechanics.md §2.3).
+  // Không bịa số nào: mọi vòng đã ghi đều là vòng chốt thỏa thuận nên
+  // roundsWon = roundsPlayed; kho lưu không giữ % tiết kiệm từng vòng nên
+  // bestSavingPct = 0 (huy hiệu "Mặc cả cứng" chỉ mở khi có dữ liệu thật);
+  // chuỗi ngày kho lưu chỉ chứng minh được 0/1 nên maxStreakDays = streakDays.
+  const badgeStats: GamificationStats = {
+    totalXp,
+    roundsPlayed: progress.sessionsTotal,
+    roundsWon: progress.sessionsTotal,
+    bestSavingPct: 0,
+    streakDays: progress.streakDays,
+    maxStreakDays: progress.maxStreakDays,
+    roundsToday: progress.roundsToday,
+  };
+  const badgesUnlocked = unlockedBadgeCount(badgeStats);
 
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.pad}>
       <Text style={styles.h1}>{greeting()}</Text>
       <Text style={styles.sub}>Luyện nói chuyện khó — mỗi ngày một vòng.</Text>
+
+      {/* Luyện nhanh: vào thẳng Phòng 1 preset 1, không qua màn chuẩn bị */}
+      <Pressable style={styles.quickBtn} onPress={onQuickStart}>
+        <Text style={styles.quickBtnText}>Luyện nhanh 1 phút</Text>
+        <Text style={styles.quickBtnSub}>Vào thẳng tình huống Phòng 1 — bỏ qua bước chuẩn bị</Text>
+      </Pressable>
 
       {/* Luyện hôm nay */}
       <View style={styles.todayCard}>
@@ -81,6 +104,12 @@ export default function HomeScreen({ progress, onOpenMap, onStartRoom }: Props) 
       {/* Mục tiêu ngày */}
       <DailyGoalCard roundsToday={progress.roundsToday} />
 
+      {/* Huy hiệu — bật lưới đã viết sẵn (retention #3): chỉ hiện số thật */}
+      <View style={styles.badgeBox}>
+        <Text style={styles.cardLabel}>HUY HIỆU · {badgesUnlocked}/8 ĐÃ MỞ</Text>
+        <BadgeGrid stats={badgeStats} />
+      </View>
+
       {/* Bài học tâm lý hôm nay — nội dung thật từ lộ trình, xoay theo ngày */}
       <View style={styles.lessonCard}>
         <Text style={styles.cardLabel}>BÀI HỌC HÔM NAY</Text>
@@ -113,6 +142,10 @@ const styles = StyleSheet.create({
   statNum: { color: '#fff', fontSize: 18, fontWeight: '800' },
   statLabel: { color: '#9fb0bf', fontSize: 11 },
   levelBox: { backgroundColor: '#1b232b', borderRadius: 12, padding: 12 },
+  badgeBox: { backgroundColor: '#1b232b', borderRadius: 12, padding: 12, gap: 8 },
+  quickBtn: { backgroundColor: '#2f81f7', borderRadius: 12, padding: 14, gap: 2 },
+  quickBtnText: { color: '#ffffff', fontSize: 17, fontWeight: '800' },
+  quickBtnSub: { color: '#dbeafe', fontSize: 12 },
   lessonCard: { backgroundColor: '#0b2518', borderColor: '#2f9e44', borderWidth: 1, borderRadius: 16, padding: 16, gap: 6 },
   lessonTitle: { color: '#8ce99a', fontWeight: '800', fontSize: 16 },
   lessonText: { color: '#c3fae8', fontSize: 13, lineHeight: 19 },

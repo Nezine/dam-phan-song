@@ -44,6 +44,9 @@ export const XpBar = ({ totalXp, compact = false }: Props) => {
       <View style={styles.track}>
         <Animated.View style={[styles.fill, { width: fillWidth }]} />
       </View>
+      {!compact && (
+        <Text style={styles.remaining}>Còn {Math.max(0, xpToNext - xpInLevel)} XP nữa lên cấp {level + 1}</Text>
+      )}
     </View>
   );
 };
@@ -54,6 +57,7 @@ const styles = StyleSheet.create({
   level: { color: '#2f81f7', fontWeight: '800', fontSize: 15 },
   title: { color: '#9fb0bf', fontSize: 12, flex: 1 },
   xp: { color: '#fff', fontWeight: '700', fontSize: 12 },
+  remaining: { color: '#9fb0bf', fontSize: 12 },
   track: { height: 10, borderRadius: 5, backgroundColor: '#243040', overflow: 'hidden' },
   fill: { height: '100%', borderRadius: 5, backgroundColor: '#2f81f7' },
 });
