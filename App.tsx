@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Animated,
@@ -27,6 +27,7 @@ import { groqCustomerTurn, GROQ_API_KEY } from './src/lib/groq';
 import { mockCustomerTurn } from './src/lib/mock';
 import { scoreNegotiation, type ScoreResult } from './src/lib/score';
 import { loadProgress, recordSession, type Progress } from './src/lib/progress';
+import { randomQuote } from './src/lib/highlights';
 import type { Scenario, Turn } from './src/lib/types';
 
 const fmt = (n: number) => n.toLocaleString('vi-VN');
@@ -100,6 +101,10 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
   const [error, setError] = useState<string | null>(null);
   const [lastFailedText, setLastFailedText] = useState<string | null>(null);
   const [agreedPrice, setAgreedPrice] = useState<number | null>(null);
+  const winQuote = useMemo(
+    () => (agreedPrice == null ? null : randomQuote(turns.length * 7 + agreedPrice)),
+    [agreedPrice, turns.length],
+  );
   const [textDraft, setTextDraft] = useState('');
   const [muted, setMuted] = useState(false);
   const [recSeconds, setRecSeconds] = useState(0);
@@ -650,6 +655,9 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
           <Text style={styles.winSaved}>Khách hàng đồng ý mua {scenario.productName}</Text>
           <Text style={styles.winPrice}>{fmt(agreedPrice)}đ</Text>
           <Text style={styles.winSaved}>Phần chênh so với giá mục tiêu: {fmt(gain)}đ</Text>
+          {winQuote ? (
+            <Text style={styles.winQuote}>Câu vàng: “{winQuote.text}” — {winQuote.author}</Text>
+          ) : null}
           <Pressable
             style={styles.bigBtn}
             onPress={() => {
@@ -790,6 +798,7 @@ const styles = StyleSheet.create({
   winTitle: { color: '#8ce99a', fontWeight: '900', fontSize: 18 },
   winPrice: { color: '#fff', fontWeight: '800', fontSize: 26 },
   winSaved: { color: '#ffd43b', fontWeight: '700', textAlign: 'center', marginBottom: 4 },
+  winQuote: { color: '#c3fae8', fontSize: 13, fontStyle: 'italic', textAlign: 'center', marginTop: 8 },
   winSub: { color: '#c3fae8', fontSize: 12, textAlign: 'center', marginBottom: 8 },
   mockBanner: { backgroundColor: '#e03131', paddingVertical: 6, alignItems: 'center', marginTop: 32 },
   mockText: { color: '#fff', fontWeight: '800', fontSize: 12 },

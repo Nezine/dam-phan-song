@@ -6,6 +6,7 @@ import { ROOMS } from '../lib/rooms';
 import type { RoomProgress } from '../lib/roomProgress';
 import { LEVELS } from '../lib/roadmap';
 import { BadgeGrid, DailyGoalCard, XpBar, unlockedBadgeCount, xpForLevel } from '../components/gamification';
+import { todayChallenge } from '../lib/highlights';
 import type { GamificationStats } from '../lib/gamification';
 
 type Props = {
@@ -41,6 +42,7 @@ export default function HomeScreen({ progress, onOpenMap, onStartRoom, onQuickSt
   const totalXp = xpForLevel(progress.level) + progress.xp;
   const suggested = currentRoom.scenarios[0];
   const lesson = lessonOfDay();
+  const challenge = todayChallenge();
   // Suy ra GamificationStats từ tiến bộ thật (docs/retention-mechanics.md §2.3).
   // Không bịa số nào: mọi vòng đã ghi đều là vòng chốt thỏa thuận nên
   // roundsWon = roundsPlayed; kho lưu không giữ % tiết kiệm từng vòng nên
@@ -115,6 +117,12 @@ export default function HomeScreen({ progress, onOpenMap, onStartRoom, onQuickSt
         <Text style={styles.cardLabel}>BÀI HỌC HÔM NAY</Text>
         <Text style={styles.lessonTitle}>{lesson.title}</Text>
         <Text style={styles.lessonText}>{lesson.lesson}</Text>
+      </View>
+
+      {/* Thử thách hôm nay — ngoài đời thật, dưới 5 phút */}
+      <View style={styles.lessonCard}>
+        <Text style={styles.cardLabel}>THỬ THÁCH HÔM NAY · {challenge.minutes} PHÚT</Text>
+        <Text style={styles.lessonText}>{challenge.text}</Text>
       </View>
 
       {/* Vào bản đồ phòng tập */}
