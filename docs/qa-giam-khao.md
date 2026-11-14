@@ -1,46 +1,23 @@
-# Đáp án 5 câu giám khảo chắc chắn hỏi — Đàm Phán Sống
+# Đáp án 5 câu giám khảo có thể hỏi — Đàm Phán Sống
 
-Viết theo lệnh của Tuấn (15:24). Mỗi câu trả lời đúng 2–3 câu, không vòng vo, không claim
-thêm. Mọi con số đều lấy từ `MARKET-NUMBERS.md` hoặc từ thử nghiệm đã chạy trong ngày.
+Mỗi câu trả lời ngắn, dùng số liệu trong `MARKET-NUMBERS.md` hoặc kết quả demo. Không khẳng định điều nhóm chưa kiểm chứng.
 
 ## 1. Sao không dùng ChatGPT miễn phí?
 
-ChatGPT là người thầy hiền lành — xin là giảm, và mỗi lần đóng vai một kiểu khác nhau.
-Nhân vật của bọn em có giá sàn bí mật và tính cách cố định: trong demo vừa rồi, nài thêm
-200 nghìn là nó giữ giá ngay, không nhượng. Cộng thêm thang chấm cố định chỉ rõ câu nào
-yếu: đó là hai thứ một câu prompt miễn phí không cho được.
+ChatGPT có thể nhập vai, nhưng cuộc trò chuyện và cách phản hồi thay đổi theo từng prompt. Đàm Phán Sống dùng nhân vật khách hàng có mục tiêu cố định trong từng tình huống và có thang điểm sáu tiêu chí để người dùng biết câu nào cần luyện thêm.
 
-## 2. Sao không mặc cả qua Zalo? (đàm phán thật phần lớn qua tin nhắn)
+## 2. Sao không luyện qua tin nhắn?
 
-Đúng là mặc cả thật phần lớn qua tin nhắn, và đó là giới hạn bọn em công nhận. Nhưng cái
-người mới thiếu không phải câu chữ — là phản xạ và tâm lý khi bị ép trực diện: bị dọa
-"có người đang chờ cọc" là cuống, gật bừa. Luyện nói trực tiếp luyện đúng cái cuống đó;
-phòng tập mặc cả bằng tin nhắn là bước mở rộng đã nằm trong lộ trình.
+Tin nhắn hữu ích để chuẩn bị câu chữ, còn nói trực tiếp luyện phản xạ, nhịp nói và cách giữ bình tĩnh. Bản hiện tại ưu tiên giọng nói; hình thức hội thoại chữ có thể bổ sung sau.
 
-## 3. Khác Duolingo ở đâu? (bọn em tự nhận "Duolingo luyện đàm phán")
+## 3. Khác Duolingo ở đâu?
 
-Duolingo dạy ngôn ngữ bằng bài tập có đáp án cố định. Bọn em không dạy từ vựng — bọn em
-luyện một cuộc nói chuyện khó đang diễn ra: đối phương là AI có mục tiêu riêng và giá sàn
-bí mật, không bao giờ đi xuống dưới sàn; sau mỗi vòng, app chấm thế đàm phán của bạn
-(mở giá ra sao, giữ giá thế nào, chốt điều kiện gì) bằng thang luật cố định và quy kết
-quả ra tiền Việt thật. Cùng hình thức gamification (XP, cấp, streak), khác hoàn toàn
-thứ được luyện.
+Bọn em dùng vòng học ngắn, XP và cấp độ để tạo thói quen luyện tập. Nội dung là hội thoại thuyết phục đang diễn ra: khách hàng AI có nhu cầu và giới hạn riêng, còn điểm dựa trên những gì người dùng thực sự nói.
 
 ## 4. Kiếm tiền kiểu gì? Ai trả, bao nhiêu?
 
-Người trả tiền là người sắp bước vào một cuộc đàm phán có tiền thật đi kèm: sinh viên sắp
-thuê trọ, người sắp phỏng vấn, sắp deal lương — trả một khoản nhỏ cho một buổi luyện đúng
-tình huống của mình. Thị trường tham chiếu: EdTech Việt Nam 1,1 tỷ USD (2025), khoảng
-5,7 triệu người trẻ thuê trọ ở thành phố là điểm bắt đầu. Mức giá cụ thể đội chưa chốt
-và chưa có khách trả tiền thật — hôm nay bọn em chứng minh sản phẩm chạy được và khác
-được, chưa chứng minh được doanh thu.
+Người dùng cá nhân hoặc đội bán hàng có thể trả phí cho phòng luyện chuyên sâu, tình huống riêng và phân tích chi tiết. Thị trường tham chiếu gồm EdTech và đào tạo kỹ năng mềm; nhóm chưa chốt giá và chưa có khách trả tiền thật, nên demo hôm nay chỉ chứng minh luồng sản phẩm hoạt động.
 
-## 5. Sao tin AI chấm điểm được? (AI có thiên vị, có bịa không?)
+## 5. Sao tin AI chấm điểm được?
 
-Điểm của bọn em KHÔNG phải do AI chấm. Thang chấm là bộ luật cố định viết bằng code:
-6 điều kiện kiểm tra thẳng trên transcript thật (có giá mục tiêu không, có lý do không,
-có mặc cả điều khoản không, kiên trì mấy lượt, giọng lịch sự không, chốt dưới giá rao
-không) — buổi nào cũng chấm cùng một chuẩn, ai cũng tự kiểm chứng lại được trên màn
-hình. Phần nguy hiểm nhất (giá sàn, mức nhượng bộ, điều kiện chốt) nằm trong kịch bản
-tình huống, AI chỉ được nói trong khung đó. Đội chưa có chuyên gia đàm phán thẩm định
-độc lập — đó là việc phải làm tiếp theo, bọn em không nói quá.
+AI không chấm điểm. Sáu tiêu chí được kiểm tra bằng luật cố định trên transcript: nêu giá mục tiêu, đưa lý do, đề xuất điều kiện, kiên trì, giữ lịch sự và chốt dưới giá niêm yết. Nhóm vẫn cần chuyên gia thẩm định độc lập trước khi xem đây là thang đo đã được kiểm chứng.

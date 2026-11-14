@@ -91,7 +91,7 @@ export const LEVELS: RoadmapLevel[] = [
             q: 'Muốn biết đối phương thực sự cần gì, bạn nên nói câu nào?',
             options: [
               '“Anh cần cái này, đúng không?”',
-              '“Điều gì quan trọng nhất với anh trong chuyện này?”',
+              '“Điều gì anh ưu tiên nhất trong chuyện này?”',
               '“Em nghĩ anh nên chọn phương án A.”',
             ],
             correct: 1,
@@ -284,7 +284,7 @@ export const LEVELS: RoadmapLevel[] = [
         xp: 30,
         lesson: 'Giá không bao giờ đứng một mình — nó luôn đi kèm điều kiện: thời gian, khối lượng, phương thức thanh toán.',
         practicePrompt:
-          'Bạn muốn thuê một người thiết kế làm bộ nhận diện cho câu lạc bộ, ngân sách có hạn. Hãy đàm phán: đưa ra 2 phương án (gói đầy đủ / gói tối giản), nhượng bộ có điều kiện (giảm giá đổi lấy thanh toán sớm), và chốt bằng văn bản rõ ràng.',
+          'Bạn muốn mời một người thiết kế làm bộ nhận diện cho câu lạc bộ, ngân sách có hạn. Hãy đàm phán: đưa ra 2 phương án (gói đầy đủ / gói tối giản), nhượng bộ có điều kiện (giảm giá đổi lấy thanh toán sớm), và chốt bằng văn bản rõ ràng.',
       },
     ],
   },
@@ -345,7 +345,7 @@ export const LEVELS: RoadmapLevel[] = [
             q: 'Hai bên đã mặc cả 3 vòng vẫn chưa gặp nhau. Nước đi hay nhất là:',
             options: [
               'Chia đôi khoảng cách cho xong.',
-              'Đổi khung: hỏi đối phương xem ngoài giá ra còn điều gì quan trọng với họ.',
+              'Đổi khung: hỏi đối phương xem ngoài giá ra họ còn ưu tiên điều gì.',
               'Bỏ cuộc.',
             ],
             correct: 1,
@@ -376,7 +376,7 @@ export const LEVELS: RoadmapLevel[] = [
         id: 'lv5-ex1',
         kind: 'exercise',
         title: 'Chuẩn bị lựa chọn dự phòng của mình',
-        desc: 'Trước mỗi cuộc đàm phán quan trọng, viết ra phương án dự phòng của chính mình: nếu không chốt được thì bạn làm gì.',
+        desc: 'Trước mỗi cuộc đàm phán then chốt, viết ra phương án dự phòng của chính mình: nếu không chốt được thì bạn làm gì.',
         minutes: 5,
         xp: 10,
         lesson: 'Tâm lý: người có đường lui thì không sợ mất. Và người không sợ mất thì đàm phán mạnh hơn hẳn.',
@@ -400,7 +400,7 @@ export const LEVELS: RoadmapLevel[] = [
         lesson: 'Chuyên gia không phải người nói hay nhất — mà là người chuẩn bị kỹ nhất.',
         quiz: [
           {
-            q: 'Trước một cuộc đàm phán quan trọng, việc đầu tiên nên làm là gì?',
+            q: 'Trước một cuộc đàm phán then chốt, việc đầu tiên nên làm là gì?',
             options: [
               'Tập nói cho trôi chảy.',
               'Xác định mục tiêu, mức chấp nhận được, và lựa chọn dự phòng nếu không chốt được.',
@@ -417,17 +417,17 @@ export const LEVELS: RoadmapLevel[] = [
               'Đợi đối phương nhắc lại.',
             ],
             correct: 1,
-            explain: 'Chốt bằng văn bản tránh hiểu lầm và bảo vệ cả hai bên. Không chốt miệng với việc quan trọng.',
+            explain: 'Chốt bằng văn bản tránh hiểu lầm và bảo vệ cả hai bên. Việc cần cam kết nên có xác nhận rõ ràng.',
           },
           {
             q: 'Đâu là dấu hiệu của một cuộc đàm phán tốt?',
             options: [
               'Bạn được đúng 100% những gì mình muốn.',
-              'Cả hai bên đều đạt được điều quan trọng nhất của mình và rõ ràng về bước tiếp theo.',
+              'Cả hai bên đều đạt được ưu tiên lớn nhất và rõ ràng về bước tiếp theo.',
               'Đối phương nhượng bộ hoàn toàn.',
             ],
             correct: 1,
-            explain: 'Đàm phán tốt không phải thắng-thua. Cả hai đều đạt điều quan trọng nhất và rời bàn với cam kết rõ ràng.',
+            explain: 'Đàm phán tốt không phải thắng-thua. Cả hai đều đạt ưu tiên lớn nhất và rời bàn với cam kết rõ ràng.',
           },
         ],
       },

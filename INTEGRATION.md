@@ -1,37 +1,21 @@
-# Tích hợp Home + Bản đồ phòng tập (nhánh `muse/room-map`)
+# Ghi chú tích hợp
 
-> Chỉ thêm file mới — không sửa file Slice 1 nào (`App.tsx`, `src/lib/*` cũ giữ nguyên).
+## Luồng ứng dụng
 
-## File mới
+`src/AppShell.tsx` kết nối Home, bản đồ phòng luyện và vòng hội thoại trong `App.tsx`. Phòng 1 có luồng hoạt động; các phòng tiếp theo hiển thị trạng thái sắp có cho tới khi được xây dựng.
 
-| File | Nội dung |
-|---|---|
-| `src/lib/rooms.ts` | Danh mục 5 phòng tập: mặc cả giá (P1, mở), giữ cọc (P2), lương làm thêm (P3), phỏng vấn (P4), trả lời nhà đầu tư (P5). Mỗi phòng: icon, tagline, mô tả, bộ tình huống, độ khó 1–3, điều kiện mở khóa. Copy khung rộng, không đóng khung vào trọ. |
-| `src/lib/roomProgress.ts | Tiến bộ in-memory (đổi tên khi merge để khỏi trùng progress.ts của màn chấm) (cấp, XP, streak, buổi/tuần, phòng đã xong). `getProgress()`, `completeRoom()`, `isRoomUnlocked()`. Seed demo: cấp 2, 120/200 XP, streak 3 ngày. TODO: thay bằng AsyncStorage sau hackathon. |
-| `src/screens/HomeScreen.tsx` | Chào theo giờ, gợi ý luyện hôm nay (Phòng 1), tóm tắt streak/cấp/XP, bài học tâm lý, nút vào bản đồ phòng tập. |
-| `src/screens/RoomMapScreen.tsx` | 5 thẻ phòng nối nhau bằng đường dọc, có độ khó (chấm), chip tình huống, badge Mở/Đang luyện/🔒 Khóa + điều kiện mở khóa. Phòng khóa bấm không được. |
-| `src/screens/index.ts` | Barrel export 2 màn. |
-| `src/AppShell.tsx` | Vỏ điều hướng: `home → map → negotiate` (negotiate = `<App />` Slice 1). |
+## Dữ liệu phòng
 
-## Cách bật (1 dòng, Migga làm)
+`src/lib/rooms.ts` khai báo năm phòng: bán hàng, đàm phán thu nhập, giảng dạy, diễn thuyết, và phát triển tài chính cùng bản thân. Mã phòng đầu tiên là `sales`.
 
-Trong `index.ts`, đổi:
+## Hội thoại Phòng 1
 
-```ts
-import App from './App';
-```
+- `src/lib/types.ts` định nghĩa khách hàng, người bán, tình huống và lượt hội thoại.
+- `src/lib/gemini.ts` chạy persona khách hàng và chuyển giọng nói thành chữ.
+- `src/lib/groq.ts` là phương án hội thoại dự phòng.
+- `src/lib/mock.ts` mô phỏng phản hồi khi chưa cấu hình khóa API.
+- `src/lib/score.ts` giữ nguyên sáu tiêu chí kỹ năng: giá mục tiêu, lý do, điều kiện, kiên trì, lịch sự và chốt đơn.
 
-thành:
+## Kiểm tra
 
-```ts
-import App from './src/AppShell';
-```
-
-Không cần sửa gì khác. `App.tsx` giữ nguyên làm màn đàm phán Phòng 1.
-
-## Việc còn lại (không làm trong nhánh này)
-
-1. **Nút quay lại Home từ vòng đàm phán:** `App.tsx` chưa có. Cần thêm 1 nút "‹ Trang chủ" trong `App.tsx` gọi callback `onExit` — việc của Migga (sửa file Slice 1, ngoài phạm vi nhánh này). Hiện tại thoát vòng = đóng/mở lại app.
-2. **Lưu tiến bộ thật:** `progress.ts` đang là seed in-memory — mất khi đóng app. Nối AsyncStorage sau hackathon.
-3. **Luồng đàm phán cho Phòng 2–5:** chưa có — bấm vào phòng mở nhưng chưa build thì ở lại Map. Slice 2 (chấm điểm) của Milo có thể nối `completeRoom('rent')` khi thẻ tiết kiệm hiện ra để mở Phòng 2.
-4. **Verify:** chưa chạy được `tsc`/`expo start` ở đây (không có `node_modules`, không chạy `npm install` theo yêu cầu). Code viết theo đúng pattern/style của `App.tsx` hiện có (cùng màu `#101418`/`#1b232b`/`#2f81f7`/`#243040`, cùng component RN). Team chạy `npx tsc --noEmit` + `npx expo start` trên máy có deps để kiểm chứng trước khi merge.
+Chạy `npx tsc --noEmit` để kiểm tra kiểu TypeScript. Không cần khởi động máy chủ phát triển để làm bước này.

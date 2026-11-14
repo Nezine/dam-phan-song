@@ -1,79 +1,77 @@
-// Danh mục phòng tập — Đàm Phán Sống là app luyện kỹ năng đàm phán nói chung.
-// Thuê trọ chỉ là Phòng 1 (phòng tập đầu tiên), KHÔNG phải toàn bộ app.
-// Copy giữ khung rộng: "luyện nói chuyện khó", không đóng khung vào trọ.
+// Danh mục phòng luyện kỹ năng thuyết phục và đàm phán.
 
-export type RoomId = 'rent' | 'deposit' | 'salary-parttime' | 'interview' | 'investor';
+export type RoomId = 'sales' | 'income' | 'teaching' | 'speaking' | 'wealth';
 
 export type Room = {
   id: RoomId;
-  order: number; // thứ tự trên bản đồ
+  order: number;
   icon: string;
   title: string;
-  tagline: string; // 1 dòng: phòng này luyện gì
+  tagline: string;
   desc: string;
-  scenarios: string[]; // bộ tình huống trong phòng
-  difficulty: 1 | 2 | 3; // 1 = dễ, 2 = vừa, 3 = khó
-  unlockText: string; // điều kiện mở khóa (hiển thị khi đang khóa)
-  requiresRoomCompleted?: RoomId; // phải hoàn thành phòng này trước
-  requiresLevel?: number; // hoặc đạt cấp này
+  scenarios: string[];
+  difficulty: 1 | 2 | 3;
+  unlockText: string;
+  requiresRoomCompleted?: RoomId;
+  requiresLevel?: number;
 };
 
 export const ROOMS: Room[] = [
   {
-    id: 'rent',
+    id: 'sales',
     order: 1,
     icon: '1',
-    title: 'Mặc cả giá',
-    tagline: 'Phòng 1 trong 5 — tình huống quen thuộc nhất để bắt đầu',
-    desc: 'Luyện kỹ năng mặc cả qua tình huống quen thuộc nhất: giá, tiền cọc, điều khoản thanh toán — với đối phương AI khó tính nhưng nhất quán.',
-    scenarios: ['Giá sàn cứng', 'Phòng ẩm mốc', 'Cọc 2 tháng'],
+    title: 'Thuyết phục khách mua hàng',
+    tagline: 'Phòng 1 trong 5 — thực hành tư vấn và chốt đơn',
+    desc: 'Luyện lắng nghe nhu cầu, xử lý băn khoăn về giá và tạo niềm tin để khách hàng tự tin quyết định mua.',
+    scenarios: ['Giá vượt ngân sách', 'Chưa thấy cần thiết', 'Cần thêm niềm tin', 'Chưa đúng thời điểm'],
     difficulty: 1,
     unlockText: 'Đã mở',
   },
   {
-    id: 'deposit',
+    id: 'income',
     order: 2,
     icon: '2',
-    title: 'Đòi lại tiền cọc',
-    tagline: 'Đòi cọc có lý, có chứng cứ',
-    desc: 'Luyện đòi lại cọc khi chuyển đi: phản bác khoản trừ tiền sửa chữa vô lý, xử lý cọc bị giữ quá hạn.',
-    scenarios: ['Đòi lại cọc khi chuyển đi', 'Trừ tiền sửa chữa vô lý', 'Cọc giữ quá hạn'],
+    title: 'Đàm phán thu nhập',
+    tagline: 'Đưa giá trị công việc vào cuộc trò chuyện',
+    desc: 'Luyện đề xuất mức thu nhập và thỏa thuận điều kiện công việc dựa trên kết quả cụ thể.',
+    scenarios: ['Đề xuất mức thu nhập', 'Trao đổi đãi ngộ', 'Thỏa thuận lịch làm'],
     difficulty: 2,
     unlockText: 'Hoàn thành Phòng 1 để mở',
-    requiresRoomCompleted: 'rent',
+    requiresRoomCompleted: 'sales',
   },
   {
-    id: 'salary-parttime',
+    id: 'teaching',
     order: 3,
     icon: '3',
-    title: 'Lương làm thêm',
-    tagline: 'Xin tăng lương mà không run',
-    desc: 'Luyện xin tăng lương theo giờ bằng kết quả đã làm được, đòi lương trả chậm, thương lượng ca làm với quản lý.',
-    scenarios: ['Xin tăng lương theo giờ', 'Đòi lương trả chậm', 'Thương lượng ca làm'],
+    title: 'Giảng dạy thuyết phục',
+    tagline: 'Giải thích rõ để người học muốn tiến bộ',
+    desc: 'Luyện trình bày ý tưởng, phản hồi câu hỏi khó và giúp người học cam kết với bước tiếp theo.',
+    scenarios: ['Giải thích khái niệm khó', 'Gỡ vướng khi học', 'Tạo động lực thực hành'],
     difficulty: 2,
     unlockText: 'Hoàn thành Phòng 2 để mở',
-    requiresRoomCompleted: 'deposit',
+    requiresRoomCompleted: 'income',
   },
   {
-    id: 'interview',
+    id: 'speaking',
     order: 4,
     icon: '4',
-    title: 'Phỏng vấn xin việc',
-    tagline: 'Trả lời cứng trước nhà tuyển dụng',
-    desc: 'Luyện trả lời câu hỏi khó, thương lượng lương khởi điểm, giữ bình tĩnh khi phỏng vấn nhóm dưới áp lực.',
-    scenarios: ['"Điểm yếu của bạn là gì?"', 'Thương lượng lương khởi điểm', 'Phỏng vấn nhóm'],
+    title: 'Diễn giả tự tin',
+    tagline: 'Giữ sự chú ý và trả lời câu hỏi khó',
+    desc: 'Luyện mở đầu cuốn hút, trình bày thông điệp ngắn gọn và ứng biến trước khán giả.',
+    scenarios: ['Mở đầu bài nói', 'Trả lời phản biện', 'Kêu gọi hành động'],
     difficulty: 3,
     unlockText: 'Đạt cấp 5 để mở',
     requiresLevel: 5,
   },
   {
-    id: 'investor',
+    id: 'wealth',
     order: 5,
     icon: '5',
-    title: 'Trả lời nhà đầu tư',
-    tagline: 'Đàm phán ở bàn lớn',
-    desc: 'Luyện gọi vốn vòng đầu, trả lời câu hỏi xoáy về doanh thu, từ chối mà vẫn giữ quan hệ.',
-    scenarios: ['Gọi vốn vòng đầu', 'Bị hỏi xoáy về doanh thu', 'Từ chối mà vẫn giữ quan hệ'],
+    title: 'Làm giàu và phát triển bản thân',
+    tagline: 'Biến mục tiêu lớn thành quyết định rõ ràng',
+    desc: 'Luyện trình bày cơ hội, kiểm tra giả định và tạo cam kết cho kế hoạch phát triển dài hạn.',
+    scenarios: ['Trình bày cơ hội kinh doanh', 'Phản hồi câu hỏi khó', 'Lập kế hoạch phát triển'],
     difficulty: 3,
     unlockText: 'Đạt cấp 8 để mở',
     requiresLevel: 8,

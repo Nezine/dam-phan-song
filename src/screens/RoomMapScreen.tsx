@@ -1,5 +1,4 @@
-// Màn Bản đồ phòng tập — 5 phòng, từ mặc cả đến gọi vốn.
-// Phòng 1 là mặc cả giá; mỗi phòng có bộ tình huống, độ khó, trạng thái khóa/mở riêng.
+// Màn Bản đồ phòng tập — 5 phòng với tình huống và cấp độ riêng.
 // Phòng khóa hoặc chưa có vòng luyện KHÔNG nuốt tap: bấm vào hiện thông báo
 // nói rõ lý do (chưa đủ điều kiện mở / vòng luyện sắp có) rồi tự ẩn sau vài giây.
 import { useEffect, useRef, useState } from 'react';
@@ -11,7 +10,7 @@ import type { RoomProgress } from '../lib/roomProgress';
 
 // Chỉ Phòng 1 đã có vòng đàm phán thật. Phòng khác dù đã mở khóa vẫn chưa
 // có luồng để vào — bấm vào phải nói rõ "sắp có", không được giả vờ vào được.
-const PLAYABLE_ROOMS: RoomId[] = ['rent'];
+const PLAYABLE_ROOMS: RoomId[] = ['sales'];
 
 type Props = {
   progress: RoomProgress;

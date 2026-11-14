@@ -1,5 +1,5 @@
 // AppShell — vỏ điều hướng mới, KHÔNG sửa file Slice 1 nào.
-// Luồng: Home → Bản đồ phòng tập → vòng đàm phán (App Slice 1, Phòng 1: mặc cả giá).
+// Luồng: Home → Bản đồ phòng tập → vòng thuyết phục khách mua hàng.
 // Chỉ Phòng 1 đã có luồng đàm phán thật; các phòng khác đang khóa/sắp có nên
 // bấm vào sẽ hiện thông báo ở màn Map (xem RoomMapScreen), không nuốt tap.
 // Để dùng: đổi 1 dòng trong index.ts — `import App from './App'` thành
@@ -49,7 +49,7 @@ export default function AppShell() {
         progress={progress}
         onBack={() => setScreen('home')}
         onEnterRoom={(roomId) => {
-          if (roomId === 'rent') setScreen('negotiate');
+          if (roomId === 'sales') setScreen('negotiate');
           // Phòng khác chưa có luồng đàm phán — RoomMapScreen đã chặn ở
           // tầng giao diện (hiện thông báo), không gọi vào đây.
         }}
@@ -62,7 +62,7 @@ export default function AppShell() {
       progress={progress}
       onOpenMap={() => setScreen('map')}
       onStartRoom={(roomId) => {
-        if (roomId === 'rent') setScreen('negotiate');
+        if (roomId === 'sales') setScreen('negotiate');
       }}
     />
   );

@@ -1,24 +1,22 @@
-# Đàm Phán Sống — Product Vision
+# Tầm nhìn sản phẩm — Đàm Phán Sống
 
-**This is NOT a room-rental negotiation app.**
+**Đàm Phán Sống là Duolingo cho kỹ năng thuyết phục và đàm phán.** Người dùng học một kỹ thuật, thực hành với nhân vật AI, nhận phản hồi cụ thể và lên cấp qua các phòng luyện.
 
-**This is Duolingo for negotiation** — a skill trainer for difficult conversations. Rent negotiation is only Room 1.
+## Lộ trình
 
-## The product
+- **Phòng 1:** thuyết phục khách mua hàng; nhân vật AI là khách hàng có ngân sách tối đa bí mật.
+- **Phòng 2:** thuyết phục và đàm phán thu nhập.
+- **Phòng 3:** giảng dạy và giúp người học cam kết hành động.
+- **Phòng 4:** diễn thuyết và trả lời câu hỏi khó.
+- **Phòng 5:** làm giàu và cải thiện bản thân qua quyết định có kế hoạch.
 
-- A training app for negotiation as a skill: learn, practice, get scored, level up.
-- Training rooms: rent negotiation (Room 1), deposit, part-time salary, job interviews, investor Q&A — each with its own scenarios, characters, and scoring scale.
-- The loop: practice a round → fixed-scale scoring (which line was weak and why) → learning roadmap (exercises, tests, practice) → visible progress (XP, streaks, levels).
-- Gamification, psychology lessons, good UX/UI.
+## Vòng luyện
 
-## What this hackathon judges
+Học kỹ thuật → thực hành bằng giọng nói → nhận điểm theo tiêu chí cố định → xem gợi ý cho câu tiếp theo → tích lũy XP và mở phòng mới.
 
-- Frontend first. Backend is NOT the point of this competition.
-- The frontend must be high-end: beautiful, friendly, intuitive. No AI slop, no sloppy placeholders.
-- One live demo on a real phone: a full negotiation round, scored live.
+## Tiêu chuẩn trải nghiệm
 
-## Rules for everyone building
-
-- No copy anywhere frames the whole app as "the rent app". Rent is Room 1, an example, not the product.
-- Builder never self-grades — every change passes an independent judge before merge.
-- Ship the visible thing first: what the user sees on the phone beats what runs on the server.
+- Giao diện cao cấp, rõ ràng và thân thiện trên điện thoại.
+- Hội thoại ngắn, tự nhiên; nhân vật nhất quán và có mục tiêu riêng.
+- Giải thích điểm bằng câu người dùng đã nói.
+- Giữ luồng chính nhanh, dễ thao tác và phù hợp cả iOS lẫn Android.

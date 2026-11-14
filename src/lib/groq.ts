@@ -1,32 +1,32 @@
 // Groq fallback (free): gpt-oss-20b JSON mode, dùng khi Gemini lỗi/quota.
-import type { Scenario, LandlordReply } from './types';
+import type { Scenario, CustomerReply } from './types';
 
 export const GROQ_API_KEY = process.env.EXPO_PUBLIC_GROQ_API_KEY ?? '';
 export const GROQ_MODEL = process.env.EXPO_PUBLIC_GROQ_MODEL ?? 'openai/gpt-oss-20b';
 const BASE = 'https://api.groq.com/openai/v1/chat/completions';
 
 function systemPrompt(s: Scenario): string {
-  return `Bạn là CHỦ TRỌ thật ở ${s.city} — nói tiếng Việt đời thường, ngắn gọn (1–3 câu, tối đa ~40 chữ), KHÔNG giọng trợ lý AI.
-Phòng: ${s.roomType}, rao ${s.listedPrice}đ/tháng, người thuê tên ${s.tenantName}, vào ở ${s.moveIn}.
-Giá sàn bí mật: ${s.floorPrice}đ/tháng — CHỐT KHÔNG ĐƯỢC THẤP HƠN. Nhượng bộ từng chút một, có lý do đời thường, có thể gạ đặt cọc.
-Chỉ khi 2 bên đồng ý mức giá >= sàn thì agreed=true, agreedPrice=giá chốt.
-currentPrice = mức giá bạn đề trong lượt này (VND/tháng, null nếu không đề).
-Giọng theo thành phố (${s.city}): xưng hô lịch sự anh/chị/em, không lạm dụng lóng, một phiên một giọng.
-${s.twist === 'hardline' ? 'TÌNH HUỐNG KHÓ: bạn đang cứng giá ("dưới sàn không cho thuê, có người chờ cọc"). Bị ép thì nhượng bộ bằng điều kiện (miễn tháng đầu/giảm cọc/bao điện nước), không gật ngay, chỉ chốt >= sàn.\n' : ''}${s.twist === 'mold' ? 'TÌNH HUỐNG KHÓ: người thuê chê tường ẩm đòi giảm. Gạt nhẹ "ở được, ai cũng ở vậy"; nêu lý do hợp lý thì giảm một bước cụ thể.\n' : ''}${s.twist === 'deposit' ? 'TÌNH HUỐNG KHÓ: cọc 2 tháng + đóng 3 tháng/lần (~10tr tiền mặt). Kẹt tiền thì nhượng bộ về điều khoản thanh toán, không giảm giá thuê thêm.\n' : ''}Trả về JSON duy nhất: {"message": string, "currentPrice": number|null, "agreed": boolean, "agreedPrice": number|null, "emotion": "friendly"|"neutral"|"annoyed"}`;
+  return `Bạn là một KHÁCH HÀNG đang cân nhắc mua hàng tại ${s.city}. Trò chuyện bằng tiếng Việt tự nhiên, ngắn gọn (1–3 câu), không nói như trợ lý AI.
+Sản phẩm: ${s.productName}, giá niêm yết ${s.listedPrice}đ. Người bán: ${s.sellerName}.
+Bạn có ngân sách tối đa bí mật ${s.maxBudget}đ. Không tiết lộ con số hoặc giới hạn này. Nếu giá đề xuất vượt ngân sách, hãy nêu băn khoăn chung về giá mà không cho biết mức tối đa.
+Bạn cân nhắc giá, nhu cầu, niềm tin và thời điểm. Chỉ đồng ý mua khi mức giá người bán vừa nêu không vượt ngân sách bí mật. Khi đồng ý, đặt agreed=true, agreedPrice bằng đúng giá đó và xác nhận sẽ mua. Nếu chưa có giá hoặc còn băn khoăn, hãy phản hồi thật, không giả vờ chốt.
+currentPrice chỉ là giá bạn thật sự nêu ra trong câu trả lời; nếu không nêu giá, dùng null. Không dùng ngân sách bí mật làm currentPrice.
+Tình huống: ${s.twist === 'price' ? 'cân nhắc giá trị so với giá tiền' : s.twist === 'need' ? 'chưa thấy rõ nhu cầu hoặc lợi ích' : s.twist === 'trust' ? 'cần thêm thông tin về chất lượng và bảo hành' : s.twist === 'timing' ? 'chưa sẵn sàng mua ngay' : 'đánh giá sản phẩm có phù hợp không'}.
+Trả về JSON duy nhất: {"message": string, "currentPrice": number|null, "agreed": boolean, "agreedPrice": number|null, "emotion": "friendly"|"neutral"|"annoyed"}`;
 }
 
-export async function groqLandlordTurn(
+export async function groqCustomerTurn(
   scenario: Scenario,
-  history: { speaker: 'tenant' | 'landlord'; text: string }[],
-  tenantText: string,
-): Promise<LandlordReply> {
+  history: { speaker: 'seller' | 'customer'; text: string }[],
+  sellerText: string,
+): Promise<CustomerReply> {
   const messages = [
     { role: 'system', content: systemPrompt(scenario) },
     ...history.map((t) => ({
-      role: t.speaker === 'tenant' ? 'user' as const : 'assistant' as const,
+      role: t.speaker === 'seller' ? 'user' as const : 'assistant' as const,
       content: t.text,
     })),
-    { role: 'user', content: `${scenario.tenantName} vừa nói: "${tenantText}"` },
+    { role: 'user', content: `${scenario.sellerName} vừa nói: "${sellerText}"` },
   ];
   const res = await fetch(BASE, {
     method: 'POST',
@@ -42,5 +42,5 @@ export async function groqLandlordTurn(
   const json = await res.json();
   const raw = json?.choices?.[0]?.message?.content;
   if (!raw) throw new Error('Groq: no reply');
-  return JSON.parse(raw) as LandlordReply;
+  return JSON.parse(raw) as CustomerReply;
 }

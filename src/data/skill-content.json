@@ -315,7 +315,7 @@
           "correct": 0,
           "explanation": "Mirroring là lặp lại vài từ then chốt với giọng tò mò, giúp đối phương tự mở rộng thông tin và cảm thấy được lắng nghe.",
           "options": [
-            "Lặp lại 1-3 từ quan trọng đối phương vừa nói rồi im lặng để họ nói thêm",
+            "Lặp lại 1-3 từ then chốt đối phương vừa nói rồi im lặng để họ nói thêm",
             "Nhại lại toàn bộ câu của đối phương để chọc tức họ",
             "Nói 'Tôi hiểu' thật nhanh để chuyển chủ đề",
             "Đưa ra con số cao gấp đôi để gây sốc"
@@ -406,7 +406,7 @@
         },
         {
           "example": "Nhà tuyển dụng nói 'Ngân sách cho vị trí này khá hạn chế', bạn đáp: 'Ngân sách khá hạn chế?' rồi chờ họ giải thích thêm về khung ngân sách thật.",
-          "how_to": "Lặp lại 1-3 từ quan trọng cuối cùng đối phương vừa nói rồi im lặng để họ nói thêm, và gọi tên cảm xúc bạn nghe thấy bằng câu 'Có vẻ như…'",
+          "how_to": "Lặp lại 1-3 từ then chốt cuối cùng đối phương vừa nói rồi im lặng để họ nói thêm, và gọi tên cảm xúc bạn nghe thấy bằng câu 'Có vẻ như…'",
           "name": "Mirroring và Labeling — Lắng nghe kiểu Chris Voss",
           "source": "https://www.businessfloss.com/books/never-split-the-difference"
         },
@@ -609,7 +609,7 @@
           "source": "https://en.wikipedia.org/wiki/Bloom's_taxonomy"
         },
         {
-          "example": "Sau mỗi 15 phút giảng, dừng 2 phút để học viên viết ra điều quan trọng nhất vừa học được rồi trao đổi với người ngồi cạnh trước khi bạn giảng tiếp.",
+          "example": "Sau mỗi 15 phút giảng, dừng 2 phút để học viên viết ra điều then chốt nhất vừa học được rồi trao đổi với người ngồi cạnh trước khi bạn giảng tiếp.",
           "how_to": "Xen kẽ bài giảng bằng hoạt động ngắn: dừng lại cho học viên thảo luận theo cặp, viết lại những gì vừa nhớ được, hoặc dự đoán kết quả trước khi bạn giải thích.",
           "name": "Học chủ động — để học viên làm, không chỉ nghe",
           "source": "https://cft.vanderbilt.edu/wp-content/uploads/sites/59/Active-Learning.pdf"
@@ -644,7 +644,7 @@
     {
       "exercises": [
         {
-          "prompt": "Hãy chọn một chủ đề bạn muốn thuyết trình và viết thông điệp chính của nó trong 1–2 câu. Sau đó liệt kê 3 ý bạn định nói và kiểm tra cùng tôi: ý nào không gắn với throughline thì cắt bỏ, ý nào còn thiếu để dẫn khán giả đi trọn hành trình?",
+          "prompt": "Hãy chọn một chủ đề bạn muốn thuyết trình và viết thông điệp chính của nó trong 1–2 câu. Sau đó liệt kê 3 ý bạn định nói và kiểm tra cùng tôi: ý nào không gắn với throughline thì cắt bỏ, ý nào còn thiếu để dẫn khán giả xuyên suốt bài nói?",
           "source": "https://blog.acumenacademy.org/overcome-fear-of-public-speaking",
           "title": "Viết throughline trong 2 câu"
         },
@@ -659,7 +659,7 @@
           "title": "Thuộc lòng 1 phút mở đầu"
         },
         {
-          "prompt": "Hãy chọn một đoạn 5 câu trong bài nói của bạn và đọc to cho tôi nghe với tốc độ chậm hơn bình thường, dừng 2 giây trước câu quan trọng nhất. Tôi sẽ nhận xét nhịp điệu và chỗ dừng của bạn, rồi bạn đọc lại đoạn đó một lần nữa.",
+          "prompt": "Hãy chọn một đoạn 5 câu trong bài nói của bạn và đọc to cho tôi nghe với tốc độ chậm hơn bình thường, dừng 2 giây trước câu then chốt nhất. Tôi sẽ nhận xét nhịp điệu và chỗ dừng của bạn, rồi bạn đọc lại đoạn đó một lần nữa.",
           "source": "https://www.mindtools.com/aj0cg4r/better-public-speaking-video/",
           "title": "Nói chậm và dừng đúng chỗ"
         },
@@ -672,7 +672,7 @@
       "id": "public-speaking",
       "milestones": [
         {
-          "description": "Nói trọn một bài ngắn 2 phút mà không đọc nguyên văn, thở đều và giữ được ánh mắt với khán giả.",
+          "description": "Trình bày một bài ngắn 2 phút mà không đọc nguyên văn, thở đều và giữ được ánh mắt với khán giả.",
           "level": 1,
           "title": "Đứng vững trên sân khấu"
         },
@@ -824,7 +824,7 @@
           "source": "https://en.wikipedia.org/wiki/Modes_of_persuasion"
         },
         {
-          "example": "Throughline: “Sự dễ tổn thương là điều đáng trân trọng, không phải để giấu đi” — mọi câu chuyện trong bài đều quay về ý này.",
+          "example": "Throughline: “Sự dễ tổn thương là điều đáng quý, không phải để giấu đi” — mọi câu chuyện trong bài đều quay về ý này.",
           "how_to": "Tóm tắt thông điệp chính trong 1–2 câu, rồi cắt bỏ mọi ý không gắn với sợi chỉ đó và sắp xếp các ý còn lại thành một hành trình có thứ tự.",
           "name": "Throughline — Một sợi chỉ xuyên suốt bài nói",
           "source": "https://blog.acumenacademy.org/overcome-fear-of-public-speaking"
@@ -842,8 +842,8 @@
           "source": "https://www.toastmasters.org/magazine/magazine-issues/2023/apr/back-to-the-basics-keeping-your-cool"
         },
         {
-          "example": "Đọc một câu nhấn vào một từ khác nhau mỗi lần để tập biểu cảm giọng; khi hồi hộp, dừng 2 giây, hít thở rồi nói tiếp câu quan trọng nhất.",
-          "how_to": "Phát âm rõ từng từ, thay đổi cao độ và âm lượng ở ý quan trọng, cố tình nói chậm khi hồi hộp, và dừng lại để lấy lại suy nghĩ thay vì nói vội.",
+          "example": "Đọc một câu nhấn vào một từ khác nhau mỗi lần để tập biểu cảm giọng; khi hồi hộp, dừng 2 giây, hít thở rồi nói tiếp câu then chốt nhất.",
+          "how_to": "Phát âm rõ từng từ, thay đổi cao độ và âm lượng ở ý then chốt, cố tình nói chậm khi hồi hộp, và dừng lại để lấy lại suy nghĩ thay vì nói vội.",
           "name": "Giọng nói và nhịp điệu: rõ ràng, chậm lại, biết dừng",
           "source": "https://www.mindtools.com/awsk48f/a-z-guide-to-getting-the-best-from-your-voice/"
         },
@@ -1003,10 +1003,10 @@
           "correct": 3,
           "explanation": "Clear nhấn mạnh hệ thống lớn hơn mục tiêu: thành công đến từ những lựa chọn tốt hơn 1% lặp lại mỗi ngày.",
           "options": [
-            "Chỉ mục tiêu lớn mới quan trọng",
+            "Chỉ mục tiêu lớn mới tạo giá trị",
             "Động lực bùng nổ trong một tuần",
             "May mắn và thời điểm",
-            "Hệ thống hằng ngày — vì làm chủ thói quen quan trọng hơn đạt một kết quả đơn lẻ"
+            "Hệ thống hằng ngày — vì làm chủ thói quen hữu ích hơn chỉ đạt một kết quả đơn lẻ"
           ],
           "question": "Theo James Clear, điều gì quyết định tiến bộ dài hạn hơn: mục tiêu lớn hay hệ thống hằng ngày?",
           "source": "https://jamesclear.com/marginal-gains"
@@ -1052,8 +1052,8 @@
         },
         {
           "example": "Đặt lịch 20h mỗi tối luyện đàm phán 15 phút, thay vì chỉ đặt mục tiêu 'giỏi đàm phán trong năm nay'.",
-          "how_to": "Đặt lịch cố định cho việc quan trọng và xây hệ thống lặp lại, thay vì chỉ đặt một mục tiêu lớn rồi chờ động lực.",
-          "name": "Hệ thống quan trọng hơn mục tiêu",
+          "how_to": "Đặt lịch cố định cho việc cần ưu tiên và xây hệ thống lặp lại, thay vì chỉ đặt một mục tiêu lớn rồi chờ động lực.",
+          "name": "Hệ thống tốt hơn chỉ có mục tiêu",
           "source": "https://jamesclear.com/marginal-gains"
         },
         {
