@@ -1,8 +1,8 @@
 // Local-only progress storage (no account, no cloud).
 // "Lưu được" = survives app restart on the same phone.
-// Uses the SDK 58 expo-file-system API: Paths.document for the directory,
-// legacy read/write helpers for the JSON file itself.
-import * as FileSystem from 'expo-file-system';
+// Uses the SDK 58 expo-file-system API (Paths.document + File) throughout;
+// the legacy FileSystem.*Async helpers are runtime stubs in SDK 58 and
+// must not be used here.
 import { Paths, File } from 'expo-file-system';
 
 export type Progress = {
@@ -14,18 +14,15 @@ export type Progress = {
 
 const EMPTY: Progress = { sessions: 0, totalSaved: 0, bestScore: 0, updatedAt: '' };
 
-function fileUri(): string {
-  return new File(Paths.document, 'dam-phan-song-progress.json').uri;
+function progressFile(): File {
+  return new File(Paths.document, 'dam-phan-song-progress.json');
 }
 
 export async function loadProgress(): Promise<Progress> {
   try {
-    const uri = fileUri();
-    const info = await FileSystem.getInfoAsync(uri);
-    if (!info.exists) return EMPTY;
-    const raw = await FileSystem.readAsStringAsync(uri, {
-      encoding: FileSystem.EncodingType.UTF8,
-    });
+    const f = progressFile();
+    if (!f.exists) return EMPTY;
+    const raw = await f.text();
     const parsed = JSON.parse(raw) as Partial<Progress>;
     return {
       sessions: typeof parsed.sessions === 'number' ? parsed.sessions : 0,
@@ -47,9 +44,7 @@ export async function recordSession(savedPerMonth: number, scorePercent: number)
     updatedAt: new Date().toISOString(),
   };
   try {
-    await FileSystem.writeAsStringAsync(fileUri(), JSON.stringify(next), {
-      encoding: FileSystem.EncodingType.UTF8,
-    });
+    await progressFile().write(JSON.stringify(next));
   } catch {
     // Progress is best-effort; a failed write must never break the demo.
   }
