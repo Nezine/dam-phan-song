@@ -20,6 +20,7 @@ type Screen = 'home' | 'map' | 'negotiate';
 
 export default function AppShell() {
   const [screen, setScreen] = useState<Screen>('home');
+  const [quick, setQuick] = useState(false); // Luyện nhanh: vào thẳng, bỏ qua chuẩn bị
   const [progress, setProgress] = useState<RoomProgress>({
     ...EMPTY_PROGRESS,
     roomsCompleted: [],
@@ -40,7 +41,15 @@ export default function AppShell() {
   if (screen === 'negotiate') {
     // Vòng đàm phán Slice 1 (Phòng 1). App.tsx nhận onExit để hiện nút
     // "‹ Trang chủ" — bấm là về Home (vòng đang dở sẽ bị hủy).
-    return <App onExit={() => setScreen('home')} />;
+    return (
+      <App
+        quickStart={quick}
+        onExit={() => {
+          setQuick(false);
+          setScreen('home');
+        }}
+      />
+    );
   }
 
   if (screen === 'map') {
@@ -63,6 +72,10 @@ export default function AppShell() {
       onOpenMap={() => setScreen('map')}
       onStartRoom={(roomId) => {
         if (roomId === 'rent') setScreen('negotiate');
+      }}
+      onQuickStart={() => {
+        setQuick(true);
+        setScreen('negotiate');
       }}
     />
   );

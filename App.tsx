@@ -88,7 +88,7 @@ const TWISTS: { key: Scenario['twist']; label: string; desc: string; city: strin
   },
 ];
 
-export default function App({ onExit }: { onExit?: () => void }) {
+export default function App({ onExit, quickStart }: { onExit?: () => void; quickStart?: boolean }) {
   // --- setup state (đơn giản hóa cho demo: nhập trước khi bấm Bắt đầu) ---
   const [started, setStarted] = useState(false);
   const [tenantName, setTenantName] = useState('Minh');
@@ -297,6 +297,16 @@ export default function App({ onExit }: { onExit?: () => void }) {
     const preset = TWISTS.find((t) => t.key === scenario?.twist);
     startNegotiation(preset);
   };
+
+  // Luyện nhanh 1 phút (retention spec #2): vào thẳng preset 1, không qua
+  // màn chuẩn bị — chỉ chạy 1 lần khi AppShell mở bằng nút Luyện nhanh.
+  const quickStartedRef = useRef(false);
+  useEffect(() => {
+    if (!quickStart || quickStartedRef.current) return;
+    quickStartedRef.current = true;
+    startNegotiation(TWISTS[0]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quickStart]);
 
   // Gọi chủ trọ (không thêm lượt người thuê — dùng cho Thử lại, P0-5).
   const callLandlord = async (tenantText: string) => {
