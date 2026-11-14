@@ -124,6 +124,7 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
 
   useEffect(() => {
     mutedRef.current = muted;
+    if (muted) void Speech.stop();
   }, [muted]);
 
   const speak = (text: string) => {
@@ -587,7 +588,7 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
         <Pressable style={styles.bigBtn} onPress={restartSameScenario}>
           <Text style={styles.bigBtnText}>Luyện lại tình huống này</Text>
         </Pressable>
-        <Pressable style={styles.bigBtn} onPress={onExit ?? backToSetup}>
+        <Pressable style={styles.backBtn} onPress={onExit ?? backToSetup}>
           <Text style={styles.bigBtnText}>Về màn hình chính</Text>
         </Pressable>
       </ScrollView>
@@ -595,7 +596,7 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
   }
 
   return (
-    <View style={styles.screen}>
+    <KeyboardAvoidingView style={styles.screen} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       {MOCK && (
         <View style={styles.mockBanner}>
           <Text style={styles.mockText}>KHÁCH MÔ PHỎNG — chế độ trình diễn</Text>
@@ -609,14 +610,14 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
         ) : null}
         <View style={styles.headerText}>
           <Text style={styles.h1}>
-            Phòng 1 · Luyện bán hàng
+            Luyện bán hàng
           </Text>
           <Text style={styles.headerSub}>
             {twistLabel} • {scenario?.productName} • Niêm yết {fmt(scenario?.listedPrice ?? 0)}đ • Mức gần nhất: {fmt(currentPrice)}đ
           </Text>
         </View>
-        <Pressable style={styles.muteBtn} onPress={() => setMuted((m) => !m)}>
-          <Text style={styles.muteText}>{muted ? 'Tắt tiếng' : 'Bật tiếng'}</Text>
+        <Pressable accessibilityRole="button" accessibilityLabel={muted ? 'Bật giọng đọc' : 'Tắt giọng đọc'} style={styles.muteBtn} onPress={() => setMuted((m) => !m)}>
+          <Text style={styles.muteText}>{muted ? 'Bật tiếng' : 'Tắt tiếng'}</Text>
         </Pressable>
       </View>
       <ScrollView ref={scrollRef} style={styles.chat} contentContainerStyle={{ padding: 12, gap: 8 }}>
@@ -685,12 +686,12 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
           >
             <Text style={styles.bigBtnText}>Xem chấm điểm</Text>
           </Pressable>
-          <Pressable style={styles.bigBtn} onPress={backToSetup}>
+          <Pressable style={styles.backBtn} onPress={backToSetup}>
             <Text style={styles.bigBtnText}>Thử băn khoăn khác →</Text>
           </Pressable>
         </Animated.View>
       )}
-      <View style={styles.footer}>
+      {agreedPrice == null && <View style={styles.footer}>
         {recState.isRecording ? (
           <Text style={styles.recText}>Đang ghi âm {fmtTime(recSeconds)}</Text>
         ) : null}
@@ -700,14 +701,15 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
             value={textDraft}
             onChangeText={setTextDraft}
             placeholder="Hoặc gõ tin nhắn…"
+            placeholderTextColor="#9fb0bf"
             returnKeyType="send"
             onSubmitEditing={sendText}
-            editable={!busy && agreedPrice == null}
+            editable={!busy && !recState.isRecording}
           />
           <Pressable
             style={[styles.sendBtn, (!textDraft.trim() || busy || agreedPrice != null) && styles.sendBtnDisabled]}
             onPress={sendText}
-            disabled={!textDraft.trim() || busy || agreedPrice != null}
+            disabled={!textDraft.trim() || busy || recState.isRecording}
           >
             <Text style={styles.sendBtnText}>Gửi</Text>
           </Pressable>
@@ -721,8 +723,8 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
             <Text style={styles.micText}>{recState.isRecording ? 'Bấm để gửi' : 'Bấm để nói'}</Text>
           </Pressable>
         </Animated.View>
-      </View>
-    </View>
+      </View>}
+    </KeyboardAvoidingView>
   );
 }
 

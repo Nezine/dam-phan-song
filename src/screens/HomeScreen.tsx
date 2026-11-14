@@ -64,12 +64,6 @@ export default function HomeScreen({ progress, onOpenMap, onStartRoom, onQuickSt
       <Text style={styles.h1}>{greeting()}</Text>
       <Text style={styles.sub}>Luyện nói chuyện khó — mỗi ngày một vòng.</Text>
 
-      {/* Luyện nhanh: vào thẳng Phòng 1 preset 1, không qua màn chuẩn bị */}
-      <Pressable style={styles.quickBtn} onPress={onQuickStart}>
-        <Text style={styles.quickBtnText}>Luyện nhanh 1 phút</Text>
-        <Text style={styles.quickBtnSub}>Vào thẳng tình huống Phòng 1 — bỏ qua bước chuẩn bị</Text>
-      </Pressable>
-
       {/* Luyện hôm nay */}
       <View style={styles.todayCard}>
         <Text style={styles.cardLabel}>LUYỆN HÔM NAY</Text>
@@ -77,8 +71,12 @@ export default function HomeScreen({ progress, onOpenMap, onStartRoom, onQuickSt
           {currentRoom.icon} {currentRoom.title}
         </Text>
         <Text style={styles.todayDesc}>Tình huống gợi ý: “{suggested}” — {currentRoom.tagline.toLowerCase()}.</Text>
-        <Pressable style={styles.bigBtn} onPress={() => onStartRoom(currentRoom.id)}>
-          <Text style={styles.bigBtnText}>Luyện ngay →</Text>
+        <Pressable accessibilityRole="button" style={styles.bigBtn} onPress={onQuickStart}>
+          <Text style={styles.bigBtnText}>Bắt đầu luyện →</Text>
+        </Pressable>
+        <Text style={styles.sub}>Nói hoặc nhập tin nhắn. Nhận góp ý sau khi chốt đơn.</Text>
+        <Pressable accessibilityRole="button" style={styles.mapBtn} onPress={() => onStartRoom(currentRoom.id)}>
+          <Text style={styles.mapBtnText}>Tùy chỉnh tình huống</Text>
         </Pressable>
       </View>
 
@@ -90,13 +88,13 @@ export default function HomeScreen({ progress, onOpenMap, onStartRoom, onQuickSt
         </View>
         <View style={styles.stat}>
           <Text style={styles.statNum}>{progress.sessionsTotal}</Text>
-          <Text style={styles.statLabel}>vòng đã luyện</Text>
+          <Text style={styles.statLabel}>đơn đã chốt</Text>
         </View>
         <View style={styles.stat}>
           <Text style={styles.statNum}>
             {progress.roomsCompleted.length}/{ROOMS.length}
           </Text>
-          <Text style={styles.statLabel}>phòng xong</Text>
+          <Text style={styles.statLabel}>phòng hoàn thành</Text>
         </View>
       </View>
       <View style={styles.levelBox}>
@@ -105,6 +103,11 @@ export default function HomeScreen({ progress, onOpenMap, onStartRoom, onQuickSt
 
       {/* Mục tiêu ngày */}
       <DailyGoalCard roundsToday={progress.roundsToday} />
+
+      <Pressable accessibilityRole="button" style={styles.mapBtn} onPress={onOpenMap}>
+        <Text style={styles.mapBtnText}>Khám phá phòng tập →</Text>
+        <Text style={styles.mapBtnSub}>Luyện bán hàng ngay · Các phòng khác sắp ra mắt</Text>
+      </Pressable>
 
       {/* Huy hiệu — bật lưới đã viết sẵn (retention #3): chỉ hiện số thật */}
       <View style={styles.badgeBox}>
@@ -125,11 +128,6 @@ export default function HomeScreen({ progress, onOpenMap, onStartRoom, onQuickSt
         <Text style={styles.lessonText}>{challenge.text}</Text>
       </View>
 
-      {/* Vào bản đồ phòng tập */}
-      <Pressable style={styles.mapBtn} onPress={onOpenMap}>
-        <Text style={styles.mapBtnText}>Xem bản đồ phòng tập →</Text>
-        <Text style={styles.mapBtnSub}>5 phòng tập · từ bán hàng đến phát triển bản thân</Text>
-      </Pressable>
     </ScrollView>
   );
 }
@@ -151,9 +149,6 @@ const styles = StyleSheet.create({
   statLabel: { color: '#9fb0bf', fontSize: 12 },
   levelBox: { backgroundColor: '#1b232b', borderRadius: 12, padding: 12 },
   badgeBox: { backgroundColor: '#1b232b', borderRadius: 12, padding: 12, gap: 8 },
-  quickBtn: { backgroundColor: '#2f81f7', borderRadius: 12, padding: 14, gap: 2 },
-  quickBtnText: { color: '#ffffff', fontSize: 17, fontWeight: '800' },
-  quickBtnSub: { color: '#dbeafe', fontSize: 12 },
   lessonCard: { backgroundColor: '#0b2518', borderColor: '#2f9e44', borderWidth: 1, borderRadius: 16, padding: 16, gap: 6 },
   lessonTitle: { color: '#8ce99a', fontWeight: '800', fontSize: 16 },
   lessonText: { color: '#c3fae8', fontSize: 13, lineHeight: 19 },
