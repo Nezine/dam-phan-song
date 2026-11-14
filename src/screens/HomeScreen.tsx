@@ -42,12 +42,12 @@ export default function HomeScreen({ progress, onOpenMap, onStartRoom }: Props) 
 
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.pad}>
-      <Text style={styles.h1}>{greeting()} 👋</Text>
+      <Text style={styles.h1}>{greeting()}</Text>
       <Text style={styles.sub}>Luyện nói chuyện khó — mỗi ngày một vòng.</Text>
 
       {/* Luyện hôm nay */}
       <View style={styles.todayCard}>
-        <Text style={styles.cardLabel}>🎯 LUYỆN HÔM NAY</Text>
+        <Text style={styles.cardLabel}>LUYỆN HÔM NAY</Text>
         <Text style={styles.todayTitle}>
           {currentRoom.icon} {currentRoom.title}
         </Text>
@@ -60,7 +60,7 @@ export default function HomeScreen({ progress, onOpenMap, onStartRoom }: Props) 
       {/* Tóm tắt tiến bộ */}
       <View style={styles.statsRow}>
         <View style={styles.stat}>
-          <Text style={styles.statNum}>🔥 {progress.streakDays}</Text>
+          <Text style={styles.statNum}>{progress.streakDays}</Text>
           <Text style={styles.statLabel}>ngày liên tiếp</Text>
         </View>
         <View style={styles.stat}>
@@ -83,14 +83,14 @@ export default function HomeScreen({ progress, onOpenMap, onStartRoom }: Props) 
 
       {/* Bài học tâm lý hôm nay — nội dung thật từ lộ trình, xoay theo ngày */}
       <View style={styles.lessonCard}>
-        <Text style={styles.cardLabel}>🧠 BÀI HỌC HÔM NAY</Text>
+        <Text style={styles.cardLabel}>BÀI HỌC HÔM NAY</Text>
         <Text style={styles.lessonTitle}>{lesson.title}</Text>
         <Text style={styles.lessonText}>{lesson.lesson}</Text>
       </View>
 
       {/* Vào bản đồ phòng tập */}
       <Pressable style={styles.mapBtn} onPress={onOpenMap}>
-        <Text style={styles.mapBtnText}>🗺️ Xem bản đồ phòng tập →</Text>
+        <Text style={styles.mapBtnText}>Xem bản đồ phòng tập →</Text>
         <Text style={styles.mapBtnSub}>5 phòng tập · từ mặc cả đến gọi vốn</Text>
       </Pressable>
     </ScrollView>

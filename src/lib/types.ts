@@ -14,7 +14,7 @@ export type Turn = {
   speaker: 'tenant' | 'landlord';
   text: string;
   price?: number; // giá chủ trọ đưa ra trong lượt này (nếu có)
-  emotion?: 'friendly' | 'neutral' | 'annoyed'; // cảm xúc chủ trọ (UI hiển thị 😊/😐/😠)
+  emotion?: 'friendly' | 'neutral' | 'annoyed'; // cảm xúc chủ trọ (UI hiển thị bằng chữ: Vui vẻ / Bình thường / Khó chịu)
 };
 
 export type LandlordReply = {

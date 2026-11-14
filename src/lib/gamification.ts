@@ -56,7 +56,7 @@ export type Badge = {
 export const allBadges = (s: GamificationStats): Badge[] => [
   {
     id: 'first-round',
-    icon: '🎤',
+    icon: '',
     title: 'Mở lời',
     desc: 'Hoàn thành vòng đàm phán đầu tiên',
     unlocked: s.roundsPlayed >= 1,
@@ -64,7 +64,7 @@ export const allBadges = (s: GamificationStats): Badge[] => [
   },
   {
     id: 'first-win',
-    icon: '🤝',
+    icon: '',
     title: 'Chốt đầu tiên',
     desc: 'Chốt được thỏa thuận đầu tiên',
     unlocked: s.roundsWon >= 1,
@@ -72,7 +72,7 @@ export const allBadges = (s: GamificationStats): Badge[] => [
   },
   {
     id: 'streak-3',
-    icon: '🔥',
+    icon: '',
     title: '3 ngày liên tiếp',
     desc: 'Luyện 3 ngày liên tiếp',
     unlocked: s.maxStreakDays >= 3,
@@ -80,7 +80,7 @@ export const allBadges = (s: GamificationStats): Badge[] => [
   },
   {
     id: 'streak-7',
-    icon: '🌟',
+    icon: '',
     title: 'Tuần vàng',
     desc: 'Luyện 7 ngày liên tiếp',
     unlocked: s.maxStreakDays >= 7,
@@ -88,7 +88,7 @@ export const allBadges = (s: GamificationStats): Badge[] => [
   },
   {
     id: 'saving-10',
-    icon: '💰',
+    icon: '',
     title: 'Mặc cả cứng',
     desc: 'Đạt thỏa thuận tốt hơn giá mở đầu 10%',
     unlocked: s.bestSavingPct >= 10,
@@ -96,7 +96,7 @@ export const allBadges = (s: GamificationStats): Badge[] => [
   },
   {
     id: 'rounds-10',
-    icon: '🎯',
+    icon: '',
     title: 'Kiên trì',
     desc: 'Hoàn thành 10 vòng đàm phán',
     unlocked: s.roundsPlayed >= 10,
@@ -104,7 +104,7 @@ export const allBadges = (s: GamificationStats): Badge[] => [
   },
   {
     id: 'day-5',
-    icon: '⚡',
+    icon: '',
     title: 'Không bỏ cuộc',
     desc: 'Luyện 5 vòng trong 1 ngày',
     unlocked: s.roundsToday >= 5,
@@ -112,7 +112,7 @@ export const allBadges = (s: GamificationStats): Badge[] => [
   },
   {
     id: 'level-5',
-    icon: '👑',
+    icon: '',
     title: 'Lên cấp 5',
     desc: 'Đạt cấp độ 5',
     unlocked: levelFromXp(s.totalXp).level >= 5,

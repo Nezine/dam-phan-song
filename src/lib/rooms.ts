@@ -22,7 +22,7 @@ export const ROOMS: Room[] = [
   {
     id: 'rent',
     order: 1,
-    icon: '🏠',
+    icon: '1',
     title: 'Mặc cả giá',
     tagline: 'Phòng 1 trong 5 — tình huống quen thuộc nhất để bắt đầu',
     desc: 'Luyện kỹ năng mặc cả qua tình huống quen thuộc nhất: giá, tiền cọc, điều khoản thanh toán — với đối phương AI khó tính nhưng nhất quán.',
@@ -33,7 +33,7 @@ export const ROOMS: Room[] = [
   {
     id: 'deposit',
     order: 2,
-    icon: '🔑',
+    icon: '2',
     title: 'Đòi lại tiền cọc',
     tagline: 'Đòi cọc có lý, có chứng cứ',
     desc: 'Luyện đòi lại cọc khi chuyển đi: phản bác khoản trừ tiền sửa chữa vô lý, xử lý cọc bị giữ quá hạn.',
@@ -45,7 +45,7 @@ export const ROOMS: Room[] = [
   {
     id: 'salary-parttime',
     order: 3,
-    icon: '💼',
+    icon: '3',
     title: 'Lương làm thêm',
     tagline: 'Xin tăng lương mà không run',
     desc: 'Luyện xin tăng lương theo giờ bằng kết quả đã làm được, đòi lương trả chậm, thương lượng ca làm với quản lý.',
@@ -57,7 +57,7 @@ export const ROOMS: Room[] = [
   {
     id: 'interview',
     order: 4,
-    icon: '🎤',
+    icon: '4',
     title: 'Phỏng vấn xin việc',
     tagline: 'Trả lời cứng trước nhà tuyển dụng',
     desc: 'Luyện trả lời câu hỏi khó, thương lượng lương khởi điểm, giữ bình tĩnh khi phỏng vấn nhóm dưới áp lực.',
@@ -69,7 +69,7 @@ export const ROOMS: Room[] = [
   {
     id: 'investor',
     order: 5,
-    icon: '📈',
+    icon: '5',
     title: 'Trả lời nhà đầu tư',
     tagline: 'Đàm phán ở bàn lớn',
     desc: 'Luyện gọi vốn vòng đầu, trả lời câu hỏi xoáy về doanh thu, từ chối mà vẫn giữ quan hệ.',

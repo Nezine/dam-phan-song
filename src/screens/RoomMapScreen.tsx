@@ -129,7 +129,7 @@ export default function RoomMapScreen({ progress, onBack, onEnterRoom }: Props) 
         <Pressable onPress={onBack} hitSlop={12}>
           <Text style={styles.back}>‹ Trang chủ</Text>
         </Pressable>
-        <Text style={styles.h1}>🗺️ Bản đồ phòng tập</Text>
+        <Text style={styles.h1}>Bản đồ phòng tập</Text>
         <Text style={styles.sub}>
           Mỗi phòng là một loại chuyện khó. Luyện xong phòng trước để mở phòng sau —
           càng lên cao, đối phương càng cứng.
@@ -176,11 +176,11 @@ export default function RoomMapScreen({ progress, onBack, onEnterRoom }: Props) 
                 onPressOut={() => animatePress(pressProgress, false)}
                 onPress={() => {
                   if (!unlocked) {
-                    showNotice(`🔒 ${room.title} chưa mở — ${room.unlockText}`);
+                    showNotice(`${room.title} chưa mở — ${room.unlockText}`);
                     return;
                   }
                   if (!hasFlow) {
-                    showNotice(`🕒 ${room.title} sắp có — vòng luyện đang được làm, quay lại sau nhé.`);
+                    showNotice(`${room.title} sắp có — vòng luyện đang được làm, quay lại sau nhé.`);
                     return;
                   }
                   onEnterRoom(room.id);
@@ -195,11 +195,11 @@ export default function RoomMapScreen({ progress, onBack, onEnterRoom }: Props) 
                   </View>
                   <Text style={styles.badge}>
                     {done
-                      ? '✅ Xong'
+                      ? 'Xong'
                       : !unlocked
-                        ? '🔒 Khóa'
+                        ? 'Khóa'
                         : !hasFlow
-                          ? '🕒 Sắp có'
+                          ? 'Sắp có'
                           : isCurrent
                             ? '▶ Đang luyện'
                             : 'Mở'}
@@ -217,7 +217,7 @@ export default function RoomMapScreen({ progress, onBack, onEnterRoom }: Props) 
                   <DifficultyDots d={room.difficulty} />
                   {!unlocked && <Text style={styles.unlockText}>{room.unlockText}</Text>}
                   {unlocked && hasFlow && !done && <Text style={styles.enterText}>Vào luyện →</Text>}
-                  {unlocked && !hasFlow && !done && <Text style={styles.soonText}>🕒 Sắp có</Text>}
+                  {unlocked && !hasFlow && !done && <Text style={styles.soonText}>Sắp có</Text>}
                 </View>
               </Pressable>
                 </Animated.View>

@@ -38,10 +38,10 @@ const MOCK = !GEMINI_API_KEY; // không có key → MOCK MODE (banner đỏ trê
 // không gọi API transcribe. 500 bytes ≈ 0,1s âm thanh nén, dưới mức một từ nói.
 const MIN_VOICE_BYTES = 500;
 
-const EMOJI: Record<NonNullable<Turn['emotion']>, string> = {
-  friendly: '😊',
-  neutral: '😐',
-  annoyed: '😠',
+const MOOD_LABEL: Record<NonNullable<Turn['emotion']>, string> = {
+  friendly: 'Vui vẻ',
+  neutral: 'Bình thường',
+  annoyed: 'Khó chịu',
 };
 
 // Lỗi kỹ thuật -> câu tiếng Việt thân thiện cho người dùng (P0-5).
@@ -58,7 +58,7 @@ const friendlyError = (e: unknown): string => {
 const TWISTS: { key: Scenario['twist']; label: string; desc: string; city: string; room: string; listed: string; floor: string; opening: string }[] = [
   {
     key: 'hardline',
-    label: '1️⃣ Phòng 1 · Giá sàn cứng',
+    label: '1. Phòng 1 · Giá sàn cứng',
     desc: 'Đối phương chốt 3tr2, có người chờ cọc',
     city: 'Hà Nội',
     room: 'phòng trọ có gác lửng',
@@ -68,7 +68,7 @@ const TWISTS: { key: Scenario['twist']; label: string; desc: string; city: strin
   },
   {
     key: 'mold',
-    label: '2️⃣ Phòng 1 · Phòng ẩm mốc',
+    label: '2. Phòng 1 · Phòng ẩm mốc',
     desc: 'Tường ẩm, đối phương gạt "ở được"',
     city: 'TP.HCM',
     room: 'phòng trọ 20m2',
@@ -78,7 +78,7 @@ const TWISTS: { key: Scenario['twist']; label: string; desc: string; city: strin
   },
   {
     key: 'deposit',
-    label: '3️⃣ Phòng 1 · Cọc 2 tháng',
+    label: '3. Phòng 1 · Cọc 2 tháng',
     desc: 'Đóng 3 tháng/lần, tiền mặt ~20 triệu',
     city: 'Đà Nẵng',
     room: 'căn hộ mini 25m2',
@@ -458,12 +458,12 @@ export default function App({ onExit }: { onExit?: () => void }) {
             <Text style={styles.backText}>‹ Trang chủ</Text>
           </Pressable>
         ) : null}
-        <Text style={styles.h1}>🤝 Đàm Phán Sống</Text>
+        <Text style={styles.h1}>Đàm Phán Sống</Text>
         <Text style={styles.sub}>Luyện kỹ năng đàm phán / nói chuyện khó — bằng giọng nói thật.</Text>
-        <Text style={styles.roomChip}>🏠 Phòng 1 · Đàm phán tiền trọ — phòng tập đầu tiên trong 5 phòng luyện nói chuyện khó.</Text>
+        <Text style={styles.roomChip}>Phòng 1 · Đàm phán tiền trọ — phòng tập đầu tiên trong 5 phòng luyện nói chuyện khó.</Text>
         {progress && progress.sessions > 0 ? (
           <Text style={styles.progressStrip}>
-            📈 Tiến bộ: {progress.sessions} phiên • Tiết kiệm tổng {fmt(progress.totalSaved)}đ • Điểm tốt nhất{' '}
+            Tiến bộ: {progress.sessions} phiên • Tiết kiệm tổng {fmt(progress.totalSaved)}đ • Điểm tốt nhất{' '}
             {progress.bestScore}%
           </Text>
         ) : null}
@@ -493,7 +493,7 @@ export default function App({ onExit }: { onExit?: () => void }) {
         <Pressable style={styles.bigBtn} onPress={() => startNegotiation()}>
           <Text style={styles.bigBtnText}>Bắt đầu đàm phán →</Text>
         </Pressable>
-        <Text style={styles.twistTitle}>🎯 Phòng 1 — Luyện tình huống khó:</Text>
+        <Text style={styles.twistTitle}>Phòng 1 — Luyện tình huống khó:</Text>
         {TWISTS.map((t) => (
           <Pressable key={t.key} style={styles.twistBtn} onPress={() => startNegotiation(t)}>
             <Text style={styles.twistLabel}>{t.label}</Text>
@@ -509,7 +509,7 @@ export default function App({ onExit }: { onExit?: () => void }) {
   if (showResult && result && scenario) {
     return (
       <ScrollView style={styles.screen} contentContainerStyle={styles.resultPad}>
-        <Text style={styles.h1}>📊 Kết quả đàm phán</Text>
+        <Text style={styles.h1}>Kết quả đàm phán</Text>
         <Text style={styles.sub}>Thang chấm cố định — tính từ phiên của bạn (không phải AI chấm).</Text>
         <Text style={styles.scoreBig}>{result.percent}%</Text>
         <Text style={styles.gradeText}>
@@ -517,17 +517,17 @@ export default function App({ onExit }: { onExit?: () => void }) {
         </Text>
         {agreedPrice != null ? (
           <Text style={styles.winSaved}>
-            💰 Tiết kiệm {fmt(saved)}đ/tháng = {fmt(saved * 12)}đ/năm
+            Tiết kiệm {fmt(saved)}đ/tháng = {fmt(saved * 12)}đ/năm
           </Text>
         ) : null}
         <Text style={styles.sectionTitle}>Chấm từng tiêu chí</Text>
         {result.rules.map((r) => (
           <View key={r.id} style={styles.ruleRow}>
             <Text style={styles.ruleLabel}>
-              {r.passed ? '✅' : '❌'} {r.label}
+              {r.passed ? 'Đạt' : 'Chưa đạt'} — {r.label}
             </Text>
             {r.evidence ? <Text style={styles.ruleEvidence}>“{r.evidence}”</Text> : null}
-            {!r.passed ? <Text style={styles.ruleTip}>👉 {r.tip}</Text> : null}
+            {!r.passed ? <Text style={styles.ruleTip}>Gợi ý: {r.tip}</Text> : null}
           </View>
         ))}
         {result.weakSentences.length > 0 ? (
@@ -557,10 +557,10 @@ export default function App({ onExit }: { onExit?: () => void }) {
           hoàn thành sẽ lưu vào tiến bộ trên máy này.
         </Text>
         <Pressable style={styles.bigBtn} onPress={restartSameScenario}>
-          <Text style={styles.bigBtnText}>🔁 Đàm phán lại tình huống này</Text>
+          <Text style={styles.bigBtnText}>Đàm phán lại tình huống này</Text>
         </Pressable>
         <Pressable style={styles.bigBtn} onPress={onExit ?? backToSetup}>
-          <Text style={styles.bigBtnText}>🏠 Về màn hình chính</Text>
+          <Text style={styles.bigBtnText}>Về màn hình chính</Text>
         </Pressable>
       </ScrollView>
     );
@@ -570,7 +570,7 @@ export default function App({ onExit }: { onExit?: () => void }) {
     <View style={styles.screen}>
       {MOCK && (
         <View style={styles.mockBanner}>
-          <Text style={styles.mockText}>⚠️ MOCK MODE — đối phương giả, chỉ test UI</Text>
+          <Text style={styles.mockText}>MOCK MODE — đối phương giả, chỉ test UI</Text>
         </View>
       )}
       <View style={styles.header}>
@@ -581,14 +581,14 @@ export default function App({ onExit }: { onExit?: () => void }) {
         ) : null}
         <View style={styles.headerText}>
           <Text style={styles.h2}>
-            🎯 Phòng 1 · Luyện đàm phán
+            Phòng 1 · Luyện đàm phán
           </Text>
           <Text style={styles.headerSub}>
             {twistLabel} • {scenario?.roomType} {fmt(scenario?.listedPrice ?? 0)}đ/tháng • Đối phương đang giữ: {fmt(currentPrice)}đ/tháng
           </Text>
         </View>
         <Pressable style={styles.muteBtn} onPress={() => setMuted((m) => !m)}>
-          <Text style={styles.muteText}>{muted ? '🔇' : '🔊'}</Text>
+          <Text style={styles.muteText}>{muted ? 'Tắt tiếng' : 'Bật tiếng'}</Text>
         </Pressable>
       </View>
       <ScrollView ref={scrollRef} style={styles.chat} contentContainerStyle={{ padding: 12, gap: 8 }}>
@@ -605,7 +605,7 @@ export default function App({ onExit }: { onExit?: () => void }) {
             ]}
           >
             <Text style={styles.speaker}>
-              {t.speaker === 'tenant' ? 'Bạn' : `Đối phương${t.emotion ? ` ${EMOJI[t.emotion]}` : ''}`}
+              {t.speaker === 'tenant' ? 'Bạn' : `Đối phương${t.emotion ? ` · ${MOOD_LABEL[t.emotion]}` : ''}`}
             </Text>
             <Text style={styles.bubbleText}>{t.text}</Text>
             {t.price ? <Text style={styles.price}>→ {fmt(t.price)}đ/tháng</Text> : null}
@@ -632,7 +632,7 @@ export default function App({ onExit }: { onExit?: () => void }) {
             <Text style={styles.err}>{error}</Text>
             {lastFailedText ? (
               <Pressable style={styles.retryBtn} onPress={retryLast}>
-                <Text style={styles.retryText}>🔁 Thử lại</Text>
+                <Text style={styles.retryText}>Thử lại</Text>
               </Pressable>
             ) : null}
           </View>
@@ -640,14 +640,14 @@ export default function App({ onExit }: { onExit?: () => void }) {
       </ScrollView>
       {agreedPrice != null && (
         <Animated.View style={[styles.winCard, { transform: [{ scale: winPulse }] }]}>
-          <Text style={styles.winTitle}>✅ CHỐT ĐƯỢC RỒI!</Text>
+          <Text style={styles.winTitle}>CHỐT ĐƯỢC RỒI!</Text>
           <Text style={styles.winPrice}>{fmt(agreedPrice)}đ/tháng</Text>
           {saved > 0 ? (
-            <Text style={styles.winSaved}>💰 Tiết kiệm {fmt(saved)}đ/tháng = {fmt(saved * 12)}đ/năm</Text>
+            <Text style={styles.winSaved}>Tiết kiệm {fmt(saved)}đ/tháng = {fmt(saved * 12)}đ/năm</Text>
           ) : scenario?.twist === 'deposit' ? (
-            <Text style={styles.winSaved}>✅ Chốt ở giá rao — thành công nhờ điều khoản thanh toán</Text>
+            <Text style={styles.winSaved}>Chốt ở giá rao — thành công nhờ điều khoản thanh toán</Text>
           ) : (
-            <Text style={styles.winSaved}>🤝 Chốt ở giá rao — lần sau thử đưa giá mục tiêu + lý do để mặc cả nhé</Text>
+            <Text style={styles.winSaved}>Chốt ở giá rao — lần sau thử đưa giá mục tiêu + lý do để mặc cả nhé</Text>
           )}
           {scenario?.twist === 'deposit' ? (
             <Text style={styles.winSub}>
@@ -662,7 +662,7 @@ export default function App({ onExit }: { onExit?: () => void }) {
               setShowResult(true);
             }}
           >
-            <Text style={styles.bigBtnText}>📊 Xem chấm điểm</Text>
+            <Text style={styles.bigBtnText}>Xem chấm điểm</Text>
           </Pressable>
           <Pressable style={styles.bigBtn} onPress={backToSetup}>
             <Text style={styles.bigBtnText}>Đàm phán tình huống khác →</Text>
@@ -671,7 +671,7 @@ export default function App({ onExit }: { onExit?: () => void }) {
       )}
       <View style={styles.footer}>
         {recState.isRecording ? (
-          <Text style={styles.recText}>🔴 Đang ghi âm {fmtTime(recSeconds)}</Text>
+          <Text style={styles.recText}>Đang ghi âm {fmtTime(recSeconds)}</Text>
         ) : null}
         <View style={styles.textRow}>
           <TextInput
@@ -697,7 +697,7 @@ export default function App({ onExit }: { onExit?: () => void }) {
             onPress={onRecordPress}
             disabled={busy || agreedPrice != null}
           >
-            <Text style={styles.micText}>{recState.isRecording ? '⏹ Bấm để gửi' : '🎤 Bấm để nói'}</Text>
+            <Text style={styles.micText}>{recState.isRecording ? 'Bấm để gửi' : 'Bấm để nói'}</Text>
           </Pressable>
         </Animated.View>
       </View>
