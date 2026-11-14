@@ -217,8 +217,16 @@ export default function App() {
         ...t,
         { speaker: 'landlord', text: reply.message, price: reply.currentPrice ?? undefined, emotion: reply.emotion },
       ]);
-      if (reply.agreed && reply.agreedPrice && reply.agreedPrice >= scenario.floorPrice) setAgreedPrice(reply.agreedPrice);
-      else speak(reply.message);
+      if (reply.agreed && reply.agreedPrice && reply.agreedPrice >= scenario.floorPrice) {
+        setAgreedPrice(reply.agreedPrice);
+      } else if (reply.agreed && reply.agreedPrice) {
+        // Chủ trọ đồng ý dưới sàn — không chốt được: nói rõ để người chơi đề
+        // nghị lại, thay vì nuốt im (trước đây landlord nói "chốt rồi" nhưng
+        // không có thẻ thắng / màn hình điểm).
+        const msg = `Giá ${reply.agreedPrice.toLocaleString('vi-VN')}đ thấp hơn sàn rồi, không chốt được đâu em — đề nghị lại giúp anh nhé.`;
+        setTurns((t) => [...t, { speaker: 'landlord', text: msg, emotion: 'annoyed' }]);
+        speak(msg);
+      } else speak(reply.message);
       setBusy(false);
       setBusyPhase(null);
       return;
@@ -246,6 +254,13 @@ export default function App() {
     ]);
     if (reply.agreed && reply.agreedPrice && reply.agreedPrice >= scenario.floorPrice) {
       setAgreedPrice(reply.agreedPrice);
+    } else if (reply.agreed && reply.agreedPrice) {
+      // Chủ trọ (AI) đồng ý dưới sàn — không chốt được: nói rõ để người chơi
+      // đề nghị lại, thay vì nuốt im (landlord nói "chốt rồi" nhưng không có
+      // thẻ thắng / màn hình điểm).
+      const msg = `Giá ${reply.agreedPrice.toLocaleString('vi-VN')}đ thấp hơn sàn rồi, không chốt được đâu em — đề nghị lại giúp anh nhé.`;
+      setTurns((t) => [...t, { speaker: 'landlord', text: msg, emotion: 'annoyed' }]);
+      speak(msg);
     } else {
       speak(reply.message);
     }
