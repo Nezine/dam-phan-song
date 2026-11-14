@@ -3,7 +3,7 @@
 Dành cho người cầm điện thoại demo trên sân khấu. Đọc kỹ trước 16:00, thuộc 2 câu nói live + 1 câu chốt. Mọi chữ trong file này đều là lời nói thật trên sân khấu hoặc hành động cụ thể — không có chữ trang trí.
 
 - Nguồn: PITCH-CODEX.md (nhánh `migga/pitch-codex`) + VIDEO-SCRIPT.md (nhánh `migga/backup-video-script`) + Codex call 1 (nháp) + Codex call 2 (redteam, đã áp dụng — xem cuối file).
-- Demo: Phòng 1, twist giá sàn cứng, Hà Nội, giá rao **3,5tr/tháng**, giá sàn bí mật **3,2tr/tháng**. Điện thoại OPPO A60, Expo Go, Metro `exp://192.168.3.185:8081`.
+- Demo: Phòng 1, twist giá sàn cứng, Hà Nội, giá rao **3,5tr/tháng**, giá sàn cố định **3,2tr/tháng** (chủ nhà nói ra ngay ở câu mở đầu). Điện thoại OPPO A60, Expo Go, Metro `exp://192.168.3.185:8081`.
 - Pitch: **3:00, 6 nhịp × 30 giây**, không phải 5:00.
 
 ## 0. Nguyên tắc vàng (4 câu — vi phạm là hỏng demo)
@@ -29,7 +29,7 @@ Dành cho người cầm điện thoại demo trên sân khấu. Đọc kỹ tr�
 | Giờ | Nhịp | Làm gì |
 |---|---|---|
 | 16:15:00–16:15:30 | 1. Vấn đề | Điện thoại đã mở sẵn ở Phòng 1. Cầm điện thoại, không chiếu slide. Nói nhịp 1. |
-| 16:15:30–16:16:00 | 2. Giải pháp | Mở app, chọn Phòng 1. Cuối nhịp: **bấm ghi âm**. |
+| 16:15:30–16:16:00 | 2. Giải pháp | Bấm bắt đầu vòng ở Phòng 1. Cuối nhịp: **bấm ghi âm**. |
 | 16:16:00–16:16:30 | 3. Vì sao bây giờ | **Nói câu live 1** (~8 giây), rồi **IM LẶNG** chờ chủ nhà trả lời bằng giọng nói. Ngân sách tối đa **30 giây** cho lượt này (nói + chờ). |
 | 16:16:30–16:17:00 | 4. Thị trường | Nói nhịp 4. Cuối nhịp: **bấm ghi âm**, chuẩn bị câu chốt. |
 | 16:17:00–16:17:30 | 5. Bằng chứng | **Nói câu chốt** (~8 giây), rồi **IM LẶNG** chờ chủ nhà chốt → màn hình điểm hiện lên. **Giơ màn hình về phía giám khảo.** |
@@ -58,6 +58,7 @@ Dành cho người cầm điện thoại demo trên sân khấu. Đọc kỹ tr�
 
 - Đây là câu điều khoản riêng trong kịch bản video 3 lượt (lý do → điều khoản → chốt). Trên sân khấu live 3:00 không có chỗ cho lượt thứ 3 — nội dung của nó đã gộp vào câu 1 ("đóng đúng hạn") và câu chốt ("ký 6 tháng, đóng đúng ngày").
 - **Chủ nhà phải làm gì (trong video):** nhượng bằng điều khoản, giữ giá (ví dụ: đồng ý đóng theo tháng thay vì giảm thêm giá).
+- **Lưu ý:** các câu thoại trong video dự phòng là kịch bản riêng của vòng quay đó, không phải câu live trên sân khấu — đừng tập nhầm.
 
 ### Câu 3 — LIVE, nhịp 5 (câu chốt, phải chốt đúng sàn 3,2tr)
 
@@ -89,7 +90,7 @@ Dành cho người cầm điện thoại demo trên sân khấu. Đọc kỹ tr�
 
 | Bước | Làm gì | Khi nào chuyển bước |
 |---|---|---|
-| 1. Chờ | Im lặng chờ AI trả lời. Tối đa **30 giây** mỗi lượt (không phải 12 giây — độ trễ ở venue chưa đo, đừng hứa 12 giây). | Quá 30 giây không có gì → bước 2. |
+| 1. Chờ | Im lặng chờ AI trả lời. Tối đa **30 giây cho cả lượt (nói + chờ)** (không phải 12 giây — độ trễ ở venue chưa đo, đừng hứa 12 giây). Thử lại/gõ chữ diễn ra NGOÀI ngân sách này: chúng ăn thời gian nói của nhịp sau (cắt phần nói thêm ở nhịp 4 trước, rồi nhịp 6), không bao giờ cắt câu chốt nhịp 5 hay 10 giây giữ màn hình điểm. | Quá 30 giây không có gì → bước 2. |
 | 2. Thử lại giọng nói (chỉ 1 lần, chỉ ở nhịp 3) | Bấm ghi âm lại, nói đúng câu đó lần nữa. | Vẫn không được → bước 3. Ở **nhịp 5 không thử lại giọng nói** — mất thời gian của câu chốt, gõ luôn (bước 3). |
 | 3. Gõ chữ | Gõ đúng câu đó vào ô **"Hoặc gõ tin nhắn…"** rồi gửi. | Vẫn không có trả lời → bước 4. |
 | 4. Video dự phòng | Nói trước: **"Mạng trực tiếp không chạy được, đây là video đã quay sẵn ở chế độ mock."** Rồi mở video (đã gắn nhãn mock trên khung hình). | — |
