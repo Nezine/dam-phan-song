@@ -22,7 +22,7 @@ Dành cho người cầm điện thoại demo trên sân khấu. Đọc kỹ tr�
 - [ ] **Sau lượt thử, kill-and-reopen LẠI** để vòng demo bắt đầu sạch — không để vòng thử còn mở trên màn hình lúc pitch (lượt thử có thể đã chốt vòng và hiện màn hình điểm, sẽ gây nhầm với vòng live).
 - [ ] Tắt khóa màn hình, tăng độ sáng, **âm lượng tối đa**, cắm sạc. Kiểm tra 4G bật sẵn làm mạng dự phòng cho các cuộc gọi AI (AI gọi thẳng tới Google/Groq qua internet; nhưng 4G không thay được wifi để load bundle Metro).
 - [ ] Thuộc 2 câu live (mục 3) + 1 câu chốt. Điện thoại để trên bàn, không cầm đi lung tung.
-- [ ] **Nếu Expo Go không load được:** force-stop Expo Go → mở lại → nhập lại URL. Kiểm tra điện thoại và máy Arch cùng wifi. Nhờ 1 bạn trong team kiểm tra Metro còn chạy trên máy Arch không. **Hạn chót 16:10** — quá 16:10 vẫn không load được thì chuyển sang phương án video dự phòng (mục 4) và báo cho team ngay, không chờ tới 16:15.
+- [ ] **Nếu Expo Go không load được:** force-stop Expo Go → mở lại → nhập lại URL. Kiểm tra điện thoại và máy Arch cùng wifi. Nhờ 1 bạn trong team kiểm tra Metro còn chạy trên máy Arch không. **Hạn chót 16:10** — quá 16:10 vẫn không load được thì báo team ngay; demo không có app live — nói thẳng với giám khảo là app chưa mở được, không mở video, không giơ điểm tập trước.
 
 ## 2. Từng phút trên sân khấu (16:15–16:18)
 
@@ -40,7 +40,7 @@ Dành cho người cầm điện thoại demo trên sân khấu. Đọc kỹ tr�
 2. Lượt thử lại giọng nói (retry) — xem mục 5.
 3. Phần nói thêm ở nhịp 4 (thị trường) — nói ngắn lại, không bỏ nhịp.
 4. Phần nói thêm ở nhịp 6 — giữ lại câu mời 100 người dùng thử.
-5. **Không bao giờ cắt:** câu chốt ở nhịp 5 + tối thiểu 10 giây giơ màn hình điểm.
+5. **Không bao giờ cắt:** câu chốt ở nhịp 5 + tối thiểu 10 giây giơ màn hình điểm — CHỈ khi vòng live đã chốt; nếu không chốt thì không có màn hình điểm để giữ.
 
 ## 3. Ba câu nói của người tập (theo thứ tự) + chủ nhà phải làm gì
 
@@ -52,13 +52,13 @@ Dành cho người cầm điện thoại demo trên sân khấu. Đọc kỹ tr�
 - **Nếu chủ nhà hỏi lại về cam kết** (ví dụ "em cam kết gì?"): **không nói thêm lượt voice.** Câu chốt ở nhịp 5 đã chứa cam kết (ký 6 tháng, đóng đúng ngày). Cứ nói nhịp 4 bình thường rồi chốt ở nhịp 5.
 - **Nếu chủ nhà đồng ý/chốt ngay ở lượt này (chốt sớm):** xem nhánh "Chốt sớm" ở mục 4 — dừng đàm phán ngay, không nói thêm lượt nào nữa.
 
-### Câu 2 — CHỈ DÙNG KHI QUAY VIDEO DỰ PHÒNG, không nói live trên sân khấu
+### Câu 2 — ĐÃ GIẾT (cùng video) — không dùng, không tập, không nói live
 
 > "Em trả đúng hạn mỗi tháng, có gì thay đổi em báo trước."
 
-- Đây là câu điều khoản riêng trong kịch bản video 3 lượt (lý do → điều khoản → chốt). Trên sân khấu live 3:00 không có chỗ cho lượt thứ 3 — nội dung của nó đã gộp vào câu 1 ("đóng đúng hạn") và câu chốt ("ký 6 tháng, đóng đúng ngày").
+- Đây là câu điều khoản riêng trong kịch bản video 3 lượt (video đã giết — câu này không dùng nữa, không tập). Trên sân khấu live 3:00 không có chỗ cho lượt thứ 3 — nội dung của nó đã gộp vào câu 1 ("đóng đúng hạn") và câu chốt ("ký 6 tháng, đóng đúng ngày").
 - **Chủ nhà phải làm gì (trong video):** nhượng bằng điều khoản, giữ giá (ví dụ: đồng ý đóng theo tháng thay vì giảm thêm giá).
-- **Lưu ý:** các câu thoại trong video dự phòng là kịch bản riêng của vòng quay đó, không phải câu live trên sân khấu — đừng tập nhầm.
+- **Lưu ý:** video đã giết, câu này không dùng nữa — đừng tập.
 
 ### Câu 3 — LIVE, nhịp 5 (câu chốt, phải chốt đúng sàn 3,2tr)
 
@@ -79,12 +79,12 @@ Dành cho người cầm điện thoại demo trên sân khấu. Đọc kỹ tr�
 
 ### B. Không chốt (chủ nhà không đồng ý ở câu chốt nhịp 5)
 
-- Không bịa điểm, không giơ màn hình điểm tập trước. Nói: **"Lượt trực tiếp chưa chốt được, nên app chưa tạo màn hình chấm điểm."**
+- Không bịa điểm, không giơ màn hình điểm tập trước. Nói: **"Lượt này chưa chốt được, nên app chưa tạo màn hình chấm điểm."**
 - Không có video dự phòng (Tuấn đã giết — không quay gì nữa). Nói thẳng nhịp 6 trên nền màn hình chat dở dang.
 
 ### C. AI chết hẳn (không có phản hồi nào — xem thang xử lý ở mục 5)
 
-- Đi hết thang ở mục 5. Nếu tới cuối thang vẫn không có gì live để khoe, nói câu ở nhánh B rồi mở video dự phòng.
+- Đi hết thang ở mục 5. Nếu tới cuối thang vẫn không có gì live để khoe, nói câu ở nhánh B rồi nói nhịp 6 trên nền màn hình chat dở dang (thang mục 5, bước 4).
 
 ## 5. Thang xử lý sự cố (làm theo đúng thứ tự, không nhảy bước)
 
@@ -92,10 +92,14 @@ Dành cho người cầm điện thoại demo trên sân khấu. Đọc kỹ tr�
 |---|---|---|
 | 1. Chờ | Im lặng chờ AI trả lời. Tối đa **30 giây cho cả lượt (nói + chờ)** (không phải 12 giây — độ trễ ở venue chưa đo, đừng hứa 12 giây). Thử lại/gõ chữ diễn ra NGOÀI ngân sách này: chúng ăn thời gian nói của nhịp sau (cắt phần nói thêm ở nhịp 4 trước, rồi nhịp 6), không bao giờ cắt câu chốt nhịp 5 hay 10 giây giữ màn hình điểm. | Quá 30 giây không có gì → bước 2. |
 | 2. Thử lại giọng nói (chỉ 1 lần, chỉ ở nhịp 3) | Bấm ghi âm lại, nói đúng câu đó lần nữa. | Vẫn không được → bước 3. Ở **nhịp 5 không thử lại giọng nói** — mất thời gian của câu chốt, gõ luôn (bước 3). |
-| 3. Gõ chữ | Gõ đúng câu đó vào ô **"Hoặc gõ tin nhắn…"** rồi gửi. | Vẫn không có trả lời → bước 4. |
-| 4. Nói thẳng + nhịp 6 | Nói: **"Mạng trực tiếp không chạy được, lượt này chưa chốt nên chưa có điểm."** Rồi nói nhịp 6 trên nền màn hình chat dở dang. Không có video dự phòng. | — |
+| 3. Gõ chữ | Gõ đúng câu đó vào ô **"Hoặc gõ tin nhắn…"** rồi gửi. Chờ tối đa 30 giây. | Vẫn không có trả lời ở nhịp 3 → cứ nói tiếp nhịp 4 bình thường, rồi dùng cách nói thẳng ở bước 4 khi tới nhịp 5/6. Vẫn không có trả lời ở nhịp 5 → bước 4 ngay. |
+| 4. Nói thẳng + nhịp 6 | Nói đúng 1 trong 2 câu, tùy tình huống — vòng không chốt: **"Lượt này chưa chốt được, nên app chưa tạo màn hình chấm điểm."**; AI không phản hồi: **"AI chưa phản hồi trong lượt này, nên lượt chưa chốt và app chưa tạo màn hình chấm điểm."** Rồi nói nhịp 6 trên nền màn hình chat dở dang. Không có video dự phòng. | — |
 
 **Lưu ý về mock mode:** không có nút chuyển sang mock giữa chừng — mock hay live là do Metro có key hay không lúc khởi động. Nên trong thang trên **không có bước "chuyển sang mock live"**. Mock không tồn tại dưới dạng nào trên sân khấu hôm nay — không có video dự phòng.
+
+**Màn hình điện thoại ở mỗi đường lỗi:** lúc nào cũng để màn hình chat của vòng live đang mở — không bấm vào màn hình điểm cũ, không mở vòng mới. Nếu vòng thử trước giờ còn hiện điểm, kill-and-reopen trước 16:15 (mục 1) để không còn màn hình điểm nào để giơ nhầm.
+
+**Khi nào dừng cứu:** mỗi lượt chỉ cứu tối đa 1 lần thử lại (nhịp 3) + 1 lần gõ chữ; hết 2 bước đó mà AI vẫn im thì dừng, không thử lần 3 — nói thẳng theo bước 4. Người cầm máy và người nói không tự ý kéo dài thêm.
 
 ## 6. Khoảnh khắc màn hình điểm (chỉ làm khi vòng live đã chốt)
 
@@ -120,18 +124,18 @@ Dành cho người cầm điện thoại demo trên sân khấu. Đọc kỹ tr�
 ## 8. Hai câu hỏi khó nhất có thể bị hỏi vì chính buổi demo (trả lời ngắn)
 
 1. **"Chủ nhà đồng ý sớm / không đồng ý thì điểm trên màn hình là điểm nào, sao biết đó là điểm của vòng live?"**
-   → "Điểm chỉ hiện khi vòng live chốt — nếu vòng chưa chốt thì không có điểm để giơ. Điểm anh/chị đang thấy là của lượt vừa rồi trên chính máy này; nếu vòng không chốt, em mở video dự phòng đã gắn nhãn mock thay vì bịa điểm."
+   → "Điểm chỉ hiện khi vòng live chốt — nếu vòng chưa chốt thì không có điểm để giơ. Điểm anh/chị đang thấy là của lượt vừa rồi trên chính máy này; nếu vòng không chốt thì không có điểm để giơ — em nói thẳng như vậy, không mở video, không bịa điểm."
 2. **"Mạng chậm 30 giây, trả lời khó nghe — cái gì chạy trên máy, cái gì phụ thuộc Metro, mất wifi thì sao?"**
-   → "App và giao diện chạy trên máy; bundle load từ Metro qua wifi lúc mở app; cuộc gọi AI đi thẳng tới Google/Groq qua internet nên 4G vẫn gọi được sau khi app đã mở. Phiên âm chỉ dùng Gemini, không có dự phòng — đó là lý do có ô gõ chữ và video dự phòng."
+   → "App và giao diện chạy trên máy; bundle load từ Metro qua wifi lúc mở app; cuộc gọi AI đi thẳng tới Google/Groq qua internet nên 4G vẫn gọi được sau khi app đã mở. Phiên âm chỉ dùng Gemini, không có dự phòng — đó là lý do có ô gõ chữ."
 
 ## Ghi chú redteam (Codex call 2 — đã áp dụng vào bản này)
 
 1. **Timing:** bản nháp hẹn "~12 giây" cho mỗi lượt AI — không có căn cứ, độ trễ venue chưa đo. Bản này ngân sách **30 giây/lượt**, thứ tự cắt rõ ở mục 2.
 2. **Chốt sớm / không chốt:** bản nháp không có nhánh rẽ. Bản này thêm nhánh A (chốt sớm) và B (không chốt) với câu nói chính xác.
-3. **Màn hình điểm tập trước:** bản nháp để ngỏ khả năng giơ màn hình điểm tập trước mà không nói rõ — nguy cơ bị hiểu là điểm live. Bản này **bỏ hẳn** phương án đó: chỉ giơ điểm của vòng live đã chốt; nếu không chốt thì mở video mock đã gắn nhãn + nói rõ trước.
+3. **Màn hình điểm tập trước:** bản nháp để ngỏ khả năng giơ màn hình điểm tập trước mà không nói rõ — nguy cơ bị hiểu là điểm live. Bản này **bỏ hẳn** phương án đó: chỉ giơ điểm của vòng live đã chốt; nếu không chốt thì nói thẳng là chưa có điểm, không mở video, không bịa điểm.
 4. **Lượt thử ở checklist:** lượt thử giọng nói trước giờ có thể chốt vòng và hiện màn hình điểm, gây nhầm với vòng live. Bản này thêm bước kill-and-reopen LẠI sau lượt thử (mục 1).
 5. **TTS không nghe rõ:** bản nháp chỉ nói "tăng âm lượng". Bản này thêm kiểm tra nghe thử từ cuối phòng ở vị trí trình bày + quy tắc "chỉ tóm tắt những gì hiện chữ trên màn hình, không bịa lời AI".
-6. **Điểm Codex đề xuất nhưng bản này làm khác:** Codex gợi ý khi chốt sớm thì dùng video dự phòng cho phần demo còn lại. Bản này giữ màn hình điểm live thật để nói nhịp 4–6 (điểm đó là thật, của vòng live) — chỉ mở video nếu còn thời gian và giám khảo muốn xem thêm một vòng đầy đủ. Lý do: giơ bằng chứng thật tốt hơn video khi đã có bằng chứng thật trong tay.
+6. **Điểm Codex đề xuất nhưng bản này làm khác:** Codex gợi ý khi chốt sớm thì dùng video dự phòng cho phần demo còn lại — video đã giết nên không áp dụng. Bản này giữ màn hình điểm live thật để nói nhịp 4–6 (điểm đó là thật, của vòng live). Lý do: giơ bằng chứng thật tốt hơn video khi đã có bằng chứng thật trong tay.
 
 ## Log Codex (đốt credit theo lệnh owner)
 
@@ -147,4 +151,4 @@ Codex trên máy này KHÔNG đọc/ghi/chạy file được (thiếu binary `co
 2. **4G làm mạng dự phòng cho cuộc gọi AI sau khi bundle đã load** — đúng về mặt kỹ thuật (AI gọi thẳng tới Google/Groq) nhưng chưa thử thật trên máy này. Đừng tuyên bố chắc chắn trên sân khấu; chỉ dùng như phương án lặng lẽ.
 3. **Chủ nhà có chốt đúng 3,2tr ở câu chốt không — chưa chắc.** Prompt quy định chốt khi giá ≥ sàn và chỉ giảm khi có nội dung thuyết phục mới, nhưng temperature 0.9 nên LLM có thể trả khác. Nếu trả giá khác nhưng ≥ sàn thì chốt theo giá đó; nếu không chốt thì nhánh B.
 4. **Câu yếu + điểm số cụ thể** phụ thuộc hoàn toàn vào vòng live thật — không có giá trị "đúng" để viết trước. Đừng tập đọc trước một câu yếu cụ thể nào.
-5. **Video dự phòng đã quay xong chưa** — file này giả định video đã có sẵn trên máy / sẵn sàng để mở. Người giữ máy kiểm tra lại trước 16:00: video mở được, có nhãn mock trên khung hình, dài 60–90s.
+5. **Video dự phòng: ĐÃ GIẾT (Tuấn 15:36)** — không có file, không kiểm tra gì.
