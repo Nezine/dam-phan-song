@@ -53,12 +53,12 @@ const TWISTS: { key: Scenario['twist']; label: string; desc: string; city: strin
   {
     key: 'deposit',
     label: '3️⃣ Cọc 2 tháng',
-    desc: 'Đóng 3 tháng/lần, tiền mặt ~10tr',
+    desc: 'Đóng 3 tháng/lần, tiền mặt ~20 triệu',
     city: 'Đà Nẵng',
     room: 'căn hộ mini 25m2',
     listed: '4000000',
     floor: '3600000',
-    opening: 'Quy dãy em ơi, cọc 2 tháng, đóng 3 tháng một lần, tổng đâu vào khoảng 10 triệu.',
+    opening: 'Quy dãy em ơi, cọc 2 tháng, đóng 3 tháng một lần, tổng đâu vào khoảng 20 triệu.',
   },
 ];
 
@@ -76,6 +76,7 @@ export default function App() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [agreedPrice, setAgreedPrice] = useState<number | null>(null);
+  const [typedText, setTypedText] = useState('');
   const scrollRef = useRef<ScrollViewInstance | null>(null);
 
   const recorder = useAudioRecorder(RecordingPresets.HIGH_QUALITY);
@@ -128,7 +129,7 @@ export default function App() {
         ...t,
         { speaker: 'landlord', text: reply.message, price: reply.currentPrice ?? undefined },
       ]);
-      if (reply.agreed && reply.agreedPrice) setAgreedPrice(reply.agreedPrice);
+      if (reply.agreed && reply.agreedPrice && reply.agreedPrice >= scenario.floorPrice) setAgreedPrice(reply.agreedPrice);
       else Speech.speak(reply.message, { language: 'vi-VN', rate: 1.0 });
       setBusy(false);
       return;
@@ -152,7 +153,7 @@ export default function App() {
       ...t,
       { speaker: 'landlord', text: reply.message, price: reply.currentPrice ?? undefined },
     ]);
-    if (reply.agreed && reply.agreedPrice) {
+    if (reply.agreed && reply.agreedPrice && reply.agreedPrice >= scenario.floorPrice) {
       setAgreedPrice(reply.agreedPrice);
     } else {
       Speech.speak(reply.message, { language: 'vi-VN', rate: 1.0 });
@@ -179,8 +180,12 @@ export default function App() {
       }
     } else {
       setError(null);
-      await recorder.prepareToRecordAsync();
-      recorder.record();
+      try {
+        await recorder.prepareToRecordAsync();
+        recorder.record();
+      } catch (e) {
+        setError(`Không ghi âm được: ${String(e)}. Dùng ô "gửi chữ" bên dưới để đàm phán tiếp.`);
+      }
     }
   };
 
@@ -268,12 +273,38 @@ export default function App() {
         </View>
       )}
       <View style={styles.footer}>
+        <View style={styles.typeRow}>
+          <TextInput
+            style={[styles.input, { flex: 1 }]}
+            value={typedText}
+            onChangeText={setTypedText}
+            placeholder="Mic lỗi? Gõ lời của bạn..."
+            onSubmitEditing={() => {
+              if (typedText.trim()) {
+                sendToLandlord(typedText.trim());
+                setTypedText('');
+              }
+            }}
+          />
+          <Pressable
+            style={styles.sendBtn}
+            onPress={() => {
+              if (typedText.trim()) {
+                sendToLandlord(typedText.trim());
+                setTypedText('');
+              }
+            }}
+            disabled={busy}
+          >
+            <Text style={styles.sendText}>Gửi chữ</Text>
+          </Pressable>
+        </View>
         <Pressable
           style={[styles.micBtn, recState.isRecording && styles.micBtnActive]}
           onPress={onRecordPress}
           disabled={busy}
         >
-          <Text style={styles.micText}>{recState.isRecording ? '⏹ Nhả ra để gửi' : '🎤 Giữ lịch sự: nói xong bấm gửi'}</Text>
+          <Text style={styles.micText}>{recState.isRecording ? '⏹ Bấm để dừng & gửi' : '🎤 Bấm để ghi, bấm lại để gửi'}</Text>
         </Pressable>
       </View>
     </View>
@@ -329,5 +360,8 @@ const styles = StyleSheet.create({
   micBtn: { backgroundColor: '#243040', borderRadius: 24, paddingVertical: 16, alignItems: 'center' },
   micBtnActive: { backgroundColor: '#e03131' },
   micText: { color: '#fff', fontWeight: '700' },
+  typeRow: { flexDirection: 'row', gap: 8, marginBottom: 10, alignItems: 'center' },
+  sendBtn: { backgroundColor: '#2f81f7', borderRadius: 10, paddingHorizontal: 14, paddingVertical: 10 },
+  sendText: { color: '#fff', fontWeight: '700' },
   err: { color: '#ff8787', fontSize: 12 },
 });
