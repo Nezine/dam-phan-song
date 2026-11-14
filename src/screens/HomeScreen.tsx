@@ -1,5 +1,5 @@
 // Màn Home — điểm vào của app.
-// Khung rộng: app luyện kỹ năng đàm phán (nói chuyện khó), thuê trọ chỉ là Phòng 1.
+// Khung rộng: app luyện kỹ năng đàm phán (nói chuyện khó), mặc cả giá chỉ là Phòng 1.
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import type { RoomId } from '../lib/rooms';
 import { ROOMS } from '../lib/rooms';
