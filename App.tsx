@@ -185,6 +185,9 @@ export default function App() {
   };
 
   const saved = agreedPrice != null && scenario ? scenario.listedPrice - agreedPrice : 0;
+  // twist "cọc 2 tháng": tiền mặt ban đầu trước/sau khi đàm phán điều khoản
+  const upfrontBefore = agreedPrice != null && scenario ? scenario.listedPrice * 5 : 0; // cọc 2 tháng + đóng 3 tháng
+  const upfrontAfter = agreedPrice != null && scenario ? agreedPrice * 2 : 0; // cọc 1 tháng + đóng tháng đầu
 
   if (!started) {
     return (
@@ -249,7 +252,16 @@ export default function App() {
         <View style={styles.winCard}>
           <Text style={styles.winTitle}>✅ CHỐT ĐƯỢC RỒI!</Text>
           <Text style={styles.winPrice}>{fmt(agreedPrice)}đ/tháng</Text>
-          <Text style={styles.winSaved}>💰 Tiết kiệm {fmt(saved)}đ/tháng = {fmt(saved * 12)}đ/năm</Text>
+          {saved > 0 ? (
+            <Text style={styles.winSaved}>💰 Tiết kiệm {fmt(saved)}đ/tháng = {fmt(saved * 12)}đ/năm</Text>
+          ) : (
+            <Text style={styles.winSaved}>✅ Chốt ở giá rao — thành công nhờ điều khoản thanh toán</Text>
+          )}
+          {scenario?.twist === 'deposit' ? (
+            <Text style={styles.winSub}>
+              Tiền mặt ban đầu: {fmt(upfrontBefore)}đ → {fmt(upfrontAfter)}đ (cọc 1 tháng, đóng theo tháng)
+            </Text>
+          ) : null}
           <Pressable style={styles.bigBtn} onPress={() => { setAgreedPrice(null); setTurns([]); }}>
             <Text style={styles.bigBtnText}>Đàm phán tình huống khác →</Text>
           </Pressable>
@@ -306,7 +318,8 @@ const styles = StyleSheet.create({
   },
   winTitle: { color: '#8ce99a', fontWeight: '900', fontSize: 18 },
   winPrice: { color: '#fff', fontWeight: '800', fontSize: 26 },
-  winSaved: { color: '#ffd43b', fontWeight: '700', textAlign: 'center', marginBottom: 8 },
+  winSaved: { color: '#ffd43b', fontWeight: '700', textAlign: 'center', marginBottom: 4 },
+  winSub: { color: '#c3fae8', fontSize: 12, textAlign: 'center', marginBottom: 8 },
   mockBanner: { backgroundColor: '#e03131', paddingVertical: 6, alignItems: 'center', marginTop: 32 },
   mockText: { color: '#fff', fontWeight: '800', fontSize: 12 },
   twistTitle: { color: '#9fb0bf', fontSize: 12, marginTop: 12 },
