@@ -70,10 +70,10 @@ Mở màn hình **Score** ngay sau khi chốt giá:
 
 > "Đàm phán xong chưa phải hết. Đây mới là phần biến một buổi nói chuyện thành một bài học."
 > *(Chỉ từng dòng trên màn hình)*
-> "Thang chấm cố định 100 điểm, chấm đúng 5 tiêu chí: **kết quả giá — lý do đưa ra — không tự hạ giá — mở giá có neo — điều khoản đi kèm.** Mỗi tiêu chí có điểm riêng kèm 1 câu nhận xét có bằng chứng trong buổi, không chấm chung chung."
+> "Thang chấm cố định bằng luật, không phải AI khen chê tùy hứng: **6 điều kiện đạt/chưa đạt** — đưa ra giá mục tiêu cụ thể · nêu lý do cụ thể · mặc cả bằng điều khoản thanh toán · kiên trì ít nhất 2–3 lượt · giữ giọng lịch sự · chốt thấp hơn giá rao. Đạt mấy trên 6 là ra % điểm ngay, luật nào chưa đạt thì app hiện luôn câu nói của em làm bằng chứng."
 > "Và đây:" *(chỉ vào dòng câu yếu nhất)* "app chỉ ra **câu yếu nhất** của em trong buổi vừa rồi, nói rõ yếu ở đâu, và gợi ý câu thay thế. Lần sau gặp lại đúng câu đó, em biết phải nói khác đi."
 
-*Nội dung trên màn hình Score phải có đủ:* tổng điểm + điểm 5 tiêu chí · 1 câu yếu nhất (trích nguyên văn câu người dùng vừa nói) · vì sao yếu · 1 câu thay thế mẫu · điểm được LƯU lại vào tiến bộ trên máy.
+*Nội dung trên màn hình Score (đã có trong bản merge master 19714ef):* % điểm lớn + hạng · 6 dòng luật đạt/chưa đạt kèm câu bằng chứng · danh sách câu yếu (câu không có giá/lý do/điều khoản) · bài học rút ra cho từng luật chưa đạt · điểm được LƯU vào tiến bộ trên máy, sống qua kill app.
 
 ### 4:10–4:30 · Thẻ tiết kiệm
 
@@ -121,9 +121,9 @@ Màn hình thẻ tiết kiệm hiện: giá rao ban đầu → giá chốt · s�
 - Người nói chính (quay xuống giám khảo): **"ChatGPT xin là giảm. Chủ trọ thật thì không. Bọn em bán phản xạ, không bán câu chữ."**
 
 **[Màn hình Score — người cầm máy bấm "Xem điểm"]**
-- Người nói chính đọc theo màn hình: "Tổng điểm buổi này: [tổng trên màn hình]/100 — 5 tiêu chí đều có điểm riêng: kết quả giá, lý do, giữ thế không tự hạ giá, mở giá có neo, điều khoản."
-- "Câu yếu nhất của buổi:" *(đọc nguyên văn dòng trên màn hình)* — ví dụ: *"'Anh bớt cho em xuống 3 triệu được không anh?'"*
-- "App chỉ rõ: câu này yếu vì **mở giá thấp hẳn 500 nghìn nhưng chưa đưa lý do nào ngoài 'em là sinh viên'** — chủ nhà không có cớ để giảm. Câu thay thế app gợi ý:" *(đọc dòng gợi ý trên màn hình)* — ví dụ: *"'Em thuê tối thiểu 1 năm và cọc ngay hôm nay — anh để em 3 triệu 1, anh đỡ 2–3 tháng phòng trống tìm người mới.'"*
+- Người nói chính đọc theo màn hình: "Điểm buổi này: [số % trên màn hình] — đạt [x]/6 luật chấm cố định. Luật nào chưa đạt, app hiện ngay câu em vừa nói làm bằng chứng."
+- "Câu yếu nhất của buổi:" *(đọc nguyên văn dòng trên màn hình)* — app ghi rõ vì sao: **"câu này chưa đưa giá mục tiêu, lý do hay điều khoản cụ thể"**.
+- "Và app rút ra bài học cho lần sau:" *(đọc 1 dòng bài học trên màn hình — vd: "Khi chủ trọ cứng giá, đổi hướng sang điều khoản (tiền cọc, đóng theo tháng) thay vì ép giá thuê.")*
 
 **[Thẻ tiết kiệm]**
 - Người nói chính: "Từ 3 triệu rưỡi xuống 3 triệu 2 — giảm 300 nghìn một tháng, **3,6 triệu một năm**. Và em nhắc lại: đây là ví dụ theo số vừa nhập trong buổi demo này, không phải cam kết kết quả."
@@ -145,7 +145,7 @@ Màn hình thẻ tiết kiệm hiện: giá rao ban đầu → giá chốt · s�
 > Đúng là mặc cả thật phần lớn qua tin nhắn, và đó là giới hạn bọn em công nhận. Nhưng cái sinh viên thiếu không phải câu chữ — là phản xạ và tâm lý khi bị ép trực diện: bị dọa "có người chờ cọc" là cuống, gật bừa. Luyện nói trực tiếp luyện đúng cái cuống đó; còn phòng tập mặc cả bằng tin nhắn là bước mở rộng đã nằm trong lộ trình.
 
 **Thẻ 3 — "Ai thẩm định thang chấm của các em?"**
-> Hiện thang chấm do đội xây từ các tiêu chí đàm phán cơ bản: mở giá phải kèm lý do, giữ thế khi bị ép, chốt được điều kiện đi kèm — nó cố định nên buổi nào cũng chấm cùng một chuẩn, khác hẳn AI khen chê tùy hứng. Đội chưa có chuyên gia đàm phán thẩm định độc lập — đó là việc phải làm tiếp theo, bọn em không nói quá.
+> Thang chấm của bọn em là bộ luật cố định viết bằng code: 6 điều kiện kiểm tra thẳng trên transcript (có giá mục tiêu không, có lý do không, có mặc cả điều khoản không, kiên trì mấy lượt, giọng lịch sự không, chốt dưới giá rao không) — buổi nào cũng chấm cùng một chuẩn, ai cũng tự kiểm chứng lại được trên màn hình. Đội chưa có chuyên gia đàm phán thẩm định độc lập — đó là việc phải làm tiếp theo, bọn em không nói quá.
 
 **Thẻ 4 — "Ai trả tiền, bao nhiêu?"**
 > Người trả tiền trước mắt là người sắp bước vào một cuộc đàm phán có tiền thật đi kèm: sinh viên sắp thuê trọ, người sắp phỏng vấn, sắp deal lương — trả một khoản nhỏ cho một buổi luyện đúng tình huống của mình. Mức giá cụ thể đội chưa chốt và chưa có khách trả tiền thật — hôm nay bọn em chứng minh sản phẩm chạy được và khác được, chưa chứng minh được doanh thu.
@@ -165,7 +165,7 @@ Màn hình thẻ tiết kiệm hiện: giá rao ban đầu → giá chốt · s�
 
 - [ ] Mở sẵn app ở màn hình setup, đã nhập sẵn giá rao/giá muốn chốt của preset 1
 - [ ] Test 1 lượt voice ngay tại chỗ đứng pitch (ồn + mạng hội trường)
-- [ ] Màn Score của buổi test hiện đủ: tổng điểm + 5 tiêu chí + câu yếu nhất + vì sao + câu thay thế
+- [ ] Màn Score của buổi test hiện đủ: % điểm + 6 luật đạt/chưa đạt + câu yếu + bài học rút ra
 - [ ] Thẻ tiết kiệm tính đúng phép trừ (giá rao − giá chốt) × 12 tháng
 - [ ] Biết rõ nút bật MOCK MODE ở đâu; thuộc câu tuyên bố dự phòng ở Phần 2
 - [ ] Người nói + người cầm máy thống nhất: ai nói câu "ChatGPT xin là giảm…" (người nói chính)
