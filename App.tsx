@@ -19,8 +19,8 @@ import {
   setAudioModeAsync,
   useAudioRecorderState,
 } from 'expo-audio';
-import * as FileSystem from 'expo-file-system';
-import { landlordTurn, transcribeAudio, GEMINI_API_KEY } from './src/lib/gemini';
+import { File } from 'expo-file-system';
+import { landlordTurn, transcribeAudio, mimeTypeForAudioUri, GEMINI_API_KEY } from './src/lib/gemini';
 import { groqLandlordTurn, GROQ_API_KEY } from './src/lib/groq';
 import { mockLandlordTurn } from './src/lib/mock';
 import { scoreNegotiation, type ScoreResult } from './src/lib/score';
@@ -31,6 +31,10 @@ const fmt = (n: number) => n.toLocaleString('vi-VN');
 const fmtTime = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
 
 const MOCK = !GEMINI_API_KEY; // không có key → MOCK MODE (banner đỏ trên màn hình, không đem demo như AI thật)
+
+// File ghi âm nhỏ hơn mức này coi như không nghe được (bấm nhầm / im lặng) —
+// không gọi API transcribe. 500 bytes ≈ 0,1s âm thanh nén, dưới mức một từ nói.
+const MIN_VOICE_BYTES = 500;
 
 const EMOJI: Record<NonNullable<Turn['emotion']>, string> = {
   friendly: '😊',
@@ -282,15 +286,26 @@ export default function App() {
     if (recState.isRecording) {
       await recorder.stop();
       const uri = recorder.uri;
-      if (!uri) return;
+      if (!uri) {
+        setError('Không nghe rõ, anh nói lại giúp em nhé');
+        return;
+      }
       try {
         setBusy(true);
         setBusyPhase('transcribe');
         setError(null);
-        const file = await FileSystem.readAsStringAsync(uri, {
-          encoding: FileSystem.EncodingType.Base64,
-        });
-        const transcript = await transcribeAudio(file, 'audio/mp4');
+        // SDK 58: FileSystem.readAsStringAsync (legacy) NÉM LỖI lúc chạy —
+        // dùng API File mới. Kiểm tra file tồn tại + đủ lớn TRƯỚC khi gọi API,
+        // để ghi âm rỗng/hỏng không bao giờ tới được Gemini.
+        const audioFile = new File(uri);
+        if (!audioFile.exists || audioFile.size < MIN_VOICE_BYTES) {
+          setBusy(false);
+          setBusyPhase(null);
+          setError('Không nghe rõ, anh nói lại giúp em nhé');
+          return;
+        }
+        const base64 = await audioFile.base64();
+        const transcript = await transcribeAudio(base64, mimeTypeForAudioUri(uri));
         setBusyPhase(null);
         // P0-6: ghi âm im lặng -> không gọi API.
         if (!transcript.trim()) {
@@ -302,7 +317,8 @@ export default function App() {
       } catch (e) {
         setBusy(false);
         setBusyPhase(null);
-        setError(friendlyError(e));
+        const detail = e instanceof Error ? e.message : String(e);
+        setError(`Lỗi chuyển giọng nói: ${friendlyError(e)} (Chi tiết: ${detail.slice(0, 120)})`);
       }
     } else {
       setError(null);

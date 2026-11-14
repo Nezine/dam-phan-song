@@ -33,6 +33,28 @@ QUY TẮC:
 7. TÌNH HUỐNG KHÓ: bạn đòi cọc 2 tháng + đóng 3 tháng/lần (tổng tiền mặt ~10tr). Khi người thuê kẹt tiền mặt: nhượng bộ về ĐIỀU KHOẢN THANH TOÁN (cọc 1 tháng, đóng theo tháng, hoặc cọc 2 tháng trừ vào giá thuê) chứ không giảm thêm giá thuê.` : ''}`;
 }
 
+/**
+ * Derive the Gemini inline_data mime type from a recording file URI's
+ * extension. expo-audio records .m4a on Android/iOS (HIGH_QUALITY preset);
+ * other presets/containers are mapped too. Falls back to 'audio/mp4'.
+ */
+export function mimeTypeForAudioUri(uri: string): string {
+  const ext = uri.split('?')[0].split('.').pop()?.toLowerCase();
+  switch (ext) {
+    case 'wav':
+      return 'audio/wav';
+    case 'm4a':
+    case 'mp4':
+      return 'audio/mp4';
+    case '3gp':
+      return 'audio/3gpp';
+    case 'mp3':
+      return 'audio/mpeg';
+    default:
+      return 'audio/mp4';
+  }
+}
+
 export async function transcribeAudio(base64Audio: string, mimeType = 'audio/mp4'): Promise<string> {
   const res = await fetch(`${BASE}/${GEMINI_TEXT_MODEL}:generateContent`, {
     method: 'POST',
