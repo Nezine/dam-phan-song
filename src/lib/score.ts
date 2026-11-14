@@ -127,21 +127,21 @@ export function scoreNegotiation(
       label: 'Đưa ra giá mục tiêu cụ thể',
       passed: targetEvidence != null,
       evidence: targetEvidence,
-      tip: 'Luôn mở đầu bằng một con số cụ thể thấp hơn giá rao — chủ trọ chỉ nhượng bộ khi có số để trả giá.',
+      tip: 'Luôn mở đầu bằng một con số cụ thể thấp hơn giá rao — đối phương chỉ nhượng bộ khi có số để trả giá.',
     },
     {
       id: 'reason',
       label: 'Nêu lý do cụ thể để giảm giá',
       passed: reasonEvidence != null,
       evidence: reasonEvidence,
-      tip: 'Mỗi lần mặc cả cần một lý do cụ thể (phòng ẩm, xa, ngân sách sinh viên) — lý do càng cụ thể càng khó bị gạt.',
+      tip: 'Mỗi lần mặc cả cần một lý do cụ thể (chất lượng, vị trí, ngân sách) — lý do càng cụ thể càng khó bị gạt.',
     },
     {
       id: 'terms',
       label: 'Mặc cả bằng điều khoản thanh toán',
       passed: termsEvidence != null,
       evidence: termsEvidence,
-      tip: 'Khi chủ trọ cứng giá, đổi hướng sang điều khoản (tiền cọc, đóng theo tháng) thay vì ép giá thuê.',
+      tip: 'Khi đối phương cứng giá, đổi hướng sang điều khoản (tiền cọc, đóng theo tháng) thay vì ép giá.',
     },
     {
       id: 'persist',
@@ -155,7 +155,7 @@ export function scoreNegotiation(
       label: 'Giữ giọng lịch sự',
       passed: politeEvidence != null,
       evidence: politeEvidence,
-      tip: "Giữ giọng lịch sự ('ạ', 'anh ơi') giúp chủ trọ khó nổi nóng và dễ nhượng bộ hơn.",
+      tip: "Giữ giọng lịch sự ('ạ', 'anh ơi') giúp đối phương khó nổi nóng và dễ nhượng bộ hơn.",
     },
     {
       id: 'close',
