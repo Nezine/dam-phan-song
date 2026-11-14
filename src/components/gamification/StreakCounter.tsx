@@ -1,6 +1,7 @@
 // Đếm chuỗi ngày luyện liên tiếp (streak) — động lực quay lại mỗi ngày.
 import { useEffect, useRef, useState } from 'react';
 import { Animated, Easing, StyleSheet, Text, View } from 'react-native';
+import { AppIcon } from '../icons';
 
 type Props = {
   streakDays: number;
@@ -42,7 +43,10 @@ export const StreakCounter = ({ streakDays, maxStreakDays }: Props) => {
   return (
     <View style={styles.wrap}>
       <View style={styles.textCol}>
-        <Animated.Text style={[styles.days, { transform: [{ scale: countScale }] }]}>{streakDays} ngày</Animated.Text>
+        <View style={styles.daysRow}>
+          <AppIcon name="streak-flame" size={20} color="#ffd43b" />
+          <Animated.Text style={[styles.days, { transform: [{ scale: countScale }] }]}>{streakDays} ngày</Animated.Text>
+        </View>
         <Text style={styles.label}>{label}</Text>
         {maxStreakDays != null && maxStreakDays > streakDays ? (
           <Text style={styles.best}>Kỷ lục của bạn: {maxStreakDays} ngày</Text>
@@ -53,8 +57,9 @@ export const StreakCounter = ({ streakDays, maxStreakDays }: Props) => {
 };
 
 const styles = StyleSheet.create({
-  wrap: { backgroundColor: '#1b232b', borderRadius: 12, padding: 12 },
+  wrap: { backgroundColor: '#1b232b', borderRadius: 14, padding: 14 },
   textCol: { flex: 1, gap: 2 },
+  daysRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   days: { color: '#2f81f7', fontWeight: '800', fontSize: 17 },
   label: { color: '#9fb0bf', fontSize: 12 },
   best: { color: '#9fb0bf', fontSize: 11, fontWeight: '700' },

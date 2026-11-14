@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Animated, Easing, StyleSheet, Text, View } from 'react-native';
 import { allBadges, type Badge, type GamificationStats } from '../../lib/gamification';
+import { AppIcon, BADGE_ICONS } from '../icons';
 
 type Props = {
   stats: GamificationStats;
@@ -36,7 +37,8 @@ const BadgeCell = ({ badge, width }: BadgeCellProps) => {
     return () => animation.stop();
   }, [badge.unlocked, revealProgress]);
 
-  const scale = revealProgress.interpolate({ inputRange: [0, 1], outputRange: [0.9, 1] });
+  const scale = revealProgress.interpolate({ inputRange: [0, 1], outputRange: [0.96, 1] });
+  const icon = BADGE_ICONS[badge.id];
 
   return (
     <Animated.View
@@ -45,6 +47,9 @@ const BadgeCell = ({ badge, width }: BadgeCellProps) => {
         { width, opacity: badge.unlocked ? revealProgress : 0.6, transform: [{ scale: badge.unlocked ? scale : 1 }] },
       ]}
     >
+      {icon ? (
+        <AppIcon name={icon.name} size={24} color={badge.unlocked ? icon.color : '#3a4756'} />
+      ) : null}
       <Text style={styles.state}>{badge.unlocked ? 'Đã mở' : 'Chưa mở'}</Text>
       <Text style={styles.badgeTitle}>{badge.title}</Text>
       <Text style={styles.badgeDesc}>{badge.desc}</Text>
@@ -83,8 +88,8 @@ const styles = StyleSheet.create({
   title: { color: '#fff', fontWeight: '800', fontSize: 16 },
   count: { color: '#2f81f7', fontWeight: '700', fontSize: 13 },
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
-  cell: { backgroundColor: '#1b232b', borderRadius: 12, padding: 10, alignItems: 'center', gap: 4 },
-  state: { color: '#9fb0bf', fontSize: 12, fontWeight: '700' },
+  cell: { backgroundColor: '#1b232b', borderRadius: 12, padding: 10, paddingVertical: 12, alignItems: 'center', gap: 4 },
+  state: { color: '#9fb0bf', fontSize: 10, fontWeight: '700' },
   badgeTitle: { color: '#fff', fontWeight: '700', fontSize: 12, textAlign: 'center' },
   badgeDesc: { color: '#9fb0bf', fontSize: 12, textAlign: 'center' },
   miniTrack: { height: 4, width: '100%', borderRadius: 2, backgroundColor: '#243040', overflow: 'hidden', marginTop: 2 },

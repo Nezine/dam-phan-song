@@ -7,6 +7,7 @@ import type { Room, RoomId } from '../lib/rooms';
 import { ROOMS, difficultyLabel } from '../lib/rooms';
 import { isRoomUnlocked } from '../lib/roomProgress';
 import type { RoomProgress } from '../lib/roomProgress';
+import { AppIcon, RoomIconImage } from '../components/icons';
 
 // Chỉ Phòng 1 đã có vòng đàm phán thật. Phòng khác dù đã mở khóa vẫn chưa
 // có luồng để vào — bấm vào phải nói rõ "sắp có", không được giả vờ vào được.
@@ -194,23 +195,50 @@ export default function RoomMapScreen({ progress, onBack, onEnterRoom }: Props) 
                 }}
               >
                 <View style={styles.cardTop}>
-                  <Text style={styles.roomIcon}>{room.icon}</Text>
+                  <View style={[styles.roomTile, !unlocked && styles.roomTileLocked]}>
+                    {unlocked ? (
+                      <RoomIconImage room={room.id} size={30} />
+                    ) : (
+                      <AppIcon name="lock" size={22} color="#9fb0bf" />
+                    )}
+                  </View>
                   <View style={styles.cardHead}>
                     <Text style={styles.roomOrder}>PHÒNG {room.order}</Text>
                     <Text style={styles.roomTitle}>{room.title}</Text>
                     <Text style={styles.roomTag}>{room.tagline}</Text>
                   </View>
-                  <Text style={styles.badge}>
-                    {done
-                      ? 'Xong'
-                      : !unlocked
-                        ? 'Khóa'
-                        : !hasFlow
-                          ? 'Sắp có'
-                          : isCurrent
-                            ? '▶ Đang luyện'
-                            : 'Mở'}
-                  </Text>
+                  <View
+                    style={[
+                      styles.badgePill,
+                      done && styles.badgeDone,
+                      !unlocked && styles.badgeLocked,
+                      isCurrent && hasFlow && !done && styles.badgeCurrent,
+                    ]}
+                  >
+                    {done ? (
+                      <AppIcon name="check" size={12} color="#8ce99a" />
+                    ) : !unlocked ? (
+                      <AppIcon name="lock" size={12} color="#9fb0bf" />
+                    ) : null}
+                    <Text
+                      style={[
+                        styles.badge,
+                        done && styles.badgeTextDone,
+                        !unlocked && styles.badgeTextLocked,
+                        isCurrent && hasFlow && !done && styles.badgeTextCurrent,
+                      ]}
+                    >
+                      {done
+                        ? 'Xong'
+                        : !unlocked
+                          ? 'Khóa'
+                          : !hasFlow
+                            ? 'Sắp có'
+                            : isCurrent
+                              ? '▶ Đang luyện'
+                              : 'Mở'}
+                    </Text>
+                  </View>
                 </View>
                 <Text style={styles.roomDesc}>{room.desc}</Text>
                 <View style={styles.scenarioRow}>
@@ -254,8 +282,8 @@ const styles = StyleSheet.create({
   levelRingMarkerTrack: { position: 'absolute', width: 42, height: 42, alignItems: 'center' },
   levelRingMarker: { width: 6, height: 6, borderRadius: 3, backgroundColor: '#2f81f7' },
   levelRingValue: { color: '#fff', fontSize: 12, fontWeight: '800' },
-  xpTrack: { flex: 1, height: 8, backgroundColor: '#243040', borderRadius: 4, overflow: 'hidden' },
-  xpFill: { height: '100%', backgroundColor: '#2f81f7', borderRadius: 4 },
+  xpTrack: { flex: 1, height: 10, backgroundColor: '#243040', borderRadius: 5, overflow: 'hidden' },
+  xpFill: { height: '100%', backgroundColor: '#2f81f7', borderRadius: 5 },
   list: { flex: 1 },
   notice: {
     backgroundColor: '#243040',
@@ -270,16 +298,39 @@ const styles = StyleSheet.create({
   soonText: { color: '#ffd43b', fontSize: 12, fontWeight: '700' },
   listPad: { paddingHorizontal: 20, paddingBottom: 32 },
   connector: { width: 2, height: 18, backgroundColor: '#243040', marginLeft: 34, marginVertical: 0 },
-  card: { backgroundColor: '#1b232b', borderRadius: 16, padding: 16, gap: 8 },
+  card: { backgroundColor: '#1b232b', borderColor: '#232c35', borderWidth: 1, borderRadius: 18, padding: 16, gap: 10 },
   cardLocked: { opacity: 0.55 },
   cardDone: { borderColor: '#2f9e44', borderWidth: 1 },
-  cardTop: { flexDirection: 'row', gap: 10, alignItems: 'flex-start' },
-  roomIcon: { fontSize: 28, color: '#fff' },
+  cardTop: { flexDirection: 'row', gap: 12, alignItems: 'flex-start' },
+  roomTile: {
+    width: 52,
+    height: 52,
+    borderRadius: 16,
+    backgroundColor: '#16283d',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  roomTileLocked: { backgroundColor: '#243040' },
   cardHead: { flex: 1, gap: 2 },
   roomOrder: { color: '#9fb0bf', fontSize: 12, fontWeight: '800', letterSpacing: 1 },
   roomTitle: { color: '#fff', fontSize: 17, fontWeight: '800' },
-  roomTag: { color: '#c3d0dc', fontSize: 12 },
+  roomTag: { color: '#c3d0dc', fontSize: 12, lineHeight: 16 },
+  badgePill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: '#243040',
+    borderRadius: 20,
+    paddingHorizontal: 9,
+    paddingVertical: 5,
+  },
+  badgeDone: { backgroundColor: '#0b2518' },
+  badgeLocked: { backgroundColor: '#1b232b' },
+  badgeCurrent: { backgroundColor: '#16283d' },
   badge: { color: '#ffd43b', fontWeight: '800', fontSize: 12 },
+  badgeTextDone: { color: '#8ce99a' },
+  badgeTextLocked: { color: '#9fb0bf' },
+  badgeTextCurrent: { color: '#2f81f7' },
   roomDesc: { color: '#c3d0dc', fontSize: 13, lineHeight: 18 },
   scenarioRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 6 },
   chip: { backgroundColor: '#243040', borderRadius: 8, paddingHorizontal: 8, paddingVertical: 4 },

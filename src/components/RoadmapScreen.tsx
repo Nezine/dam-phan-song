@@ -33,6 +33,7 @@ import {
   type RoadmapProgress,
 } from '../lib/roadmap';
 import RoadmapItemDetail from './RoadmapItemDetail';
+import { AppIcon } from './icons';
 
 type Props = {
   onBack: () => void;
@@ -200,10 +201,15 @@ export default function RoadmapScreen({ onBack, onStartPractice }: Props) {
                 <Animated.View
                   style={[
                     styles.levelBadge,
+                    status === 'done' && styles.levelBadgeDone,
                     celebratingLevel === level.id ? { transform: [{ scale: levelUpScale }] } : undefined,
                   ]}
                 >
-                  <Text style={styles.levelBadgeText}>{status === 'done' ? '✓' : level.n}</Text>
+                  {status === 'done' ? (
+                    <AppIcon name="check" size={20} color="#fff" />
+                  ) : (
+                    <Text style={styles.levelBadgeText}>{level.n}</Text>
+                  )}
                 </Animated.View>
                 <View style={{ flex: 1, gap: 2 }}>
                   <Text style={styles.levelTitle}>
@@ -234,7 +240,15 @@ export default function RoadmapScreen({ onBack, onStartPractice }: Props) {
                       }}
                       style={[styles.itemRow, st === 'locked' && styles.itemLocked]}
                     >
-                      <Text style={styles.itemStatus}>{STATUS_LABEL[st]}</Text>
+                      <Text
+                        style={[
+                          styles.itemStatus,
+                          st === 'done' && styles.itemStatusDone,
+                          st === 'unlocked' && styles.itemStatusOpen,
+                        ]}
+                      >
+                        {STATUS_LABEL[st]}
+                      </Text>
                       <View style={{ flex: 1, gap: 2 }}>
                         <Text style={styles.itemTitle}>{item.title}</Text>
                         <Text style={styles.itemMeta}>
@@ -270,11 +284,11 @@ const styles = StyleSheet.create({
   back: { color: '#2f81f7', fontWeight: '700', fontSize: 15 },
   h1: { color: '#fff', fontSize: 28, fontWeight: '800' },
   sub: { color: '#9fb0bf', fontSize: 14, lineHeight: 19 },
-  progressBar: { backgroundColor: '#243040', borderRadius: 8, height: 10, overflow: 'hidden' },
-  progressFill: { backgroundColor: '#2f81f7', height: 10, borderRadius: 8 },
+  progressBar: { backgroundColor: '#243040', borderRadius: 6, height: 12, overflow: 'hidden' },
+  progressFill: { backgroundColor: '#2f81f7', height: 12, borderRadius: 6 },
   progressText: { color: '#9fb0bf', fontWeight: '700', fontSize: 13 },
   body: { flex: 1 },
-  levelCard: { backgroundColor: '#1b232b', borderRadius: 14, padding: 12, gap: 8 },
+  levelCard: { backgroundColor: '#1b232b', borderColor: '#232c35', borderWidth: 1, borderRadius: 16, padding: 14, gap: 8 },
   levelLocked: { opacity: 0.55 },
   levelDone: { borderColor: '#2f9e44', borderWidth: 1 },
   levelHead: { flexDirection: 'row', gap: 12, alignItems: 'center' },
@@ -286,14 +300,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  levelBadgeDone: { backgroundColor: '#2f9e44' },
   levelBadgeText: { color: '#fff', fontWeight: '900', fontSize: 17 },
   levelTitle: { color: '#fff', fontWeight: '800', fontSize: 16 },
   levelTag: { color: '#9fb0bf', fontSize: 12 },
   levelCount: { color: '#8ce99a', fontWeight: '700', fontSize: 12 },
   chevron: { color: '#9fb0bf', fontSize: 18 },
-  itemRow: { flexDirection: 'row', gap: 10, alignItems: 'center', backgroundColor: '#243040', borderRadius: 10, padding: 12 },
+  itemRow: { flexDirection: 'row', gap: 10, alignItems: 'center', backgroundColor: '#243040', borderRadius: 12, padding: 12 },
   itemLocked: { opacity: 0.5 },
-  itemStatus: { color: '#9fb0bf', fontSize: 12, fontWeight: '700', minWidth: 38, textAlign: 'center' },
+  itemStatus: { color: '#9fb0bf', fontSize: 11, fontWeight: '700', minWidth: 38, textAlign: 'center' },
+  itemStatusDone: { color: '#8ce99a' },
+  itemStatusOpen: { color: '#2f81f7' },
   itemTitle: { color: '#fff', fontWeight: '700', fontSize: 14 },
   itemMeta: { color: '#9fb0bf', fontSize: 12 },
   itemArrow: { color: '#9fb0bf', fontSize: 18 },
