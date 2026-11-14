@@ -112,10 +112,10 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
   const [result, setResult] = useState<ScoreResult | null>(null);
   const [progress, setProgress] = useState<Progress | null>(null);
   const scrollRef = useRef<ScrollViewInstance | null>(null);
-  const [messageEntry] = useState(() => new Animated.Value(1));
+  const [messageEntry] = useState(() => new Animated.Value(0));
   const [micPulse] = useState(() => new Animated.Value(1));
   const [typingDots] = useState(() => [new Animated.Value(0.35), new Animated.Value(0.35), new Animated.Value(0.35)]);
-  const [winPulse] = useState(() => new Animated.Value(1));
+  const [winPulse] = useState(() => new Animated.Value(0.98));
   const mutedRef = useRef(false);
   const recordedRef = useRef<number | null>(null); // agreedPrice đã ghi tiến bộ
 
@@ -168,7 +168,7 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
     const pulse = Animated.loop(
       Animated.sequence([
         Animated.timing(micPulse, {
-          toValue: 1.025,
+          toValue: 1.08,
           duration: 420,
           easing: Easing.inOut(Easing.quad),
           useNativeDriver: true,
@@ -189,21 +189,24 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
     typingDots.forEach((dot) => dot.setValue(0.35));
     if (busyPhase !== 'customer') return;
     const pulse = Animated.loop(
-      Animated.sequence(
-        typingDots.flatMap((dot) => [
-          Animated.timing(dot, {
-            toValue: 1,
-            duration: 120,
-            easing: Easing.out(Easing.quad),
-            useNativeDriver: true,
-          }),
-          Animated.timing(dot, {
-            toValue: 0.35,
-            duration: 120,
-            easing: Easing.out(Easing.quad),
-            useNativeDriver: true,
-          }),
-        ]),
+      Animated.parallel(
+        typingDots.map((dot, i) =>
+          Animated.sequence([
+            Animated.delay(i * 120),
+            Animated.timing(dot, {
+              toValue: 1,
+              duration: 120,
+              easing: Easing.out(Easing.quad),
+              useNativeDriver: true,
+            }),
+            Animated.timing(dot, {
+              toValue: 0.35,
+              duration: 120,
+              easing: Easing.out(Easing.quad),
+              useNativeDriver: true,
+            }),
+          ]),
+        ),
       ),
     );
     pulse.start();
@@ -591,7 +594,7 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
           </Pressable>
         ) : null}
         <View style={styles.headerText}>
-          <Text style={styles.h2}>
+          <Text style={styles.h1}>
             Phòng 1 · Luyện bán hàng
           </Text>
           <Text style={styles.headerSub}>
@@ -714,7 +717,7 @@ const styles = StyleSheet.create({
   pad: { padding: 20, justifyContent: 'center', gap: 10 },
   h1: { color: '#fff', fontSize: 28, fontWeight: '800' },
   h2: { color: '#fff', fontSize: 15, fontWeight: '700' },
-  sub: { color: '#9fb0bf', marginBottom: 10 },
+  sub: { color: '#9fb0bf', fontSize: 14, lineHeight: 20, marginBottom: 10 },
   roomChip: {
     color: '#ffd43b',
     fontSize: 13,
@@ -751,15 +754,15 @@ const styles = StyleSheet.create({
   headerText: { flex: 1 },
   headerSub: { color: '#9fb0bf', fontSize: 12, marginTop: 2 },
   muteBtn: { backgroundColor: '#243040', borderRadius: 20, paddingVertical: 8, paddingHorizontal: 12 },
-  muteText: { fontSize: 16 },
+  muteText: { fontSize: 16, color: '#fff' },
   backBtn: { backgroundColor: '#243040', borderRadius: 20, paddingVertical: 8, paddingHorizontal: 12 },
   backText: { color: '#fff', fontWeight: '700', fontSize: 14 },
   chat: { flex: 1 },
   bubble: { maxWidth: '85%', borderRadius: 14, padding: 10 },
   me: { alignSelf: 'flex-end', backgroundColor: '#2f81f7' },
   them: { alignSelf: 'flex-start', backgroundColor: '#243040' },
-  speaker: { color: '#c3fae8', fontSize: 11, fontWeight: '800', marginBottom: 2 },
-  bubbleText: { color: '#fff' },
+  speaker: { color: '#c3fae8', fontSize: 12, fontWeight: '800', marginBottom: 2 },
+  bubbleText: { color: '#fff', fontSize: 14, lineHeight: 20 },
   price: { color: '#8ce99a', fontWeight: '700', marginTop: 4 },
   busyRow: { flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 4 },
   typingDots: { flexDirection: 'row', alignItems: 'center', gap: 4 },
@@ -795,7 +798,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 4,
   },
-  winTitle: { color: '#8ce99a', fontWeight: '900', fontSize: 18 },
+  winTitle: { color: '#8ce99a', fontWeight: '900', fontSize: 28 },
   winPrice: { color: '#fff', fontWeight: '800', fontSize: 26 },
   winSaved: { color: '#ffd43b', fontWeight: '700', textAlign: 'center', marginBottom: 4 },
   winQuote: { color: '#c3fae8', fontSize: 13, fontStyle: 'italic', textAlign: 'center', marginTop: 8 },
@@ -805,7 +808,7 @@ const styles = StyleSheet.create({
   twistTitle: { color: '#9fb0bf', fontSize: 12, marginTop: 12 },
   twistBtn: { backgroundColor: '#243040', borderRadius: 10, padding: 10 },
   twistLabel: { color: '#fff', fontWeight: '700', fontSize: 14 },
-  twistDesc: { color: '#9fb0bf', fontSize: 11, marginTop: 2 },
+  twistDesc: { color: '#9fb0bf', fontSize: 12, marginTop: 2 },
   micBtn: { backgroundColor: '#243040', borderRadius: 24, paddingVertical: 16, alignItems: 'center' },
   micBtnActive: { backgroundColor: '#e03131' },
   micText: { color: '#fff', fontWeight: '700' },

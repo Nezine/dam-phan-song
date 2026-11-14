@@ -33,12 +33,14 @@ function LevelRing({ level, percent }: { level: number; percent: number }) {
   const progress = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    Animated.timing(progress, {
+    const animation = Animated.timing(progress, {
       toValue: percent,
       duration: 420,
       easing: Easing.out(Easing.cubic),
       useNativeDriver: true,
-    }).start();
+    });
+    animation.start();
+    return () => animation.stop();
   }, [percent, progress]);
 
   const rotation = progress.interpolate({
@@ -63,6 +65,7 @@ function LevelRing({ level, percent }: { level: number; percent: number }) {
 }
 
 function animatePress(value: Animated.Value, pressed: boolean) {
+  value.stopAnimation();
   Animated.timing(value, {
     toValue: pressed ? 1 : 0,
     duration: pressed ? 120 : 220,
@@ -79,9 +82,12 @@ export default function RoomMapScreen({ progress, onBack, onEnterRoom }: Props) 
   const pressValues = useRef(ROOMS.map(() => new Animated.Value(0))).current;
   const xpProgress = useRef(new Animated.Value(0)).current;
 
+  const entranceDone = useRef(false);
   useEffect(() => {
+    if (entranceDone.current) return;
+    entranceDone.current = true;
     const entrance = Animated.stagger(
-      160,
+      70,
       entranceValues.map((value) =>
         Animated.timing(value, {
           toValue: 1,
@@ -96,12 +102,14 @@ export default function RoomMapScreen({ progress, onBack, onEnterRoom }: Props) 
   }, [entranceValues]);
 
   useEffect(() => {
-    Animated.timing(xpProgress, {
+    const animation = Animated.timing(xpProgress, {
       toValue: xpPct,
       duration: 420,
       easing: Easing.out(Easing.cubic),
       useNativeDriver: false,
-    }).start();
+    });
+    animation.start();
+    return () => animation.stop();
   }, [xpPct, xpProgress]);
 
   const xpWidth = xpProgress.interpolate({
@@ -259,27 +267,27 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   noticeText: { color: '#fff', fontSize: 13, lineHeight: 18 },
-  soonText: { color: '#ffd43b', fontSize: 11, fontWeight: '700' },
+  soonText: { color: '#ffd43b', fontSize: 12, fontWeight: '700' },
   listPad: { paddingHorizontal: 20, paddingBottom: 32 },
   connector: { width: 2, height: 18, backgroundColor: '#243040', marginLeft: 34, marginVertical: 0 },
   card: { backgroundColor: '#1b232b', borderRadius: 16, padding: 16, gap: 8 },
   cardLocked: { opacity: 0.55 },
   cardDone: { borderColor: '#2f9e44', borderWidth: 1 },
   cardTop: { flexDirection: 'row', gap: 10, alignItems: 'flex-start' },
-  roomIcon: { fontSize: 28 },
+  roomIcon: { fontSize: 28, color: '#fff' },
   cardHead: { flex: 1, gap: 2 },
-  roomOrder: { color: '#9fb0bf', fontSize: 11, fontWeight: '800', letterSpacing: 1 },
+  roomOrder: { color: '#9fb0bf', fontSize: 12, fontWeight: '800', letterSpacing: 1 },
   roomTitle: { color: '#fff', fontSize: 17, fontWeight: '800' },
   roomTag: { color: '#c3d0dc', fontSize: 12 },
   badge: { color: '#ffd43b', fontWeight: '800', fontSize: 12 },
   roomDesc: { color: '#c3d0dc', fontSize: 13, lineHeight: 18 },
   scenarioRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 6 },
   chip: { backgroundColor: '#243040', borderRadius: 8, paddingHorizontal: 8, paddingVertical: 4 },
-  chipText: { color: '#fff', fontSize: 11 },
+  chipText: { color: '#fff', fontSize: 12 },
   cardFoot: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   diff: { color: '#ffd43b', fontSize: 12, fontWeight: '700' },
-  diffOff: { color: '#3a4756' },
-  unlockText: { color: '#9fb0bf', fontSize: 11 },
+  diffOff: { color: '#9fb0bf', opacity: 0.5 },
+  unlockText: { color: '#9fb0bf', fontSize: 12 },
   enterText: { color: '#2f81f7', fontWeight: '800', fontSize: 13 },
   footNote: { color: '#9fb0bf', fontSize: 12, textAlign: 'center', marginTop: 16, lineHeight: 17 },
 });

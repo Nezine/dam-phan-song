@@ -46,7 +46,7 @@ export default function RoadmapScreen({ onBack, onStartPractice }: Props) {
   const [progress, setProgress] = useState<RoadmapProgress | null>(null);
   const [expanded, setExpanded] = useState<string | null>('lv1');
   const [selected, setSelected] = useState<{ item: RoadmapItem; level: RoadmapLevel } | null>(null);
-  const [reduceMotion, setReduceMotion] = useState(true);
+  const [reduceMotion, setReduceMotion] = useState<boolean | null>(null);
   const [celebratingLevel, setCelebratingLevel] = useState<string | null>(null);
   const progressFill = useRef(new Animated.Value(0)).current;
   const levelUpScale = useRef(new Animated.Value(1)).current;
@@ -77,6 +77,7 @@ export default function RoadmapScreen({ onBack, onStartPractice }: Props) {
   }, []);
 
   useEffect(() => {
+    if (reduceMotion == null) return; // chưa biết AccessibilityInfo -> chưa animate
     progressFill.stopAnimation();
     if (reduceMotion) {
       progressFill.setValue(pct);
@@ -95,18 +96,27 @@ export default function RoadmapScreen({ onBack, onStartPractice }: Props) {
 
   useEffect(() => {
     if (!celebratingLevel || selected) return;
+    if (reduceMotion == null) return;
     if (reduceMotion) {
       setCelebratingLevel(null);
       return;
     }
 
-    levelUpScale.setValue(0.96);
-    const animation = Animated.timing(levelUpScale, {
-      toValue: 1,
-      duration: 220,
-      easing: Easing.out(Easing.cubic),
-      useNativeDriver: true,
-    });
+    levelUpScale.setValue(0.9);
+    const animation = Animated.sequence([
+      Animated.timing(levelUpScale, {
+        toValue: 1.08,
+        duration: 140,
+        easing: Easing.out(Easing.cubic),
+        useNativeDriver: true,
+      }),
+      Animated.timing(levelUpScale, {
+        toValue: 1,
+        duration: 140,
+        easing: Easing.out(Easing.cubic),
+        useNativeDriver: true,
+      }),
+    ]);
     animation.start(({ finished }) => {
       if (finished) setCelebratingLevel(null);
     });
@@ -127,7 +137,7 @@ export default function RoadmapScreen({ onBack, onStartPractice }: Props) {
       <RoadmapItemDetail
         item={selected.item}
         level={selected.level}
-        reduceMotion={reduceMotion}
+        reduceMotion={reduceMotion ?? true}
         onBack={() => setSelected(null)}
         onStartPractice={onStartPractice}
         onComplete={(itemId, score) => {
@@ -283,7 +293,7 @@ const styles = StyleSheet.create({
   chevron: { color: '#9fb0bf', fontSize: 18 },
   itemRow: { flexDirection: 'row', gap: 10, alignItems: 'center', backgroundColor: '#243040', borderRadius: 10, padding: 12 },
   itemLocked: { opacity: 0.5 },
-  itemStatus: { color: '#9fb0bf', fontSize: 11, fontWeight: '700', minWidth: 38, textAlign: 'center' },
+  itemStatus: { color: '#9fb0bf', fontSize: 12, fontWeight: '700', minWidth: 38, textAlign: 'center' },
   itemTitle: { color: '#fff', fontWeight: '700', fontSize: 14 },
   itemMeta: { color: '#9fb0bf', fontSize: 12 },
   itemArrow: { color: '#9fb0bf', fontSize: 18 },

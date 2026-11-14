@@ -12,11 +12,27 @@ export const XpBar = ({ totalXp, compact = false }: Props) => {
   const { level, xpInLevel, xpToNext, progress } = levelFromXp(totalXp);
   const [animatedProgress] = useState(() => new Animated.Value(progress));
   const previousProgress = useRef(progress);
+  const previousLevel = useRef(level);
 
   useEffect(() => {
-    if (previousProgress.current === progress) return;
+    if (previousProgress.current === progress && previousLevel.current === level) return;
+    // Lên cấp: progress tụt (0.95 -> 0.05) — chạy nốt tới 100% rồi đặt lại
+    // về đầu cấp mới, thay vì để thanh chạy NGƯỢC trông như mất XP.
+    const leveledUp = level > previousLevel.current;
     previousProgress.current = progress;
-
+    previousLevel.current = level;
+    if (leveledUp) {
+      const fill = Animated.timing(animatedProgress, {
+        toValue: 1,
+        duration: 200,
+        easing: Easing.out(Easing.cubic),
+        useNativeDriver: false,
+      });
+      fill.start(({ finished }) => {
+        if (finished) animatedProgress.setValue(progress);
+      });
+      return () => fill.stop();
+    }
     const animation = Animated.timing(animatedProgress, {
       toValue: progress,
       duration: 300,
@@ -25,7 +41,7 @@ export const XpBar = ({ totalXp, compact = false }: Props) => {
     });
     animation.start();
     return () => animation.stop();
-  }, [animatedProgress, progress]);
+  }, [animatedProgress, progress, level]);
 
   const fillWidth = animatedProgress.interpolate({
     inputRange: [0, 1],

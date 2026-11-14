@@ -36,7 +36,7 @@ const BadgeCell = ({ badge, width }: BadgeCellProps) => {
     return () => animation.stop();
   }, [badge.unlocked, revealProgress]);
 
-  const scale = revealProgress.interpolate({ inputRange: [0, 1], outputRange: [0.96, 1] });
+  const scale = revealProgress.interpolate({ inputRange: [0, 1], outputRange: [0.9, 1] });
 
   return (
     <Animated.View
@@ -84,9 +84,9 @@ const styles = StyleSheet.create({
   count: { color: '#2f81f7', fontWeight: '700', fontSize: 13 },
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   cell: { backgroundColor: '#1b232b', borderRadius: 12, padding: 10, alignItems: 'center', gap: 4 },
-  state: { color: '#9fb0bf', fontSize: 10, fontWeight: '700' },
+  state: { color: '#9fb0bf', fontSize: 12, fontWeight: '700' },
   badgeTitle: { color: '#fff', fontWeight: '700', fontSize: 12, textAlign: 'center' },
-  badgeDesc: { color: '#9fb0bf', fontSize: 11, textAlign: 'center' },
+  badgeDesc: { color: '#9fb0bf', fontSize: 12, textAlign: 'center' },
   miniTrack: { height: 4, width: '100%', borderRadius: 2, backgroundColor: '#243040', overflow: 'hidden', marginTop: 2 },
   miniFill: { height: '100%', backgroundColor: '#2f81f7' },
 });
