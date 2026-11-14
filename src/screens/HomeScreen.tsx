@@ -50,6 +50,7 @@ export default function HomeScreen({ progress, onOpenMap, onStartRoom }: Props) 
     roundsPlayed: progress.sessionsTotal,
     roundsWon: progress.sessionsTotal,
     bestSavingPct: 0,
+    streakDays: progress.streakDays,
     maxStreakDays: progress.streakDays,
     roundsToday: progress.roundsToday,
   };
