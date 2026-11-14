@@ -52,8 +52,8 @@ const friendlyError = (e: unknown): string => {
 const TWISTS: { key: Scenario['twist']; label: string; desc: string; city: string; room: string; listed: string; floor: string; opening: string }[] = [
   {
     key: 'hardline',
-    label: '1️⃣ Giá sàn cứng',
-    desc: 'Chủ trọ chốt 3tr2, có người chờ cọc',
+    label: '1️⃣ Phòng 1 · Giá sàn cứng',
+    desc: 'Đối phương chốt 3tr2, có người chờ cọc',
     city: 'Hà Nội',
     room: 'phòng trọ có gác lửng',
     listed: '3500000',
@@ -62,8 +62,8 @@ const TWISTS: { key: Scenario['twist']; label: string; desc: string; city: strin
   },
   {
     key: 'mold',
-    label: '2️⃣ Phòng ẩm mốc',
-    desc: 'Tường ẩm, chủ trọ gạt "ở được"',
+    label: '2️⃣ Phòng 1 · Phòng ẩm mốc',
+    desc: 'Tường ẩm, đối phương gạt "ở được"',
     city: 'TP.HCM',
     room: 'phòng trọ 20m2',
     listed: '3000000',
@@ -72,7 +72,7 @@ const TWISTS: { key: Scenario['twist']; label: string; desc: string; city: strin
   },
   {
     key: 'deposit',
-    label: '3️⃣ Cọc 2 tháng',
+    label: '3️⃣ Phòng 1 · Cọc 2 tháng',
     desc: 'Đóng 3 tháng/lần, tiền mặt ~20 triệu',
     city: 'Đà Nẵng',
     room: 'căn hộ mini 25m2',
@@ -324,7 +324,7 @@ export default function App() {
   // Giá chủ trọ đang giữ (P1-7): lượt landlord gần nhất có giá, nếu không thì giá rao.
   const lastPriced = [...turns].reverse().find((t) => t.price != null);
   const currentPrice = lastPriced?.price ?? scenario?.listedPrice ?? 0;
-  const twistLabel = TWISTS.find((t) => t.key === scenario?.twist)?.label ?? 'Thuê trọ';
+  const twistLabel = TWISTS.find((t) => t.key === scenario?.twist)?.label ?? 'Phòng 1 · Thuê trọ';
 
   if (!started) {
     return (
@@ -351,7 +351,7 @@ export default function App() {
           placeholder="3500000"
           keyboardType="number-pad"
         />
-        <Text style={styles.label}>Giá sàn của chủ trọ (bí mật — AI không chốt thấp hơn)</Text>
+        <Text style={styles.label}>Giá sàn của đối phương (bí mật — AI không chốt thấp hơn)</Text>
         <TextInput
           style={styles.input}
           value={floorPrice}
@@ -362,7 +362,7 @@ export default function App() {
         <Pressable style={styles.bigBtn} onPress={() => startNegotiation()}>
           <Text style={styles.bigBtnText}>Bắt đầu đàm phán →</Text>
         </Pressable>
-        <Text style={styles.twistTitle}>🎯 Luyện tình huống khó (giám khảo ra):</Text>
+        <Text style={styles.twistTitle}>🎯 Phòng 1 — Luyện tình huống khó:</Text>
         {TWISTS.map((t) => (
           <Pressable key={t.key} style={styles.twistBtn} onPress={() => startNegotiation(t)}>
             <Text style={styles.twistLabel}>{t.label}</Text>
@@ -422,7 +422,7 @@ export default function App() {
         ) : null}
         <Text style={styles.sectionTitle}>Lộ trình luyện tiếp</Text>
         <Text style={styles.lessonText}>
-          Luyện tiếp: mở đầu bằng số cụ thể → nêu 1 lý do → mặc cả điều khoản khi chủ trọ cứng giá. Mỗi phiên
+          Luyện tiếp: mở đầu bằng số cụ thể → nêu 1 lý do → mặc cả điều khoản khi đối phương cứng giá. Mỗi phiên
           hoàn thành sẽ lưu vào tiến bộ trên máy này.
         </Text>
         <Pressable style={styles.bigBtn} onPress={restartSameScenario}>
@@ -439,7 +439,7 @@ export default function App() {
     <View style={styles.screen}>
       {MOCK && (
         <View style={styles.mockBanner}>
-          <Text style={styles.mockText}>⚠️ MOCK MODE — landlord giả, chỉ test UI</Text>
+          <Text style={styles.mockText}>⚠️ MOCK MODE — đối phương giả, chỉ test UI</Text>
         </View>
       )}
       <View style={styles.header}>
@@ -448,7 +448,7 @@ export default function App() {
             🏠 {scenario?.roomType} — {fmt(scenario?.listedPrice ?? 0)}đ/tháng
           </Text>
           <Text style={styles.headerSub}>
-            {twistLabel} • Chủ trọ đang giữ: {fmt(currentPrice)}đ/tháng
+            {twistLabel} • Đối phương đang giữ: {fmt(currentPrice)}đ/tháng
           </Text>
         </View>
         <Pressable style={styles.muteBtn} onPress={() => setMuted((m) => !m)}>
@@ -459,7 +459,7 @@ export default function App() {
         {turns.map((t, i) => (
           <View key={i} style={[styles.bubble, t.speaker === 'tenant' ? styles.me : styles.them]}>
             <Text style={styles.speaker}>
-              {t.speaker === 'tenant' ? 'Bạn' : `Chủ trọ${t.emotion ? ` ${EMOJI[t.emotion]}` : ''}`}
+              {t.speaker === 'tenant' ? 'Bạn' : `Đối phương${t.emotion ? ` ${EMOJI[t.emotion]}` : ''}`}
             </Text>
             <Text style={styles.bubbleText}>{t.text}</Text>
             {t.price ? <Text style={styles.price}>→ {fmt(t.price)}đ/tháng</Text> : null}
@@ -469,7 +469,7 @@ export default function App() {
           <View style={styles.busyRow}>
             <ActivityIndicator />
             <Text style={styles.busyText}>
-              {busyPhase === 'transcribe' ? 'Đang nghe lại…' : 'Chủ trọ đang trả lời…'}
+              {busyPhase === 'transcribe' ? 'Đang nghe lại…' : 'Đối phương đang trả lời…'}
             </Text>
           </View>
         )}
