@@ -330,7 +330,7 @@ export default function App() {
     return (
       <KeyboardAvoidingView style={[styles.screen, styles.pad]} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <Text style={styles.h1}>🤝 Đàm Phán Sống</Text>
-        <Text style={styles.sub}>Luyện đàm phán giá trọ với chủ trọ AI — bằng giọng nói thật.</Text>
+        <Text style={styles.sub}>Luyện kỹ năng đàm phán / nói chuyện khó — bằng giọng nói thật.</Text>
         {progress && progress.sessions > 0 ? (
           <Text style={styles.progressStrip}>
             📈 Tiến bộ: {progress.sessions} phiên • Tiết kiệm tổng {fmt(progress.totalSaved)}đ/tháng • Điểm tốt nhất{' '}
