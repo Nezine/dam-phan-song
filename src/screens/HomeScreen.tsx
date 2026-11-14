@@ -3,10 +3,10 @@
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import type { RoomId } from '../lib/rooms';
 import { ROOMS } from '../lib/rooms';
-import type { Progress } from '../lib/progress';
+import type { RoomProgress } from '../lib/roomProgress';
 
 type Props = {
-  progress: Progress;
+  progress: RoomProgress;
   onOpenMap: () => void;
   onStartRoom: (roomId: RoomId) => void;
 };
@@ -26,7 +26,7 @@ export default function HomeScreen({ progress, onOpenMap, onStartRoom }: Props) 
 
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.pad}>
-      <Text style={styles.h1}>{greeting()}, Minh 👋</Text>
+      <Text style={styles.h1}>{greeting()}, bạn 👋</Text>
       <Text style={styles.sub}>Luyện nói chuyện khó — mỗi ngày một vòng.</Text>
 
       {/* Luyện hôm nay */}
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   cardLabel: { color: '#9fb0bf', fontSize: 11, fontWeight: '800', letterSpacing: 1 },
   todayCard: { backgroundColor: '#1b232b', borderRadius: 16, padding: 16, gap: 8 },
   todayTitle: { color: '#fff', fontSize: 20, fontWeight: '800' },
-  todayDesc: { color: '#c3d0dc', fontSize: 13, lineHeight: 18 },
+  todayDesc: { color: '#9fb0bf', fontSize: 13, lineHeight: 18 },
   bigBtn: { backgroundColor: '#2f81f7', borderRadius: 12, paddingVertical: 14, alignItems: 'center', marginTop: 4 },
   bigBtnText: { color: '#fff', fontWeight: '700', fontSize: 16 },
   statsRow: { flexDirection: 'row', gap: 10 },
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   levelRow: { flexDirection: 'row', justifyContent: 'space-between' },
   levelText: { color: '#fff', fontWeight: '700', fontSize: 13 },
   xpTrack: { height: 8, backgroundColor: '#243040', borderRadius: 4, overflow: 'hidden' },
-  xpFill: { height: '100%', backgroundColor: '#ffd43b', borderRadius: 4 },
+  xpFill: { height: '100%', backgroundColor: '#2f81f7', borderRadius: 4 },
   lessonCard: { backgroundColor: '#0b2518', borderColor: '#2f9e44', borderWidth: 1, borderRadius: 16, padding: 16, gap: 6 },
   lessonTitle: { color: '#8ce99a', fontWeight: '800', fontSize: 16 },
   lessonText: { color: '#c3fae8', fontSize: 13, lineHeight: 19 },

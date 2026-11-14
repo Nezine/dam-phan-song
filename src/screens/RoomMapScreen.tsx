@@ -3,11 +3,11 @@
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import type { Room, RoomId } from '../lib/rooms';
 import { ROOMS, difficultyLabel } from '../lib/rooms';
-import { isRoomUnlocked } from '../lib/progress';
-import type { Progress } from '../lib/progress';
+import { isRoomUnlocked } from '../lib/roomProgress';
+import type { RoomProgress } from '../lib/roomProgress';
 
 type Props = {
-  progress: Progress;
+  progress: RoomProgress;
   onBack: () => void;
   onEnterRoom: (roomId: RoomId) => void;
 };
@@ -101,12 +101,12 @@ const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: '#101418' },
   header: { paddingTop: 56, paddingHorizontal: 20, paddingBottom: 12, gap: 6 },
   back: { color: '#2f81f7', fontWeight: '700', fontSize: 14 },
-  h1: { color: '#fff', fontSize: 26, fontWeight: '800' },
+  h1: { color: '#fff', fontSize: 28, fontWeight: '800' },
   sub: { color: '#9fb0bf', fontSize: 13, lineHeight: 18 },
   levelRow: { flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 4 },
   levelText: { color: '#fff', fontWeight: '700', fontSize: 12 },
   xpTrack: { flex: 1, height: 8, backgroundColor: '#243040', borderRadius: 4, overflow: 'hidden' },
-  xpFill: { height: '100%', backgroundColor: '#ffd43b', borderRadius: 4 },
+  xpFill: { height: '100%', backgroundColor: '#2f81f7', borderRadius: 4 },
   list: { flex: 1 },
   listPad: { paddingHorizontal: 20, paddingBottom: 32 },
   connector: { width: 2, height: 18, backgroundColor: '#243040', marginLeft: 34, marginVertical: 0 },
@@ -118,15 +118,15 @@ const styles = StyleSheet.create({
   cardHead: { flex: 1, gap: 2 },
   roomOrder: { color: '#9fb0bf', fontSize: 11, fontWeight: '800', letterSpacing: 1 },
   roomTitle: { color: '#fff', fontSize: 17, fontWeight: '800' },
-  roomTag: { color: '#c3d0dc', fontSize: 12 },
+  roomTag: { color: '#9fb0bf', fontSize: 12 },
   badge: { color: '#ffd43b', fontWeight: '800', fontSize: 12 },
-  roomDesc: { color: '#c3d0dc', fontSize: 13, lineHeight: 18 },
+  roomDesc: { color: '#9fb0bf', fontSize: 13, lineHeight: 18 },
   scenarioRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 6 },
   chip: { backgroundColor: '#243040', borderRadius: 8, paddingHorizontal: 8, paddingVertical: 4 },
   chipText: { color: '#fff', fontSize: 11 },
   cardFoot: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   diff: { color: '#ffd43b', fontSize: 12, fontWeight: '700' },
-  diffOff: { color: '#3a4756' },
+  diffOff: { color: '#243040' },
   unlockText: { color: '#9fb0bf', fontSize: 11 },
   enterText: { color: '#2f81f7', fontWeight: '800', fontSize: 13 },
   footNote: { color: '#9fb0bf', fontSize: 12, textAlign: 'center', marginTop: 16, lineHeight: 17 },

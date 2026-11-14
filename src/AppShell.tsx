@@ -8,7 +8,7 @@ import { useState } from 'react';
 import App from '../App';
 import HomeScreen from './screens/HomeScreen';
 import RoomMapScreen from './screens/RoomMapScreen';
-import { getProgress } from './lib/progress';
+import { getProgress } from './lib/roomProgress';
 
 type Screen = 'home' | 'map' | 'negotiate';
 

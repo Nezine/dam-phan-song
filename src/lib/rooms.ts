@@ -63,8 +63,8 @@ export const ROOMS: Room[] = [
     desc: 'Luyện trả lời câu hỏi khó, thương lượng lương khởi điểm, phỏng vấn nhóm dưới áp lực.',
     scenarios: ['"Điểm yếu của bạn là gì?"', 'Thương lượng lương khởi điểm', 'Phỏng vấn nhóm'],
     difficulty: 3,
-    unlockText: 'Đạt cấp 5 để mở',
-    requiresLevel: 5,
+    unlockText: 'Đạt cấp 3 để mở',
+    requiresLevel: 3,
   },
   {
     id: 'investor',
@@ -75,8 +75,8 @@ export const ROOMS: Room[] = [
     desc: 'Luyện gọi vốn vòng đầu, bị hỏi xoáy về doanh thu, từ chối mà vẫn giữ quan hệ.',
     scenarios: ['Gọi vốn vòng đầu', 'Bị hỏi xoáy về doanh thu', 'Từ chối mà vẫn giữ quan hệ'],
     difficulty: 3,
-    unlockText: 'Đạt cấp 8 để mở',
-    requiresLevel: 8,
+    unlockText: 'Đạt cấp 5 để mở',
+    requiresLevel: 5,
   },
 ];
 
