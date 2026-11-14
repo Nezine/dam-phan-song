@@ -2,7 +2,7 @@
 import type { Scenario, LandlordReply } from './types';
 
 export const GROQ_API_KEY = process.env.EXPO_PUBLIC_GROQ_API_KEY ?? '';
-export const GROQ_MODEL = process.env.EXPO_PUBLIC_GROQ_MODEL ?? 'gpt-oss-20b';
+export const GROQ_MODEL = process.env.EXPO_PUBLIC_GROQ_MODEL ?? 'openai/gpt-oss-20b';
 const BASE = 'https://api.groq.com/openai/v1/chat/completions';
 
 function systemPrompt(s: Scenario): string {
