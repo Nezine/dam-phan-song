@@ -166,18 +166,29 @@ export function scoreNegotiation(
     },
   ];
 
-  // Weak sentences: tenant turns carrying no detected signal at all.
+  // Weak sentences (fair-persuasion rule): a turn is weak ONLY if it adds no
+  // NEW persuasive content vs previous tenant turns — no new price, reason
+  // word, or term word. Repeating the same ask is not itself penalised; an
+  // ask that brings a new reason/term still counts as persuasion, not nagging.
   const weakSentences: WeakSentence[] = [];
+  const seenPrices = new Set<number>();
+  const seenReasons = new Set<string>();
+  const seenTerms = new Set<string>();
   for (const text of tenantTexts) {
-    const hasSignal =
-      extractVnd(text).some((n) => n > 0 && n < scenario.listedPrice) ||
-      hasAny(text, REASON_WORDS) ||
-      hasAny(text, TERM_WORDS) ||
-      hasAny(text, POLITE_WORDS);
-    if (!hasSignal && text.trim().length > 0) {
+    const prices = extractVnd(text).filter((n) => n > 0 && n < scenario.listedPrice);
+    const reasons = REASON_WORDS.filter((w) => norm(text).includes(w));
+    const terms = TERM_WORDS.filter((w) => norm(text).includes(w));
+    const newInfo =
+      prices.some((n) => !seenPrices.has(n)) ||
+      reasons.some((w) => !seenReasons.has(w)) ||
+      terms.some((w) => !seenTerms.has(w));
+    prices.forEach((n) => seenPrices.add(n));
+    reasons.forEach((w) => seenReasons.add(w));
+    terms.forEach((w) => seenTerms.add(w));
+    if (!newInfo && text.trim().length > 0) {
       weakSentences.push({
         text,
-        why: 'Câu này chưa đưa giá mục tiêu, lý do hay điều khoản cụ thể.',
+        why: 'Câu này lặp lại mà không đưa thêm lý do, con số hay điều khoản mới.',
       });
     }
     if (weakSentences.length >= 3) break;
