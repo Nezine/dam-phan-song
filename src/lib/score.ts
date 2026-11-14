@@ -116,10 +116,24 @@ export function scoreNegotiation(
   // R5 — polite tone
   const politeEvidence = tenantTexts.find((t) => hasAny(t, POLITE_WORDS)) ?? null;
 
-  // R6 — closed below listed price
-  const closePassed = agreedPrice != null && agreedPrice < scenario.listedPrice;
+  // R6 — closed below listed price, OR at listed price on better terms
+  // (deposit twist: the win is terms — cọc 1 tháng, đóng theo tháng —
+  // so a perfect deposit round closing at listed price still counts).
+  const closePassed =
+    agreedPrice != null &&
+    (agreedPrice < scenario.listedPrice ||
+      (scenario.twist === 'deposit' && agreedPrice === scenario.listedPrice && termsEvidence != null));
   const closeEvidence =
-    agreedPrice != null ? `Chốt ${fmt(agreedPrice)}đ/tháng (giá rao ${fmt(scenario.listedPrice)}đ)` : null;
+    agreedPrice != null
+      ? agreedPrice < scenario.listedPrice
+        ? `Chốt ${fmt(agreedPrice)}đ/tháng (giá rao ${fmt(scenario.listedPrice)}đ)`
+        : `Chốt ${fmt(agreedPrice)}đ/tháng (giá rao ${fmt(scenario.listedPrice)}đ) — giữ giá nhưng đổi được điều khoản`
+      : null;
+  const closeOnTerms =
+    agreedPrice != null &&
+    agreedPrice >= scenario.listedPrice &&
+    scenario.twist === 'deposit' &&
+    termsEvidence != null;
 
   const rules: RuleResult[] = [
     {
@@ -159,10 +173,10 @@ export function scoreNegotiation(
     },
     {
       id: 'close',
-      label: 'Chốt thấp hơn giá rao',
+      label: closeOnTerms ? 'Chốt với điều khoản tốt hơn' : 'Chốt thấp hơn giá rao',
       passed: closePassed,
       evidence: closeEvidence,
-      tip: 'Chỉ chốt khi giá đã thấp hơn giá rao — chốt ở giá rao nghĩa là chưa mặc cả được gì.',
+      tip: 'Chỉ chốt khi giá đã thấp hơn giá rao — hoặc, với tình huống cọc, khi đã đổi được điều khoản (cọc 1 tháng, đóng theo tháng).',
     },
   ];
 

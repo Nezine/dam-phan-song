@@ -1,6 +1,6 @@
 // Mock landlord — trả lời cứng theo luật đơn giản, để test UI + TTS khi chưa có API key.
 // BẮT BUỘC hiện banner "MOCK MODE" (App.tsx tự bật khi không có key) — không được đem demo như AI thật.
-import type { Scenario, LandlordReply } from './types';
+import type { Scenario, LandlordReply, Turn } from './types';
 
 const firstNumber = (s: string): number | null => {
   const m = s.replace(/\./g, '').match(/(\d{4,})\s*(k|nghìn|tr|triệu)?/i);
@@ -8,15 +8,19 @@ const firstNumber = (s: string): number | null => {
   let v = Number(m[1]);
   if (/tr|triệu/i.test(m[2] ?? '')) v *= 1_000_000;
   else if (/k|nghìn/i.test(m[2] ?? '')) v *= 1_000;
+  // Số parse được mà < 1000đ không phải giá thuê thật — bỏ qua.
+  if (v < 1000) return null;
   return v;
 };
 
-const lastLandlordPrice = (history: { speaker: 'tenant' | 'landlord'; text: string }[], fallback: number) => {
+// Giá chủ trọ đang đưa ra: lấy từ trường price có cấu trúc của lượt chủ trọ
+// gần nhất — KHÔNG parse số từ lời nói (câu mở đầu hardline "dưới 3 triệu 2"
+// hay deposit "cọc 2 tháng" đều bị parse nhầm thành cur=3 / cur=2).
+const lastLandlordPrice = (history: Turn[], fallback: number) => {
   for (let i = history.length - 1; i >= 0; i--) {
     const t = history[i];
-    if (t.speaker === 'landlord') {
-      const m = t.text.replace(/\./g, '').match(/(\d[\d.,]*)/);
-      if (m) return Number(m[1].replace(/[.,]/g, '')) || fallback;
+    if (t.speaker === 'landlord' && typeof t.price === 'number' && t.price >= 1000) {
+      return t.price;
     }
   }
   return fallback;
@@ -24,7 +28,7 @@ const lastLandlordPrice = (history: { speaker: 'tenant' | 'landlord'; text: stri
 
 export function mockLandlordTurn(
   s: Scenario,
-  history: { speaker: 'tenant' | 'landlord'; text: string }[],
+  history: Turn[],
   tenantText: string,
 ): LandlordReply {
   const offer = firstNumber(tenantText);
@@ -51,8 +55,20 @@ export function mockLandlordTurn(
     };
   }
 
-  // 2) Kẹt tiền mặt / cọc — nhượng bộ về điều khoản
-  if (/cọc|đóng|thanh toán|tiền mặt|kẹt/.test(tenantText)) {
+  // 2) Kẹt tiền mặt / cọc — nhượng bộ về điều khoản. Chỉ chạy khi tenant
+  // không đưa giá (có giá thì để nhánh 3 quyết theo giá). Tenant đề xuất
+  // điều khoản cụ thể (cọc 1 tháng / đóng theo tháng...) = nhượng bộ thật
+  // → chốt ở giá hiện tại; chỉ nhắc tới cọc mà chưa đề xuất gì thì giữ.
+  if (!offer && /cọc|đóng|thanh toán|tiền mặt|kẹt/.test(tenantText)) {
+    if (/cọc 1 tháng|đóng (theo tháng|1 tháng|trước)|trả trước|ở lâu/.test(tenantText)) {
+      return {
+        message: `Được rồi, vậy cọc 1 tháng, đóng theo tháng, giá ${f(cur)}đ giữ nguyên nhé em. Chốt nhé!`,
+        currentPrice: cur,
+        agreed: true,
+        agreedPrice: cur,
+        emotion: 'friendly',
+      };
+    }
     return {
       message: 'Vậy cọc 1 tháng, đóng theo tháng đi, còn giá thì để anh giữ nguyên nhé em.',
       currentPrice: cur,
