@@ -15,11 +15,11 @@ Ai cũng từng đứng trước một cuộc nói chuyện khó mà không bi�
 ### Nhịp 2 — Giải pháp (00:30–01:00)
 *[Mở app, chọn Phòng 1. Cuối nhịp: bấm ghi âm.]*
 
-Đàm Phán Sống là chỗ tập cho những cuộc đó — Duolingo cho đàm phán. Mở app, chọn phòng tập, rồi nói chuyện bằng giọng nói với một nhân vật AI có mục tiêu và giá sàn bí mật riêng. Phòng 1 là tiền trọ, chỉ là phòng đầu tiên. Tình huống, nhân vật, luật chơi đã dọn sẵn — không bắt đầu từ ô chat trống. ChatGPT là cái bếp trống — bọn em là món ăn đã dọn sẵn.
+Đàm Phán Sống là chỗ tập cho những cuộc đó — Duolingo cho đàm phán. Mở app, chọn phòng tập, rồi nói chuyện bằng giọng nói với một nhân vật AI có mục tiêu và giá sàn cố định 3,2 triệu riêng. Phòng 1 là tiền trọ, chỉ là phòng đầu tiên. Tình huống, nhân vật, luật chơi đã dọn sẵn — không bắt đầu từ ô chat trống. ChatGPT là cái bếp trống — bọn em là món ăn đã dọn sẵn.
 
 ### Nhịp 3 — Vì sao bây giờ, vì sao chúng tôi (01:00–01:30)
 *[NÓI VÀO ĐIỆN THOẠI, câu 1 (~8s): "Em thích phòng này, ở lâu dài được. Ngân sách của em là 3 triệu một tháng, đóng đúng hạn — anh cân nhắc giúp em được không ạ?"]*
-*[IM LẶNG ~12s — nghe nhân vật trả lời bằng giọng nói.]*
+*[IM LẶNG (trong ngân sách 30 giây/lượt) — nghe nhân vật trả lời bằng giọng nói.]*
 
 AI giọng nói giờ đủ tốt để tập một cuộc đối thoại thật. Nhân vật có tính cách và giá sàn riêng — 5 lượt nài giá, chạm sàn lượt 2, không xuống thấp hơn. *[Câu này CÓ THỂ BỎ nếu AI trả lời lâu — nhịp 4 vẫn đủ ý.]*
 
@@ -30,14 +30,14 @@ Thị trường là tất cả những ai phải đàm phán trong đời sống
 
 ### Nhịp 5 — Bằng chứng + mô hình (02:00–02:30)
 *[NÓI VÀO ĐIỆN THOẠI, câu 2 (~8s): "Vậy mình chốt 3 triệu 2, em ký 6 tháng, đóng đúng ngày — được không anh?"]*
-*[IM LẶNG ~12s — chủ trọ chốt, màn hình điểm hiện lên. Giơ màn hình về phía giám khảo.]*
+*[IM LẶNG (trong ngân sách 30 giây/lượt) — chủ trọ chốt, màn hình điểm hiện lên. Giơ màn hình về phía giám khảo.]*
 
 Sáu quy tắc cố định — câu yếu nhất hiện nguyên văn kèm lý do. Đây là bằng chứng, không phải lời hứa.
 
 ### Nhịp 6 — Lời mời (02:30–03:00)
 *[Giữ màn hình điểm, nhìn khán giả.]*
 
-Chúng em cần 100 người dùng thử đầu tiên để đo nhu cầu thật — phòng nào họ luyện, họ có quay lại không. Hôm nay app lưu 3 chỉ số: số buổi, tổng tiền tiết kiệm mỗi tháng, điểm cao nhất. Roadmap, XP, cấp độ — đó là bước tiếp theo, chưa có trong bản này. Đàm Phán Sống: tập trước, để bước vào cuộc thật với sự chuẩn bị tốt hơn. Cảm ơn ban giám khảo.
+Chúng em cần 100 người dùng thử đầu tiên để đo nhu cầu thật — phòng nào họ luyện, họ có quay lại không. Hôm nay app lưu 3 chỉ số: số buổi, tổng tiền tiết kiệm được, điểm cao nhất. Roadmap, XP, cấp độ — đó là bước tiếp theo, chưa có trong bản này. Đàm Phán Sống: tập trước, để bước vào cuộc thật với sự chuẩn bị tốt hơn. Cảm ơn ban giám khảo.
 
 ---
 
@@ -45,14 +45,14 @@ Chúng em cần 100 người dùng thử đầu tiên để đo nhu cầu thật
 
 - Trước 16:15: kill-and-reopen app trên OPPO A60, mở sẵn Phòng 1 · Giá sàn cứng (Hà Nội, rao 3,5tr, sàn 3,2tr). Để điện thoại ở chế độ không khóa màn hình.
 - Nhịp 3 và 5 có khoảng IM LẶNG thật — đừng nói chen vào lúc AI đang trả lời, giám khảo cần nghe nhân vật.
-- **Rủi ro lớn nhất (redteam chỉ ra): một lượt AI (ghi âm → transcribe → Gemini → đọc lại) không đảm bảo vừa trong ~12–15 giây, nhất là trên wifi hội trường.** Nếu sau 10 giây im lặng mà AI chưa trả lời: nói "Mạng đang chậm — trong lúc chờ, đây là bảng điểm của lượt tập sáng nay trên chính máy này" rồi mở màn hình điểm đã tập trước / video backup. Đừng đứng im chờ.
+- **Rủi ro lớn nhất (redteam chỉ ra): một lượt AI (ghi âm → transcribe → Gemini → đọc lại) không đảm bảo vừa trong ngân sách 30 giây/lượt, nhất là trên wifi hội trường.** Một lượt = tối đa 30 giây (nói + chờ). Hết ngân sách mà AI chưa trả lời thì đi tiếp phần nói của nhịp sau; chỉ quay lại cứu khi còn thời gian và không được cắt nhịp 5 hay 10 giây giữ màn hình điểm — thứ tự cứu: thử nói lại 1 lần (chỉ nhịp 3) → gõ đúng câu vào ô tin nhắn → mở video backup đã gắn nhãn, nói rõ là video quay sẵn ở chế độ mock. Không bao giờ giơ màn hình điểm của lượt tập trước. Không có nút chuyển sang mock live — mock chỉ là video đã quay sẵn, đã gắn nhãn.
 - Câu 2 đã tính để chốt đúng sàn (3,2tr): nếu chủ trọ trả giá khác, cứ chốt theo giá nó đưa miễn là ≥ sàn, điểm số vẫn hiện.
 - Các câu nói trong nhịp 3 và 6 được đánh dấu CÓ THỂ BỎ — nếu demo lố giờ, bỏ chúng trước, không bỏ nhịp 5.
 
 ## Thẻ hỏi–đáp (dự kiến giám khảo hỏi sau pitch)
 
 ### 1. "Sao không dùng ChatGPT miễn phí là đủ?"
-ChatGPT là ô chat trống: bạn phải tự viết tình huống, tự đặt vai, tự đặt luật — rồi nó nhượng nhanh, không nhất quán, không chấm điểm, không lưu tiến độ. Bọn em khác ở 4 điểm đã demo: phòng tập dựng sẵn, mở là tập; nhân vật có sàn bí mật và giữ sàn (test 5 lượt nài, chạm sàn lượt 2, không xuống thấp hơn; code cũng chặn chốt dưới sàn); 6 quy tắc chấm cố định, chỉ ra câu yếu nhất kèm lý do; tiến độ được lưu. Luyện bằng giọng nói, tiếng Việt, trên điện thoại.
+ChatGPT là ô chat trống: bạn phải tự viết tình huống, tự đặt vai, tự đặt luật — rồi nó nhượng nhanh, không nhất quán, không chấm điểm, không lưu tiến độ. Bọn em khác ở 4 điểm đã demo: phòng tập dựng sẵn, mở là tập; nhân vật có sàn cố định 3,2 triệu và giữ sàn (test 5 lượt nài, chạm sàn lượt 2, không xuống thấp hơn; code cũng chặn chốt dưới sàn); 6 quy tắc chấm cố định, chỉ ra câu yếu nhất kèm lý do; tiến độ được lưu. Luyện bằng giọng nói, tiếng Việt, trên điện thoại.
 
 ### 2. "Sao không mặc cả thật trên Zalo luôn?"
 Zalo là cuộc thật, không phải phòng tập: một câu sai mất tiền thật, mất lòng thật — không có điểm số, không có làm lại. App là phòng tập: cùng áp lực, không hậu quả, chấm điểm từng câu, tập lại bao nhiêu lần cũng được. Cứng tay rồi mới ra Zalo mà chốt.
@@ -64,7 +64,7 @@ Chưa ship — chỉ có Phòng 1 hôm nay. Tiếp theo, theo kế hoạch: ti�
 
 ## Những điểm đã sửa theo redteam (Codex call 3)
 
-1. **Demo vừa đồng hồ:** bản nháp đầu nói liên tục trong lúc demo chạy — không khả thi. Bản cuối chèn khoảng IM LẶNG thật ở nhịp 3 và 5, đánh dấu câu droppable, và có phương án dự phòng (bảng điểm lượt tập trước / video backup).
+1. **Demo vừa đồng hồ:** bản nháp đầu nói liên tục trong lúc demo chạy — không khả thi. Bản cuối chèn khoảng IM LẶNG thật ở nhịp 3 và 5, đánh dấu câu droppable, và có thang cứu theo runbook (thử lại → gõ chữ → video backup đã gắn nhãn).
 2. **Bỏ claim chưa chứng minh:** bản nháp nói "sau quy tắc" mơ hồ → sửa thành "sáu quy tắc cố định"; freemium chỉ nói là hướng đi, không nói "các phòng cốt lõi miễn phí" như đã chốt.
 3. **Thị trường:** bản nháp gắn nhãn TAM/SAM/SOM rỗng, không số, không nguồn. Bản cuối GIỮ nhãn (slide địa điểm yêu cầu) nhưng nói thẳng là chưa có số liệu đủ tin cậy, chỉ đưa mục tiêu đo được (100 người tuần đầu).
 4. **Khung rộng:** bản nháp mở đầu bằng tiền trọ rồi mới gỡ. Bản cuối mở bằng "cuộc nói chuyện khó" nói chung, tiền trọ chỉ là một ví dụ trong liệt kê, Phòng 1 được gọi là "phòng đầu tiên".
