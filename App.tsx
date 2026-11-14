@@ -347,12 +347,14 @@ export default function App() {
       <KeyboardAvoidingView style={[styles.screen, styles.pad]} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <Text style={styles.h1}>🤝 Đàm Phán Sống</Text>
         <Text style={styles.sub}>Luyện kỹ năng đàm phán / nói chuyện khó — bằng giọng nói thật.</Text>
+        <Text style={styles.roomChip}>🏠 Phòng 1 · Đàm phán tiền trọ — phòng tập đầu tiên trong 5 phòng luyện nói chuyện khó.</Text>
         {progress && progress.sessions > 0 ? (
           <Text style={styles.progressStrip}>
-            📈 Tiến bộ: {progress.sessions} phiên • Tiết kiệm tổng {fmt(progress.totalSaved)}đ/tháng • Điểm tốt nhất{' '}
+            📈 Tiến bộ: {progress.sessions} phiên • Tiết kiệm tổng {fmt(progress.totalSaved)}đ • Điểm tốt nhất{' '}
             {progress.bestScore}%
           </Text>
         ) : null}
+        <Text style={styles.sectionHead}>Thiết lập tình huống — Phòng 1</Text>
         <Text style={styles.label}>Tên bạn</Text>
         <TextInput style={styles.input} value={tenantName} onChangeText={setTenantName} placeholder="Minh" />
         <Text style={styles.label}>Thành phố</Text>
@@ -571,6 +573,17 @@ const styles = StyleSheet.create({
   h1: { color: '#fff', fontSize: 28, fontWeight: '800' },
   h2: { color: '#fff', fontSize: 15, fontWeight: '700' },
   sub: { color: '#9fb0bf', marginBottom: 10 },
+  roomChip: {
+    color: '#ffd43b',
+    fontSize: 13,
+    fontWeight: '700',
+    backgroundColor: '#243040',
+    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    marginBottom: 4,
+  },
+  sectionHead: { color: '#fff', fontSize: 14, fontWeight: '800', marginTop: 8 },
   label: { color: '#9fb0bf', fontSize: 12, fontWeight: '700', marginBottom: -6 },
   progressStrip: { color: '#8ce99a', fontSize: 13, fontWeight: '700', marginBottom: 4 },
   input: {
