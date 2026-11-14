@@ -1,5 +1,5 @@
-// Màn Bản đồ phòng tập — 5 phòng, từ thuê trọ đến gọi vốn.
-// Thuê trọ chỉ là Phòng 1; mỗi phòng có bộ tình huống, độ khó, trạng thái khóa/mở riêng.
+// Màn Bản đồ phòng tập — 5 phòng, từ mặc cả đến gọi vốn.
+// Phòng 1 là mặc cả giá; mỗi phòng có bộ tình huống, độ khó, trạng thái khóa/mở riêng.
 // Phòng khóa hoặc chưa có vòng luyện KHÔNG nuốt tap: bấm vào hiện thông báo
 // nói rõ lý do (chưa đủ điều kiện mở / vòng luyện sắp có) rồi tự ẩn sau vài giây.
 import { useEffect, useRef, useState } from 'react';

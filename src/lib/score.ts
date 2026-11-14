@@ -1,4 +1,4 @@
-// Rule-based scoring for the Room 1 negotiation (thuê trọ).
+// Rule-based scoring for the Room 1 negotiation (mặc cả giá).
 // RULE-BASED, NOT AI: every rule is a transparent keyword/number check on the
 // real transcript. The result screen labels it as such. Milo's rubric should
 // replace/augment these rules when ready.

@@ -6,7 +6,7 @@
 
 | File | Nội dung |
 |---|---|
-| `src/lib/rooms.ts` | Danh mục 5 phòng tập: thuê trọ (P1, mở), giữ cọc (P2), lương làm thêm (P3), phỏng vấn (P4), trả lời nhà đầu tư (P5). Mỗi phòng: icon, tagline, mô tả, bộ tình huống, độ khó 1–3, điều kiện mở khóa. Copy khung rộng, không đóng khung vào trọ. |
+| `src/lib/rooms.ts` | Danh mục 5 phòng tập: mặc cả giá (P1, mở), giữ cọc (P2), lương làm thêm (P3), phỏng vấn (P4), trả lời nhà đầu tư (P5). Mỗi phòng: icon, tagline, mô tả, bộ tình huống, độ khó 1–3, điều kiện mở khóa. Copy khung rộng, không đóng khung vào trọ. |
 | `src/lib/roomProgress.ts | Tiến bộ in-memory (đổi tên khi merge để khỏi trùng progress.ts của màn chấm) (cấp, XP, streak, buổi/tuần, phòng đã xong). `getProgress()`, `completeRoom()`, `isRoomUnlocked()`. Seed demo: cấp 2, 120/200 XP, streak 3 ngày. TODO: thay bằng AsyncStorage sau hackathon. |
 | `src/screens/HomeScreen.tsx` | Chào theo giờ, gợi ý luyện hôm nay (Phòng 1), tóm tắt streak/cấp/XP, bài học tâm lý, nút vào bản đồ phòng tập. |
 | `src/screens/RoomMapScreen.tsx` | 5 thẻ phòng nối nhau bằng đường dọc, có độ khó (chấm), chip tình huống, badge Mở/Đang luyện/🔒 Khóa + điều kiện mở khóa. Phòng khóa bấm không được. |

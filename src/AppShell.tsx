@@ -1,5 +1,5 @@
 // AppShell — vỏ điều hướng mới, KHÔNG sửa file Slice 1 nào.
-// Luồng: Home → Bản đồ phòng tập → vòng đàm phán (App Slice 1, Phòng 1: thuê trọ).
+// Luồng: Home → Bản đồ phòng tập → vòng đàm phán (App Slice 1, Phòng 1: mặc cả giá).
 // Chỉ Phòng 1 đã có luồng đàm phán thật; các phòng khác đang khóa/sắp có nên
 // bấm vào sẽ hiện thông báo ở màn Map (xem RoomMapScreen), không nuốt tap.
 // Để dùng: đổi 1 dòng trong index.ts — `import App from './App'` thành

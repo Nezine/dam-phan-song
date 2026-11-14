@@ -91,7 +91,7 @@ export default function HomeScreen({ progress, onOpenMap, onStartRoom }: Props) 
       {/* Vào bản đồ phòng tập */}
       <Pressable style={styles.mapBtn} onPress={onOpenMap}>
         <Text style={styles.mapBtnText}>🗺️ Xem bản đồ phòng tập →</Text>
-        <Text style={styles.mapBtnSub}>5 phòng tập · từ thuê trọ đến gọi vốn</Text>
+        <Text style={styles.mapBtnSub}>5 phòng tập · từ mặc cả đến gọi vốn</Text>
       </Pressable>
     </ScrollView>
   );

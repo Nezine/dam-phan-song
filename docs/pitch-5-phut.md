@@ -1,5 +1,7 @@
 # Kịch bản pitch 5 phút — Đàm Phán Sống (16:15, Biblio Book Cafe)
 
+> ⚠️ FILE CŨ, ĐÃ THAY THẾ — pitch hiện tại là `PITCH.md` + `docs/pitch-v2-3min.md` (3 phút, PR #6). File này chỉ giữ làm lịch sử, không dùng để tập pitch.
+
 > Bản nháp v1 (Migga soạn) — hiệu chỉnh sau khi test thật trên OPPO A60.
 > Freeze 15:00. Không bao giờ demo MOCK MODE như AI thật. Mạng chết giữa demo → nói rõ đang chuyển sang đường dự phòng, đừng giả vờ.
 

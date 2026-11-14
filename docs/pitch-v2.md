@@ -1,5 +1,7 @@
 # Pitch v2 — Đàm Phán Sống (Codex Community Hackathon, 14/11/2026)
 
+> ⚠️ FILE CŨ, ĐÃ THAY THẾ — pitch hiện tại là `PITCH.md` + `docs/pitch-v2-3min.md` (3 phút, PR #6). File này chỉ giữ làm lịch sử, không dùng để tập pitch.
+
 - Đội: Optimus · Pitch lúc 16:15 · Thời lượng: 5 phút · Demo trên OPPO A60 (Expo Go)
 - Người trình bày: 1 người nói chính + 1 người cầm máy demo
 - Điểm chấm: demo live trên điện thoại thật 40đ · vấn đề thật 35đ · mở rộng thị trường 25đ
