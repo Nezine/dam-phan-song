@@ -29,7 +29,9 @@
 |---|---|---|
 | 1 | Chủ nhà giữ giá sàn cứng 3tr2, "có người đang chờ cọc chiều nay" | Ép thời gian, giá không nhúc nhích |
 | 2 | Phòng ẩm mốc, tường nứt, nhưng chủ nhà chối "ở được hết" | Phải vin vào lỗi thật của phòng |
-| 3 | Cọc 2 tháng + đóng 3 tháng/lần — gần 10 triệu tiền mặt một lúc | Đàm phán điều kiện đóng, không chỉ giá |
+| 3 | Cọc 2 tháng + đóng 3 tháng/lần — tiền mặt ban đầu lớn | Đàm phán điều kiện đóng, không chỉ giá |
+
+⚠️ **Golden path khi pitch = tình huống 1.** Số tiền mặt của tình huống 3 đang lệch giữa câu mở đầu và thẻ tính — KHÔNG dùng tình huống 3 để đọc số khi pitch. Mọi con số đọc trực tiếp từ màn hình, không đọc thuộc từ tài liệu này.
 
 > "Giám khảo chọn tình huống nào, em đánh tình huống đó — trực tiếp, trên chiếc điện thoại này."
 
@@ -68,10 +70,10 @@ Mở màn hình **Score** ngay sau khi chốt giá:
 
 > "Đàm phán xong chưa phải hết. Đây mới là phần biến một buổi nói chuyện thành một bài học."
 > *(Chỉ từng dòng trên màn hình)*
-> "Thang chấm cố định, chấm đúng 3 tiêu chí: **mở giá có lý do — giữ thế khi bị ép — chốt được điều kiện kèm theo.** Mỗi tiêu chí có điểm riêng, không chấm chung chung."
+> "Thang chấm cố định 100 điểm, chấm đúng 5 tiêu chí: **kết quả giá — lý do đưa ra — không tự hạ giá — mở giá có neo — điều khoản đi kèm.** Mỗi tiêu chí có điểm riêng kèm 1 câu nhận xét có bằng chứng trong buổi, không chấm chung chung."
 > "Và đây:" *(chỉ vào dòng câu yếu nhất)* "app chỉ ra **câu yếu nhất** của em trong buổi vừa rồi, nói rõ yếu ở đâu, và gợi ý câu thay thế. Lần sau gặp lại đúng câu đó, em biết phải nói khác đi."
 
-*Nội dung trên màn hình Score phải có đủ:* điểm 3 tiêu chí · 1 câu yếu nhất (trích nguyên văn câu người dùng vừa nói) · 1–2 câu vì sao yếu · 1 câu thay thế mẫu.
+*Nội dung trên màn hình Score phải có đủ:* tổng điểm + điểm 5 tiêu chí · 1 câu yếu nhất (trích nguyên văn câu người dùng vừa nói) · vì sao yếu · 1 câu thay thế mẫu · điểm được LƯU lại vào tiến bộ trên máy.
 
 ### 4:10–4:30 · Thẻ tiết kiệm
 
@@ -82,6 +84,7 @@ Màn hình thẻ tiết kiệm hiện: giá rao ban đầu → giá chốt · s�
 
 ### 4:30–5:00 · Đóng — mở rộng + khác biệt + công nghệ
 
+> "Và đây không phải chỗ luyện tự do. Đàm Phán Sống là app HỌC kỹ năng đàm phán có **lộ trình đầy đủ: bài học ngắn về tâm lý đàm phán → bài tập tình huống → thực hành nói trực tiếp với AI → bài test có chấm điểm.** Qua mỗi cấp, độ khó tăng dần — và điểm số, câu yếu nhất của từng buổi được lưu lại thành tiến bộ. Hôm nay app đã chạy thật phần thực hành + bài test chấm điểm + màn lộ trình của phòng 1; phần bài học là bước tiếp trong lộ trình."
 > "Hôm nay mới là phòng tập 1 — thuê trọ. Cùng một khung này mở ra: **luyện phỏng vấn xin việc, luyện trả lời nhà đầu tư khi gọi vốn, deal lương.** Mỗi lĩnh vực một bộ tình huống, một thang chấm riêng — phần đó là lộ trình, hôm nay bọn em chưa build, em nói rõ."
 > "Khác ChatGPT ở đâu, em chốt 2 điểm mạnh nhất: **một — đối thủ có giá sàn và tính cách nhất quán, xin không giảm; hai — thang chấm cố định chỉ rõ câu nào yếu và vì sao.** ChatGPT là cái bếp trống — mạnh, nhưng bắt người dùng tự nấu. Bọn em là món ăn dọn sẵn: mở app, chọn tình huống, luyện luôn."
 > "Công nghệ: AI chính chạy Gemini, dự phòng Groq — một đường lỗi là chuyển đường còn lại. Chi phí vận hành hôm nay: **0 đồng**."
@@ -118,7 +121,7 @@ Màn hình thẻ tiết kiệm hiện: giá rao ban đầu → giá chốt · s�
 - Người nói chính (quay xuống giám khảo): **"ChatGPT xin là giảm. Chủ trọ thật thì không. Bọn em bán phản xạ, không bán câu chữ."**
 
 **[Màn hình Score — người cầm máy bấm "Xem điểm"]**
-- Người nói chính đọc theo màn hình: "Điểm buổi này: mở giá có lý do — [điểm trên màn hình]; giữ thế khi bị ép — [điểm]; chốt điều kiện — [điểm]."
+- Người nói chính đọc theo màn hình: "Tổng điểm buổi này: [tổng trên màn hình]/100 — 5 tiêu chí đều có điểm riêng: kết quả giá, lý do, giữ thế không tự hạ giá, mở giá có neo, điều khoản."
 - "Câu yếu nhất của buổi:" *(đọc nguyên văn dòng trên màn hình)* — ví dụ: *"'Anh bớt cho em xuống 3 triệu được không anh?'"*
 - "App chỉ rõ: câu này yếu vì **mở giá thấp hẳn 500 nghìn nhưng chưa đưa lý do nào ngoài 'em là sinh viên'** — chủ nhà không có cớ để giảm. Câu thay thế app gợi ý:" *(đọc dòng gợi ý trên màn hình)* — ví dụ: *"'Em thuê tối thiểu 1 năm và cọc ngay hôm nay — anh để em 3 triệu 1, anh đỡ 2–3 tháng phòng trống tìm người mới.'"*
 
@@ -162,7 +165,7 @@ Màn hình thẻ tiết kiệm hiện: giá rao ban đầu → giá chốt · s�
 
 - [ ] Mở sẵn app ở màn hình setup, đã nhập sẵn giá rao/giá muốn chốt của preset 1
 - [ ] Test 1 lượt voice ngay tại chỗ đứng pitch (ồn + mạng hội trường)
-- [ ] Màn Score của buổi test hiện đủ: 3 điểm tiêu chí + câu yếu nhất + vì sao + câu thay thế
+- [ ] Màn Score của buổi test hiện đủ: tổng điểm + 5 tiêu chí + câu yếu nhất + vì sao + câu thay thế
 - [ ] Thẻ tiết kiệm tính đúng phép trừ (giá rao − giá chốt) × 12 tháng
 - [ ] Biết rõ nút bật MOCK MODE ở đâu; thuộc câu tuyên bố dự phòng ở Phần 2
 - [ ] Người nói + người cầm máy thống nhất: ai nói câu "ChatGPT xin là giảm…" (người nói chính)

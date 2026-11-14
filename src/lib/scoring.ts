@@ -65,27 +65,70 @@ export function extractPrices(text: string): number[] {
   return out;
 }
 
-const REASONS: { key: string; label: string; re: RegExp }[] = [
-  { key: 'stay', label: 'ở lâu dài', re: /ở lâu|ở dài|lâu dài|6 tháng|1 năm|một năm|sáu tháng/ },
-  { key: 'prepay', label: 'trả trước / tiền mặt ngay', re: /trả trước|đóng trước|trả luôn|chuyển khoản ngay|tiền mặt/ },
-  { key: 'referral', label: 'giới thiệu thêm người thuê', re: /giới thiệu bạn|rủ bạn|bạn em|thêm người|giới thiệu/ },
-  { key: 'defect', label: 'chỉ ra khuyết điểm phòng', re: /ẩm|mốc|nấm|hỏng|rỉ|chột|ồn|phòng cũ|nhà cũ|xa trung tâm|thiếu/ },
-  { key: 'market', label: 'so giá khu vực', re: /chỗ khác|bên cạnh|khu này|phòng khác|nhà bên|giá khu|dãy bên/ },
-  { key: 'group', label: 'ở ghép / thêm người ở', re: /ở ghép|ở chung|hai người|2 người|bạn cùng phòng/ },
-];
+// --- Rubric theo phòng: ENGINE chấm là CHUNG cho mọi loại đàm phán ---
+// Mỗi phòng tập chỉ thay bộ từ khóa lý do/điều khoản + tên gọi đối tác.
+// Phòng 1 (thuê trọ) là cấu hình đầu tiên; thêm phòng = thêm 1 rubric, không sửa engine.
+export type Rubric = {
+  id: string;
+  counterpart: string; // tên gọi đối tác trong câu nhận xét, vd "chủ trọ", "nhà tuyển dụng"
+  reasons: { key: string; label: string; re: RegExp }[];
+  terms: { key: string; label: string; re: RegExp }[];
+};
 
-const TERMS: { key: string; label: string; re: RegExp }[] = [
-  { key: 'coc', label: 'cọc', re: /cọc/ },
-  { key: 'dongthang', label: 'đóng theo tháng', re: /đóng theo tháng|đóng tháng|hàng tháng|mỗi tháng/ },
-  { key: 'diennuoc', label: 'điện nước', re: /điện|nước/ },
-  { key: 'hopdong', label: 'hợp đồng', re: /hợp đồng/ },
-  { key: 'sua', label: 'sửa chữa / sơn lại', re: /sơn|sửa|khắc phục/ },
-  { key: 'mienphi', label: 'miễn / bao phí', re: /miễn|bao wifi|bao gửi xe|miễn phí/ },
-];
+export const RENT_RUBRIC: Rubric = {
+  id: 'thue-tro',
+  counterpart: 'chủ trọ',
+  reasons: [
+    { key: 'stay', label: 'ở lâu dài', re: /ở lâu|ở dài|lâu dài|6 tháng|1 năm|một năm|sáu tháng/ },
+    { key: 'prepay', label: 'trả trước / tiền mặt ngay', re: /trả trước|đóng trước|trả luôn|chuyển khoản ngay|tiền mặt/ },
+    { key: 'referral', label: 'giới thiệu thêm người thuê', re: /giới thiệu bạn|rủ bạn|bạn em|thêm người|giới thiệu/ },
+    { key: 'defect', label: 'chỉ ra khuyết điểm phòng', re: /ẩm|mốc|nấm|hỏng|rỉ|chột|ồn|phòng cũ|nhà cũ|xa trung tâm|thiếu/ },
+    { key: 'market', label: 'so giá khu vực', re: /chỗ khác|bên cạnh|khu này|phòng khác|nhà bên|giá khu|dãy bên/ },
+    { key: 'group', label: 'ở ghép / thêm người ở', re: /ở ghép|ở chung|hai người|2 người|bạn cùng phòng/ },
+  ],
+  terms: [
+    { key: 'coc', label: 'cọc', re: /cọc/ },
+    { key: 'dongthang', label: 'đóng theo tháng', re: /đóng theo tháng|đóng tháng|hàng tháng|mỗi tháng/ },
+    { key: 'diennuoc', label: 'điện nước', re: /điện|nước/ },
+    { key: 'hopdong', label: 'hợp đồng', re: /hợp đồng/ },
+    { key: 'sua', label: 'sửa chữa / sơn lại', re: /sơn|sửa|khắc phục/ },
+    { key: 'mienphi', label: 'miễn / bao phí', re: /miễn|bao wifi|bao gửi xe|miễn phí/ },
+  ],
+};
+
+// Rubric đàm phán CHUNG — dùng cho các phòng sau (deal lương, phỏng vấn, gọi vốn)
+// khi tình huống có giá/mức hai bên cùng hướng tới.
+export const NEGOTIATION_RUBRIC: Rubric = {
+  id: 'dam-phan-chung',
+  counterpart: 'đối tác',
+  reasons: [
+    { key: 'commit', label: 'cam kết lâu dài', re: /lâu dài|dài hạn|ổn định|gắn bó|ít nhất/ },
+    { key: 'value', label: 'trao giá trị trước', re: /trả trước|làm trước|thử việc|dùng thử|đem lại|mang lại/ },
+    { key: 'proof', label: 'bằng chứng năng lực / số liệu', re: /kinh nghiệm|dự án|thành tích|kết quả|số liệu|doanh thu|tăng|giảm được/ },
+    { key: 'market', label: 'so mặt bằng chung', re: /mặt bằng|thị trường|chỗ khác|nơi khác|bên khác|mức chung/ },
+    { key: 'weak', label: 'chỉ ra điểm chưa khớp', re: /chưa|thiếu|kém|hạn chế|không phù hợp/ },
+    { key: 'referral', label: 'giới thiệu / mở rộng thêm', re: /giới thiệu|kết nối|rủ thêm|thêm người/ },
+  ],
+  terms: [
+    { key: 'thoihan', label: 'thời hạn / mốc thời gian', re: /thời hạn|từ tháng|bắt đầu|deadline|kỳ/ },
+    { key: 'thanhtoan', label: 'cách thanh toán / nhận tiền', re: /thanh toán|trả theo|đóng theo|chuyển khoản|lương tháng/ },
+    { key: 'hopdong', label: 'hợp đồng / văn bản', re: /hợp đồng|văn bản|ký/ },
+    { key: 'phucloi', label: 'phúc lợi / điều kiện đi kèm', re: /phúc lợi|bảo hiểm|ngày phép|đào tạo|thưởng/ },
+    { key: 'xemlai', label: 'xem lại sau một mốc', re: /xem lại|đánh giá lại|sau 3 tháng|sau 6 tháng|hết thử việc/ },
+  ],
+};
 
 const PLEAD = /xin anh|xin chị|năn nỉ|làm ơn|giúp em với|thương em/i;
 
-export function scoreSession(s: Scenario, turns: Turn[], agreedPrice: number | null): ScoreReport {
+export function scoreSession(
+  s: Scenario,
+  turns: Turn[],
+  agreedPrice: number | null,
+  rubric: Rubric = RENT_RUBRIC,
+): ScoreReport {
+  const REASONS = rubric.reasons;
+  const TERMS = rubric.terms;
+  const cp = rubric.counterpart;
   const tenant = turns.filter((t) => t.speaker === 'tenant');
   const landlord = turns.filter((t) => t.speaker === 'landlord');
   const span = Math.max(s.listedPrice - s.floorPrice, 1);
@@ -104,7 +147,7 @@ export function scoreSession(s: Scenario, turns: Turn[], agreedPrice: number | n
     const last = [...landlord].reverse().find((t) => t.price != null)?.price ?? s.listedPrice;
     const progress = Math.min(Math.max((s.listedPrice - last) / span, 0), 1);
     outcome = Math.round(12 * progress);
-    outcomeNote = `Chưa chốt được giá; chủ trọ mới nhích tới ${fmt(last)}đ.`;
+    outcomeNote = `Chưa chốt được giá; ${cp} mới nhích tới ${fmt(last)}đ.`;
   }
 
   // ---- 2. Lý do đưa ra (20): đếm nhóm lý do KHÁC nhau ----
@@ -112,7 +155,7 @@ export function scoreSession(s: Scenario, turns: Turn[], agreedPrice: number | n
   const reasons = [0, 8, 14, 18, 20, 20, 20][Math.min(reasonHits.length, 6)];
   const reasonsNote =
     reasonHits.length === 0
-      ? 'Chưa đưa lý do nào — chỉ đề giá suông nên chủ trọ không có cớ để giảm.'
+      ? `Chưa đưa lý do nào — chỉ đề giá suông nên ${cp} không có cớ để giảm.`
       : `Đã dùng ${reasonHits.length} loại lý do: ${reasonHits.map((r) => r.label).join(', ')}.`;
 
   // ---- 3. Không tự hạ giá (20) ----
@@ -141,17 +184,17 @@ export function scoreSession(s: Scenario, turns: Turn[], agreedPrice: number | n
   discipline = Math.max(0, discipline);
   const disciplineNote =
     selfConcessions.length > 0
-      ? `Tự nâng giá ${selfConcessions.length} lần khi chủ trọ chưa giảm thêm — mất thế đàm phán.`
+      ? `Tự nâng giá ${selfConcessions.length} lần khi ${cp} chưa giảm thêm — mất thế đàm phán.`
       : pleadCount >= 3
-        ? 'Nài nỉ nhiều (xin/làm ơn) thay vì đưa lý do — chủ trọ càng giữ giá.'
-        : 'Giữ giá mình đưa ra, chỉ nhích khi chủ trọ đã nhích trước.';
+        ? 'Nài nỉ nhiều (xin/làm ơn) thay vì đưa lý do — đối tác càng giữ giá.'
+        : 'Giữ giá mình đưa ra, chỉ nhích khi đối tác đã nhích trước.';
 
   // ---- 4. Mở giá có neo (15) ----
   let anchor = 0;
   let anchorNote = '';
   const firstPriced = tenant.findIndex((t) => extractPrices(t.text).length > 0);
   if (firstPriced === -1) {
-    anchorNote = 'Không tự đề giá lần nào — để chủ trọ dẫn toàn bộ cuộc mặc cả.';
+    anchorNote = 'Không tự đề giá lần nào — để đối tác dẫn toàn bộ cuộc đàm phán.';
   } else {
     const offer = Math.min(...extractPrices(tenant[firstPriced].text));
     if (firstPriced <= 1 && offer <= s.listedPrice * 0.95) {
@@ -186,7 +229,7 @@ export function scoreSession(s: Scenario, turns: Turn[], agreedPrice: number | n
     const q = tenant[selfConcessions[0]].text;
     weakest = {
       quote: q,
-      why: 'Câu này tự nâng giá mình chịu trả trong khi chủ trọ chưa giảm thêm đồng nào — tự tay bỏ mất thế mạnh nhất của mình.',
+      why: `Câu này tự nâng giá mình chịu trả trong khi ${cp} chưa giảm thêm đồng nào — tự tay bỏ mất thế mạnh nhất của mình.`,
       rewrite: mkRewrite(),
     };
   } else {
@@ -197,7 +240,7 @@ export function scoreSession(s: Scenario, turns: Turn[], agreedPrice: number | n
     if (weakIdx >= 0 && (reasons === 0 || anchor <= 6 || PLEAD.test(tenant[weakIdx].text))) {
       weakest = {
         quote: tenant[weakIdx].text,
-        why: 'Câu này không có giá đề xuất, không có lý do — chủ trọ không có gì để cân nhắc nên sẽ giữ nguyên giá.',
+        why: `Câu này không có giá đề xuất, không có lý do — ${cp} không có gì để cân nhắc nên sẽ giữ nguyên giá.`,
         rewrite: mkRewrite(),
       };
     }
@@ -230,7 +273,7 @@ export function scoreSession(s: Scenario, turns: Turn[], agreedPrice: number | n
 // Nếu gọi API lỗi thì dùng luôn weakest có sẵn (fallback an toàn cho demo).
 export function buildJudgePrompt(s: Scenario, turns: Turn[], report: ScoreReport): string {
   const convo = turns.map((t) => `${t.speaker === 'tenant' ? s.tenantName : 'Chủ trọ'}: ${t.text}`).join('\n');
-  return `Bạn là huấn luyện viên đàm phán. Dưới đây là 1 phiên luyện mặc cả thuê trọ (giá rao ${fmt(s.listedPrice)}đ/tháng).
+  return `Bạn là huấn luyện viên đàm phán. Dưới đây là 1 phiên luyện đàm phán (mức đối tác đang ra ${fmt(s.listedPrice)}đ/tháng).
 ${convo}
 
 Điểm theo thang cố định (KHÔNG được thay đổi): tổng ${report.total}/100.
