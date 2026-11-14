@@ -8,8 +8,7 @@ import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from
 import {
   KIND_LABEL,
   LEVELS,
-  TOTAL_ITEMS,
-  TOTAL_XP,
+  MAX_SCORE,
   completedCount,
   itemStatus,
   levelDoneCount,
@@ -17,6 +16,7 @@ import {
   loadProgress,
   markItemDone,
   overallPct,
+  roadmapLevel,
   saveProgress,
   totalXp,
   type RoadmapItem,
@@ -70,6 +70,7 @@ export default function RoadmapScreen({ onBack, onStartPractice }: Props) {
   const done = completedCount(progress);
   const xp = totalXp(progress);
   const pct = overallPct(progress);
+  const lvl = roadmapLevel(xp);
 
   return (
     <View style={styles.screen}>
@@ -83,7 +84,7 @@ export default function RoadmapScreen({ onBack, onStartPractice }: Props) {
           <View style={[styles.progressFill, { width: `${pct}%` }]} />
         </View>
         <Text style={styles.progressText}>
-          {done}/{TOTAL_ITEMS} mục hoàn thành · {pct}% · ⭐ {xp}/{TOTAL_XP} XP
+          {done}/{TOTAL_ITEMS} mục · {pct}% · ⭐ Cấp {lvl.level} · {lvl.xpInLevel}/{lvl.xpToNext} XP
         </Text>
       </View>
 
@@ -136,7 +137,7 @@ export default function RoadmapScreen({ onBack, onStartPractice }: Props) {
                         <Text style={styles.itemTitle}>{item.title}</Text>
                         <Text style={styles.itemMeta}>
                           {KIND_LABEL[item.kind]} · {item.minutes} phút · {item.xp} XP
-                          {result?.bestScore != null ? ` · Điểm cao nhất: ${result.bestScore}/10` : ''}
+                          {result?.bestScore != null ? ` · Điểm cao nhất: ${result.bestScore}/${MAX_SCORE}` : ''}
                         </Text>
                       </View>
                       <Text style={styles.itemArrow}>›</Text>
@@ -150,7 +151,7 @@ export default function RoadmapScreen({ onBack, onStartPractice }: Props) {
         <View style={styles.footCard}>
           <Text style={styles.footTitle}>🎯 Đàm phán là kỹ năng — luyện được như mọi kỹ năng khác</Text>
           <Text style={styles.footText}>
-            Mỗi cấp mở khóa khi bạn xong bài test cấp trước. Buổi thực hành chấm theo thang cố định 5 tiêu chí,
+            Mỗi cấp mở khóa khi bạn xong bài test cấp trước. Buổi thực hành chấm theo thang cố định 6 luật,
             điểm cao nhất được lưu lại để bạn thấy mình tiến bộ qua từng buổi.
           </Text>
         </View>
@@ -165,7 +166,7 @@ const styles = StyleSheet.create({
   loading: { color: '#9fb0bf' },
   header: { paddingTop: 48, paddingBottom: 12, paddingHorizontal: 16, gap: 8, borderBottomColor: '#232c35', borderBottomWidth: 1 },
   back: { color: '#2f81f7', fontWeight: '700', fontSize: 15 },
-  h1: { color: '#fff', fontSize: 26, fontWeight: '800' },
+  h1: { color: '#fff', fontSize: 28, fontWeight: '800' },
   sub: { color: '#9fb0bf', fontSize: 14, lineHeight: 19 },
   progressBar: { backgroundColor: '#243040', borderRadius: 8, height: 10, overflow: 'hidden' },
   progressFill: { backgroundColor: '#2f81f7', height: 10, borderRadius: 8 },

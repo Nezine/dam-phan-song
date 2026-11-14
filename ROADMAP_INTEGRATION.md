@@ -2,17 +2,17 @@
 
 Branch này (`muse/roadmap-screens`) chỉ thêm file mới, không sửa file Slice 1 nào.
 Nội dung: lộ trình 5 cấp độ đàm phán (độ khó tăng dần), mỗi cấp 2 bài tập + 1 bài test
-+ 1 buổi thực hành; thang chấm cố định 5 tiêu chí (10 điểm); tiến độ lưu local.
++ 1 buổi thực hành; thang chấm cố định 6 luật (6 điểm, ra % điểm — cùng thang src/lib/score.ts); tiến độ lưu local.
 
 ## File mới
 
-- `src/lib/roadmap.ts` — dữ liệu 5 cấp / 20 mục, thang chấm `RUBRIC`, trạng thái
-  khóa/mở/hoàn thành, tính XP + %, lưu tiến độ bằng `expo-file-system`
+- `src/lib/roadmap.ts` — dữ liệu 5 cấp / 20 mục, thang chấm `RUBRIC` (6 luật), trạng thái
+  khóa/mở/hoàn thành, tính XP theo hệ chung `src/lib/gamification.ts` + %, lưu tiến độ bằng `expo-file-system`
   (đã có sẵn trong dự án, cùng API `App.tsx` đang dùng).
 - `src/components/RoadmapScreen.tsx` — màn hình bản đồ lộ trình: thanh tiến độ tổng,
   thẻ từng cấp, danh sách mục theo trạng thái 🔒/▶️/✅.
 - `src/components/RoadmapItemDetail.tsx` — chi tiết một mục: bài học tâm lý, thang
-  chấm, bài test trắc nghiệm 3 câu làm ngay trong app (chấm /10), nút bắt đầu thực hành.
+  chấm, bài test trắc nghiệm 3 câu làm ngay trong app (chấm /6, ra % điểm), nút bắt đầu thực hành.
 
 ## Nối vào App.tsx (3 chỗ, làm khi merge)
 
@@ -57,7 +57,7 @@ if (screen === 'roadmap') {
 
 ## Đã xong / chưa xong
 
-- ✅ Lộ trình + bài test trắc nghiệm (chấm /10, lưu điểm cao nhất) chạy độc lập,
+- ✅ Lộ trình + bài test trắc nghiệm (chấm /6, lưu điểm cao nhất) chạy độc lập,
   không cần API key.
 - ✅ Tiến độ (mục xong, điểm, XP) lưu local, mở app lại vẫn còn.
 - ⏳ Nút “Bắt đầu thực hành” hiện gọi `onStartPractice` để cha nối vào vòng voice —

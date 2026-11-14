@@ -1,8 +1,12 @@
 // Lộ trình học đàm phán — dữ liệu + tiến độ.
 // Khung chung: kỹ năng đàm phán nói chung (không gắn với một tình huống cụ thể nào).
 // Mỗi cấp có 2 bài tập + 1 bài test + 1 buổi thực hành, độ khó tăng dần.
-// Chấm điểm theo thang cố định RUBRIC (5 tiêu chí × 2 điểm = 10 điểm).
+// Chấm điểm theo thang cố định RUBRIC — 6 luật như thang chấm đã merge
+// (src/lib/score.ts): mỗi luật đạt/chưa đạt, điểm = số luật đạt / 6, ra % điểm.
+// XP chạy theo hệ chung trong src/lib/gamification.ts (levelFromXp).
 import * as FileSystem from 'expo-file-system';
+import { File, Paths } from 'expo-file-system';
+import { levelFromXp } from './gamification';
 
 export type RoadmapItemKind = 'exercise' | 'test' | 'practice';
 export type ItemStatus = 'locked' | 'unlocked' | 'done';
@@ -37,15 +41,36 @@ export type RoadmapLevel = {
 export type ItemResult = { done: boolean; bestScore: number | null; attempts: number };
 export type RoadmapProgress = Record<string, ItemResult>;
 
-// Thang chấm cố định — dùng chung cho mọi bài test + buổi thực hành.
+// Thang chấm cố định — 6 luật, dùng chung cho mọi bài test + buổi thực hành.
+// Cùng thang với src/lib/score.ts đã merge: nhãn giữ nguyên, gợi ý viết
+// chung cho mọi lĩnh vực đàm phán (không chỉ thuê trọ).
 export const RUBRIC: { label: string; hint: string }[] = [
-  { label: 'Mở đầu rõ mục tiêu', hint: 'Nói rõ mình muốn gì ngay từ đầu, không vòng vo.' },
-  { label: 'Đưa lý do thay vì đòi hỏi', hint: 'Mỗi đề nghị đi kèm một lý do đối phương quan tâm.' },
-  { label: 'Nhượng bộ có điều kiện', hint: 'Nhượng bộ phải đổi lại được một thứ khác, không cho không.' },
-  { label: 'Giữ bình tĩnh khi bị ép', hint: 'Bị ép vẫn chậm lại, không phản ứng nóng.' },
-  { label: 'Chốt rõ ràng, có thời hạn', hint: 'Kết thúc bằng: việc gì, ai làm, khi nào xong.' },
+  { label: 'Đưa ra giá mục tiêu cụ thể', hint: 'Mở đầu bằng một mục tiêu cụ thể — đối phương chỉ nhượng bộ khi có thứ cụ thể để đáp lại.' },
+  { label: 'Nêu lý do cụ thể để giảm giá', hint: 'Mỗi đề nghị đi kèm một lý do cụ thể đối phương quan tâm — lý do càng cụ thể càng khó bị gạt.' },
+  { label: 'Mặc cả bằng điều khoản thanh toán', hint: 'Khi đối phương cứng giá, đổi hướng sang điều khoản (thời hạn, số lượng, phương thức) thay vì ép giá.' },
+  { label: 'Kiên trì ít nhất 2–3 lượt', hint: 'Đừng gật ngay ở lượt đầu — mặc cả tốt cần ít nhất 2–3 lượt đưa ra và giữ lập trường.' },
+  { label: 'Giữ giọng lịch sự', hint: 'Giữ giọng lịch sự giúp đối phương khó nổi nóng và dễ nhượng bộ hơn.' },
+  { label: 'Chốt thấp hơn giá rao', hint: 'Chỉ chốt khi đã đạt được mức tốt hơn đề nghị ban đầu — chốt ở mức ban đầu nghĩa là chưa mặc cả được gì.' },
 ];
-export const MAX_SCORE = RUBRIC.length * 2; // 10
+export const MAX_SCORE = RUBRIC.length; // 6 — một điểm cho mỗi luật đạt
+
+// % điểm và xếp hạng theo đúng thang đã merge (src/lib/score.ts).
+export function scorePercent(points: number): number {
+  return Math.round((points / MAX_SCORE) * 100);
+}
+
+export function gradeForPercent(percent: number): string {
+  if (percent >= 83) return 'Xuất sắc';
+  if (percent >= 66) return 'Tốt';
+  if (percent >= 50) return 'Khá';
+  if (percent >= 33) return 'Cần luyện thêm';
+  return 'Mới bắt đầu';
+}
+
+// Cấp từ tổng XP theo hệ chung (gamification.ts) — lộ trình 350 XP tối đa → cấp 3.
+export function roadmapLevel(totalXp: number) {
+  return levelFromXp(totalXp); // { level, xpInLevel, xpToNext, progress }
+}
 
 export const KIND_LABEL: Record<RoadmapItemKind, string> = {
   exercise: '📝 Bài tập',
@@ -90,31 +115,31 @@ export const LEVELS: RoadmapLevel[] = [
           {
             q: 'Muốn biết đối phương thực sự cần gì, bạn nên nói câu nào?',
             options: [
-              '“Anh cần cái này, đúng không?”',
               '“Điều gì quan trọng nhất với anh trong chuyện này?”',
               '“Em nghĩ anh nên chọn phương án A.”',
+              '“Anh cần cái này, đúng không?”',
             ],
-            correct: 1,
+            correct: 0,
             explain: 'Câu hỏi mở để đối phương tự nói ra nhu cầu — thông tin đó quý hơn mọi lời thuyết phục.',
           },
           {
             q: 'Đối phương đang nói dở, bạn nên làm gì?',
             options: [
+              'Gật đầu cho qua rồi nói tiếp ý của mình.',
               'Ngắt lời để sửa ngay vì bạn biết họ sai.',
               'Nghe hết, nhắc lại ý chính rồi mới phản hồi.',
-              'Gật đầu cho qua rồi nói tiếp ý của mình.',
             ],
-            correct: 1,
+            correct: 2,
             explain: 'Nhắc lại ý chính chứng minh bạn đã nghe — và cho bạn thời gian nghĩ trước khi đáp.',
           },
           {
             q: 'Câu nào là phản hồi tốt sau khi đối phương nêu lo ngại?',
             options: [
-              '“Anh lo thừa rồi, không sao đâu.”',
               '“Em hiểu anh lo về chi phí — để em nói rõ phần đó trước nhé.”',
               '“Thôi bỏ qua chuyện đó đi.”',
+              '“Anh lo thừa rồi, không sao đâu.”',
             ],
-            correct: 1,
+            correct: 0,
             explain: 'Gọi tên đúng nỗi lo rồi mới giải quyết — phủ nhận lo ngại chỉ khiến đối phương thủ thế.',
           },
         ],
@@ -168,31 +193,31 @@ export const LEVELS: RoadmapLevel[] = [
           {
             q: 'Đối phương nói “để tôi suy nghĩ thêm”, khả năng cao nhất là gì?',
             options: [
-              'Họ chắc chắn sẽ từ chối.',
               'Họ còn một lựa chọn khác đang cân nhắc, hoặc chưa tin bạn.',
               'Họ muốn bạn giảm giá ngay.',
+              'Họ chắc chắn sẽ từ chối.',
             ],
-            correct: 1,
+            correct: 0,
             explain: '“Suy nghĩ thêm” thường nghĩa là họ chưa đủ tin — hoặc đang so sánh với một lựa chọn khác.',
           },
           {
             q: 'Muốn biết sức mạnh thật của đối phương, bạn cần biết điều gì?',
             options: [
-              'Họ có bao nhiêu tiền.',
               'Nếu không thỏa thuận với bạn, họ còn đi đâu được.',
+              'Họ có bao nhiêu tiền.',
               'Họ thích màu gì.',
             ],
-            correct: 1,
+            correct: 0,
             explain: 'Lựa chọn dự phòng quyết định sức mạnh. Không còn đường lui thì phải nhượng bộ — và ngược lại.',
           },
           {
             q: 'Đối phương liên tục nhấn mạnh “tôi bận lắm”, bạn nên hiểu là gì?',
             options: [
+              'Họ muốn kết thúc ngay.',
               'Họ đang khoe khoang.',
               'Thời gian là mối lo thật của họ — hãy đàm phán trên thời gian, không phải giá.',
-              'Họ muốn kết thúc ngay.',
             ],
-            correct: 1,
+            correct: 2,
             explain: 'Điều người ta lặp lại nhiều lần thường là điều họ quan tâm nhất. Đàm phán đúng vào đó.',
           },
         ],
@@ -247,30 +272,30 @@ export const LEVELS: RoadmapLevel[] = [
             q: 'Đối phương muốn bạn giảm giá ngay. Đáp án tốt nhất là gì?',
             options: [
               'Giảm luôn để giữ khách.',
-              '“Em giảm được 5% nếu anh chốt hôm nay và thanh toán một lần.”',
               '“Không giảm được.”',
+              '“Em giảm được 5% nếu anh chốt hôm nay và thanh toán một lần.”',
             ],
-            correct: 1,
+            correct: 2,
             explain: 'Nhượng bộ có điều kiện: giảm giá đổi lấy chốt nhanh + thanh toán một lần. Bạn cho đi, nhưng nhận lại.',
           },
           {
             q: 'Muốn đối phương dễ đồng ý, bạn nên đưa ra:',
             options: [
-              'Một con số duy nhất, rõ ràng.',
               '2–3 phương án để họ chọn.',
+              'Một con số duy nhất, rõ ràng.',
               'Để họ tự ra giá.',
             ],
-            correct: 1,
+            correct: 0,
             explain: 'Đưa lựa chọn giúp đối phương cảm thấy mình làm chủ quyết định — trong khi khung vẫn do bạn đặt ra.',
           },
           {
             q: 'Bạn đã nhượng bộ 2 lần, đối phương vẫn đòi thêm. Nên làm gì?',
             options: [
-              'Nhượng tiếp cho xong việc.',
               'Dừng lại, nhắc lại những gì mình đã nhượng và hỏi họ đổi lại được gì.',
+              'Nhượng tiếp cho xong việc.',
               'Bỏ về luôn.',
             ],
-            correct: 1,
+            correct: 0,
             explain: 'Nhượng bộ một chiều dạy đối phương rằng cứ đòi là được. Nhắc lại giá trị đã cho và yêu cầu đổi lại.',
           },
         ],
@@ -334,19 +359,19 @@ export const LEVELS: RoadmapLevel[] = [
           {
             q: 'Bị ép phải trả lời ngay trong 10 giây, cách tốt nhất là:',
             options: [
-              'Trả lời ngay cho kịp.',
               '“Để em xác nhận lại một ý rồi trả lời anh trong 1 phút được không?”',
               'Im lặng không nói gì.',
+              'Trả lời ngay cho kịp.',
             ],
-            correct: 1,
+            correct: 0,
             explain: 'Xin thêm thời gian một cách lịch sự là quyền của bạn — và là kỹ thuật giữ bình tĩnh hiệu quả nhất.',
           },
           {
             q: 'Hai bên đã mặc cả 3 vòng vẫn chưa gặp nhau. Nước đi hay nhất là:',
             options: [
-              'Chia đôi khoảng cách cho xong.',
-              'Đổi khung: hỏi đối phương xem ngoài giá ra còn điều gì quan trọng với họ.',
               'Bỏ cuộc.',
+              'Đổi khung: hỏi đối phương xem ngoài giá ra còn điều gì quan trọng với họ.',
+              'Chia đôi khoảng cách cho xong.',
             ],
             correct: 1,
             explain: 'Khi giá bế tắc, đổi sang đàm phán điều kiện khác (thời gian, khối lượng, phương thức) thường mở được đường.',
@@ -403,18 +428,18 @@ export const LEVELS: RoadmapLevel[] = [
             q: 'Trước một cuộc đàm phán quan trọng, việc đầu tiên nên làm là gì?',
             options: [
               'Tập nói cho trôi chảy.',
-              'Xác định mục tiêu, mức chấp nhận được, và lựa chọn dự phòng nếu không chốt được.',
               'Tìm hiểu đối phương thích gì.',
+              'Xác định mục tiêu, mức chấp nhận được, và lựa chọn dự phòng nếu không chốt được.',
             ],
-            correct: 1,
+            correct: 2,
             explain: 'Chuẩn bị = biết mình muốn gì, chấp nhận được tới đâu, và có đường lui nào. Nói hay chỉ là phần nổi.',
           },
           {
             q: 'Thỏa thuận miệng đã xong, bạn nên làm gì tiếp theo?',
             options: [
-              'Tin tưởng nhau là đủ.',
-              'Nhắn lại 3 dòng: việc gì, ai làm, khi nào xong — để cả hai xác nhận.',
               'Đợi đối phương nhắc lại.',
+              'Nhắn lại 3 dòng: việc gì, ai làm, khi nào xong — để cả hai xác nhận.',
+              'Tin tưởng nhau là đủ.',
             ],
             correct: 1,
             explain: 'Chốt bằng văn bản tránh hiểu lầm và bảo vệ cả hai bên. Không chốt miệng với việc quan trọng.',
@@ -422,11 +447,11 @@ export const LEVELS: RoadmapLevel[] = [
           {
             q: 'Đâu là dấu hiệu của một cuộc đàm phán tốt?',
             options: [
+              'Đối phương nhượng bộ hoàn toàn.',
               'Bạn được đúng 100% những gì mình muốn.',
               'Cả hai bên đều đạt được điều quan trọng nhất của mình và rõ ràng về bước tiếp theo.',
-              'Đối phương nhượng bộ hoàn toàn.',
             ],
-            correct: 1,
+            correct: 2,
             explain: 'Đàm phán tốt không phải thắng-thua. Cả hai đều đạt điều quan trọng nhất và rời bàn với cam kết rõ ràng.',
           },
         ],
@@ -515,12 +540,20 @@ export function markItemDone(
 
 // ---- Lưu tiến độ (expo-file-system, đã có sẵn trong dự án) ----
 
-const PROGRESS_FILE = (FileSystem.documentDirectory ?? '') + 'roadmap-progress.json';
+// Lưu tiến độ — dùng API expo-file-system SDK 58 như Slice 1 (src/lib/progress.ts):
+// Paths.document cho thư mục, helper read/write cũ cho file JSON.
+function progressFileUri(): string {
+  return new File(Paths.document, 'roadmap-progress.json').uri;
+}
 
 export async function loadProgress(): Promise<RoadmapProgress> {
   try {
-    if (!FileSystem.documentDirectory) return {};
-    const raw = await FileSystem.readAsStringAsync(PROGRESS_FILE);
+    const uri = progressFileUri();
+    const info = await FileSystem.getInfoAsync(uri);
+    if (!info.exists) return {};
+    const raw = await FileSystem.readAsStringAsync(uri, {
+      encoding: FileSystem.EncodingType.UTF8,
+    });
     const parsed = JSON.parse(raw) as RoadmapProgress;
     return parsed && typeof parsed === 'object' ? parsed : {};
   } catch {
@@ -530,8 +563,9 @@ export async function loadProgress(): Promise<RoadmapProgress> {
 
 export async function saveProgress(progress: RoadmapProgress): Promise<void> {
   try {
-    if (!FileSystem.documentDirectory) return;
-    await FileSystem.writeAsStringAsync(PROGRESS_FILE, JSON.stringify(progress));
+    await FileSystem.writeAsStringAsync(progressFileUri(), JSON.stringify(progress), {
+      encoding: FileSystem.EncodingType.UTF8,
+    });
   } catch {
     // Lưu lỗi thì tiến độ vẫn giữ trong bộ nhớ của màn hình.
   }

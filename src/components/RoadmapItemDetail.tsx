@@ -1,5 +1,5 @@
 // Chi tiết một mục trong lộ trình: bài tập / bài test / buổi thực hành.
-// Bài test: 3 câu trắc nghiệm làm ngay trong màn hình, chấm theo thang cố định /10.
+// Bài test: 3 câu trắc nghiệm làm ngay trong màn hình, chấm theo thang cố định 6 luật (/6, ra % điểm).
 // Bài tập: đọc bài học tâm lý rồi đánh dấu đã làm.
 // Thực hành: đọc tình huống roleplay, bấm bắt đầu (cha sẽ nối vào vòng đàm phán voice),
 // hoặc đánh dấu đã luyện xong. Chấm điểm thực hành thật sẽ do vòng AI trả về (Slice 2).
@@ -9,6 +9,7 @@ import {
   KIND_LABEL,
   MAX_SCORE,
   RUBRIC,
+  scorePercent,
   type RoadmapItem,
   type RoadmapLevel,
 } from '../lib/roadmap';
@@ -30,6 +31,7 @@ export default function RoadmapItemDetail({ item, level, onBack, onComplete, onS
   const answeredAll = quiz.length > 0 && quiz.every((_, i) => picked[i] !== undefined);
   const correctCount = quiz.reduce((s, q, i) => s + (picked[i] === q.correct ? 1 : 0), 0);
   const quizScore = quiz.length > 0 ? Math.round((correctCount / quiz.length) * MAX_SCORE) : null;
+  const quizPct = quizScore != null ? scorePercent(quizScore) : null;
 
   const submitQuiz = () => {
     if (!answeredAll) return;
@@ -65,7 +67,7 @@ export default function RoadmapItemDetail({ item, level, onBack, onComplete, onS
             <Text style={styles.rubricTitle}>📏 Thang chấm cố định (/{MAX_SCORE} điểm)</Text>
             {RUBRIC.map((r) => (
               <View key={r.label} style={styles.rubricRow}>
-                <Text style={styles.rubricLabel}>• {r.label} (0–2)</Text>
+                <Text style={styles.rubricLabel}>• {r.label} (0–1)</Text>
                 <Text style={styles.rubricHint}>{r.hint}</Text>
               </View>
             ))}
@@ -138,7 +140,11 @@ export default function RoadmapItemDetail({ item, level, onBack, onComplete, onS
               {quizScore}/{MAX_SCORE} điểm
             </Text>
             <Text style={styles.scoreSub}>
-              {quizScore >= 8 ? 'Rất tốt — bạn đã nắm chắc cấp này.' : quizScore >= 5 ? 'Khá — xem lại phần giải thích rồi làm lại để lên điểm.' : 'Cần luyện thêm — đọc lại bài học tâm lý ở trên rồi thử lại.'}
+              {quizPct != null && quizPct >= 83
+                ? 'Xuất sắc — bạn đã nắm chắc cấp này.'
+                : quizPct != null && quizPct >= 50
+                  ? 'Khá — xem lại phần giải thích rồi làm lại để lên điểm.'
+                  : 'Cần luyện thêm — đọc lại bài học tâm lý ở trên rồi thử lại.'}
             </Text>
             <Pressable style={styles.bigBtn} onPress={() => onComplete(item.id, quizScore)}>
               <Text style={styles.bigBtnText}>Lưu kết quả +{item.xp} XP →</Text>
@@ -196,12 +202,12 @@ const styles = StyleSheet.create({
   body: { flex: 1 },
   levelTag: { color: '#9fb0bf', fontSize: 12, fontWeight: '700' },
   title: { color: '#fff', fontSize: 24, fontWeight: '800' },
-  desc: { color: '#c9d4de', fontSize: 15, lineHeight: 21 },
+  desc: { color: '#9fb0bf', fontSize: 15, lineHeight: 21 },
   metaRow: { flexDirection: 'row', gap: 16 },
   meta: { color: '#ffd43b', fontWeight: '700', fontSize: 13 },
   lessonCard: { backgroundColor: '#1b232b', borderRadius: 12, padding: 14, gap: 6 },
   lessonTitle: { color: '#fff', fontWeight: '800', fontSize: 15 },
-  lessonText: { color: '#c9d4de', fontSize: 14, lineHeight: 20 },
+  lessonText: { color: '#9fb0bf', fontSize: 14, lineHeight: 20 },
   rubricCard: { backgroundColor: '#243040', borderRadius: 12, padding: 14, gap: 8 },
   rubricTitle: { color: '#fff', fontWeight: '800', fontSize: 15 },
   rubricRow: { gap: 2 },
@@ -209,7 +215,7 @@ const styles = StyleSheet.create({
   rubricHint: { color: '#9fb0bf', fontSize: 12 },
   qCard: { backgroundColor: '#1b232b', borderRadius: 12, padding: 14, gap: 8 },
   qText: { color: '#fff', fontWeight: '700', fontSize: 15, lineHeight: 21 },
-  opt: { backgroundColor: '#243040', borderRadius: 10, padding: 12 },
+  opt: { backgroundColor: '#243040', borderRadius: 10, padding: 12, borderWidth: 2, borderColor: 'transparent' },
   optSelected: { borderColor: '#2f81f7', borderWidth: 2 },
   optRight: { backgroundColor: '#0b2518', borderColor: '#2f9e44', borderWidth: 2 },
   optWrong: { backgroundColor: '#2b0f0f', borderColor: '#e03131', borderWidth: 2 },
@@ -220,7 +226,7 @@ const styles = StyleSheet.create({
   pickedNote: { color: '#9fb0bf', fontSize: 12 },
   practiceCard: { backgroundColor: '#1b232b', borderRadius: 12, padding: 14, gap: 6 },
   practiceTitle: { color: '#fff', fontWeight: '800', fontSize: 15 },
-  practiceText: { color: '#c9d4de', fontSize: 14, lineHeight: 21 },
+  practiceText: { color: '#9fb0bf', fontSize: 14, lineHeight: 21 },
   bigBtn: { backgroundColor: '#2f81f7', borderRadius: 12, paddingVertical: 14, alignItems: 'center', marginTop: 4 },
   bigBtnDisabled: { backgroundColor: '#243040' },
   bigBtnText: { color: '#fff', fontWeight: '700', fontSize: 16 },
