@@ -1,5 +1,7 @@
 # VIDEO DỰ PHÒNG — Đàm Phán Sống (60–90s, mục tiêu ~82s)
 
+> **KỊCH BẢN ĐÃ GIẾT (Tuấn 15:36) — không quay nữa. Giữ file này làm tài liệu thôi, đừng quay theo.**
+
 Backup video cho bài nộp Codex. Quay trên OPPO A60 (screen record + mic), một vòng đàm phán thật bằng giọng nói, twist hardline Phòng 1.
 
 ## Nguyên tắc quay (bắt buộc)
