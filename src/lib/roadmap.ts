@@ -2,7 +2,7 @@
 // Khung chung: kỹ năng đàm phán nói chung (không gắn với một tình huống cụ thể nào).
 // Mỗi cấp có 2 bài tập + 1 bài test + 1 buổi thực hành, độ khó tăng dần.
 // Chấm điểm theo thang cố định RUBRIC (5 tiêu chí × 2 điểm = 10 điểm).
-import * as FileSystem from 'expo-file-system';
+import { File, Paths } from 'expo-file-system';
 
 export type RoadmapItemKind = 'exercise' | 'test' | 'practice';
 export type ItemStatus = 'locked' | 'unlocked' | 'done';
@@ -513,14 +513,17 @@ export function markItemDone(
   };
 }
 
-// ---- Lưu tiến độ (expo-file-system, đã có sẵn trong dự án) ----
+// ---- Lưu tiến độ (expo-file-system API mới của SDK 58: Paths/File) ----
 
-const PROGRESS_FILE = (FileSystem.documentDirectory ?? '') + 'roadmap-progress.json';
+function progressFile(): File {
+  return new File(Paths.document, 'roadmap-progress.json');
+}
 
 export async function loadProgress(): Promise<RoadmapProgress> {
   try {
-    if (!FileSystem.documentDirectory) return {};
-    const raw = await FileSystem.readAsStringAsync(PROGRESS_FILE);
+    const f = progressFile();
+    if (!f.exists) return {};
+    const raw = await f.text();
     const parsed = JSON.parse(raw) as RoadmapProgress;
     return parsed && typeof parsed === 'object' ? parsed : {};
   } catch {
@@ -530,8 +533,7 @@ export async function loadProgress(): Promise<RoadmapProgress> {
 
 export async function saveProgress(progress: RoadmapProgress): Promise<void> {
   try {
-    if (!FileSystem.documentDirectory) return;
-    await FileSystem.writeAsStringAsync(PROGRESS_FILE, JSON.stringify(progress));
+    await progressFile().write(JSON.stringify(progress));
   } catch {
     // Lưu lỗi thì tiến độ vẫn giữ trong bộ nhớ của màn hình.
   }
