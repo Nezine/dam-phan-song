@@ -17,9 +17,9 @@ export default function AppShell() {
   const progress = getProgress();
 
   if (screen === 'negotiate') {
-    // Vòng đàm phán Slice 1 (thuê trọ). App.tsx chưa có nút "quay lại Home" —
-    // người dùng thoát vòng bằng cách đóng/mở lại app (xem INTEGRATION.md).
-    return <App />;
+    // Vòng đàm phán Slice 1 (Phòng 1). App.tsx nhận onExit để hiện nút
+    // "‹ Trang chủ" — bấm là về Home (vòng đang dở sẽ bị hủy).
+    return <App onExit={() => setScreen('home')} />;
   }
 
   if (screen === 'map') {

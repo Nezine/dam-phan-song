@@ -11,6 +11,7 @@ export type RoomProgress = {
   xpForNextLevel: number;
   streakDays: number; // số ngày luyện liên tiếp
   sessionsThisWeek: number;
+  roundsToday: number; // số vòng đã luyện hôm nay (mục tiêu ngày)
   roomsCompleted: RoomId[]; // phòng đã hoàn thành
   currentRoomId: RoomId; // phòng đang luyện
 };
@@ -21,6 +22,7 @@ const SEED: RoomProgress = {
   xpForNextLevel: 200,
   streakDays: 3,
   sessionsThisWeek: 2,
+  roundsToday: 0,
   roomsCompleted: [],
   currentRoomId: 'rent',
 };
