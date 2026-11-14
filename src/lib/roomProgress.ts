@@ -29,7 +29,7 @@ export const EMPTY_PROGRESS: RoomProgress = {
   sessionsTotal: 0,
   roundsToday: 0,
   roomsCompleted: [],
-  currentRoomId: 'rent',
+  currentRoomId: 'sales',
 };
 
 function isToday(iso: string): boolean {
@@ -58,8 +58,8 @@ export function deriveRoomProgress(p: Progress): RoomProgress {
     roundsToday: playedToday ? 1 : 0,
     // Phòng 1 hoàn thành khi đã chốt ít nhất 1 thỏa thuận (recordSession chỉ
     // chạy khi chốt giá). Phòng khác chưa có luồng thật nên chưa thể xong.
-    roomsCompleted: p.sessions > 0 ? ['rent'] : [],
-    currentRoomId: 'rent',
+    roomsCompleted: p.sessions > 0 ? ['sales'] : [],
+    currentRoomId: 'sales',
   };
 }
 

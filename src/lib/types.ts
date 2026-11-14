@@ -1,26 +1,26 @@
-// Shared types for the negotiation loop.
+// Shared types for the sales persuasion loop.
 export type Scenario = {
-  tenantName: string;
+  sellerName: string;
   city: string;
-  roomType: string; // e.g. "phòng trọ 20m2 có gác"
-  listedPrice: number; // giá rao (VND/tháng)
-  floorPrice: number; // giá sàn của chủ trọ — AI không bao giờ chốt thấp hơn
-  moveIn: string; // e.g. "01/12"
-  twist?: 'hardline' | 'mold' | 'deposit'; // tình huống khó của giám khảo
-  opening?: string; // câu mở đầu của chủ trọ (nếu có twist)
+  productName: string;
+  listedPrice: number; // giá niêm yết (VND)
+  targetPrice: number; // mức thấp nhất người bán chấp nhận (VND)
+  maxBudget: number; // ngân sách tối đa bí mật của khách hàng (VND)
+  twist?: 'hardline' | 'mold' | 'deposit' | 'price' | 'need' | 'trust' | 'timing';
+  opening?: string; // lời mở đầu của khách hàng (nếu có tình huống)
 };
 
 export type Turn = {
-  speaker: 'tenant' | 'landlord';
+  speaker: 'seller' | 'customer';
   text: string;
-  price?: number; // giá chủ trọ đưa ra trong lượt này (nếu có)
-  emotion?: 'friendly' | 'neutral' | 'annoyed'; // cảm xúc chủ trọ (UI hiển thị 😊/😐/😠)
+  price?: number; // mức giá được nêu trong lượt này (nếu có)
+  emotion?: 'friendly' | 'neutral' | 'annoyed'; // cảm xúc khách hàng (UI hiển thị 😊/😐/😠)
 };
 
-export type LandlordReply = {
-  message: string; // lời đáp của chủ trọ (nói thành giọng qua TTS)
-  currentPrice: number | null; // giá chủ trọ đang đưa ra, null nếu chưa đề giá
-  agreed: boolean; // true nếu 2 bên đã chốt giá
+export type CustomerReply = {
+  message: string; // lời đáp của khách hàng (nói thành giọng qua TTS)
+  currentPrice: number | null; // mức giá được nêu trong lượt này, null nếu không có
+  agreed: boolean; // true nếu khách hàng đồng ý mua
   agreedPrice: number | null; // giá chốt (khi agreed)
   emotion: 'friendly' | 'neutral' | 'annoyed'; // màu sắc để UI + TTS đổi nhịp
 };

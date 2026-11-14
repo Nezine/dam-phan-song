@@ -1,5 +1,5 @@
 // Màn Home — điểm vào của app.
-// Khung rộng: app luyện kỹ năng đàm phán (nói chuyện khó), thuê trọ chỉ là Phòng 1.
+// App luyện kỹ năng thuyết phục và đàm phán qua các phòng thực hành.
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import type { RoomId } from '../lib/rooms';
 import { ROOMS } from '../lib/rooms';
@@ -91,7 +91,7 @@ export default function HomeScreen({ progress, onOpenMap, onStartRoom }: Props) 
       {/* Vào bản đồ phòng tập */}
       <Pressable style={styles.mapBtn} onPress={onOpenMap}>
         <Text style={styles.mapBtnText}>🗺️ Xem bản đồ phòng tập →</Text>
-        <Text style={styles.mapBtnSub}>5 phòng tập · từ thuê trọ đến gọi vốn</Text>
+        <Text style={styles.mapBtnSub}>5 phòng tập · từ bán hàng đến phát triển bản thân</Text>
       </Pressable>
     </ScrollView>
   );

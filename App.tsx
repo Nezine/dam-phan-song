@@ -20,9 +20,9 @@ import {
   useAudioRecorderState,
 } from 'expo-audio';
 import { File } from 'expo-file-system';
-import { landlordTurn, transcribeAudio, mimeTypeForAudioUri, GEMINI_API_KEY } from './src/lib/gemini';
-import { groqLandlordTurn, GROQ_API_KEY } from './src/lib/groq';
-import { mockLandlordTurn } from './src/lib/mock';
+import { customerTurn, transcribeAudio, mimeTypeForAudioUri, GEMINI_API_KEY } from './src/lib/gemini';
+import { groqCustomerTurn, GROQ_API_KEY } from './src/lib/groq';
+import { mockCustomerTurn } from './src/lib/mock';
 import { scoreNegotiation, type ScoreResult } from './src/lib/score';
 import { loadProgress, recordSession, type Progress } from './src/lib/progress';
 import type { Scenario, Turn } from './src/lib/types';
@@ -53,52 +53,48 @@ const friendlyError = (e: unknown): string => {
   return 'Có lỗi xảy ra — bấm Thử lại nhé.';
 };
 
-const TWISTS: { key: Scenario['twist']; label: string; desc: string; city: string; room: string; listed: string; floor: string; opening: string }[] = [
+const CUSTOMER_MAX_BUDGET = 4_800_000;
+
+const TWISTS: { key: Scenario['twist']; label: string; desc: string; opening: string }[] = [
   {
-    key: 'hardline',
-    label: '1️⃣ Phòng 1 · Giá sàn cứng',
-    desc: 'Đối phương chốt 3tr2, có người chờ cọc',
-    city: 'Hà Nội',
-    room: 'phòng trọ có gác lửng',
-    listed: '3500000',
-    floor: '3200000',
-    opening: 'Giá này là giá sàn rồi em, dưới 3 triệu 2 anh không cho thuê đâu, có người khác đang chờ cọc rồi.',
+    key: 'price',
+    label: '1️⃣ Phòng 1 · Băn khoăn về giá',
+    desc: 'Khách thích sản phẩm nhưng thấy giá hơi cao',
+    opening: 'Sản phẩm nhìn tốt đó em, nhưng 5 triệu hơi cao hơn mức anh dự tính. Có lựa chọn nào hợp lý hơn không?',
   },
   {
-    key: 'mold',
-    label: '2️⃣ Phòng 1 · Phòng ẩm mốc',
-    desc: 'Tường ẩm, đối phương gạt "ở được"',
-    city: 'TP.HCM',
-    room: 'phòng trọ 20m2',
-    listed: '3000000',
-    floor: '2700000',
-    opening: 'Phòng này ở được em ơi, ai cũng ở vậy thôi, tường ẩm chút thì sơn lại là hết.',
+    key: 'need',
+    label: '2️⃣ Phòng 1 · Chưa thấy cần thiết',
+    desc: 'Khách chưa rõ sản phẩm giải quyết nhu cầu nào',
+    opening: 'Anh đang dùng một sản phẩm khác rồi. Em giúp anh hiểu món này hữu ích hơn ở điểm nào nhé?',
   },
   {
-    key: 'deposit',
-    label: '3️⃣ Phòng 1 · Cọc 2 tháng',
-    desc: 'Đóng 3 tháng/lần, tiền mặt ~20 triệu',
-    city: 'Đà Nẵng',
-    room: 'căn hộ mini 25m2',
-    listed: '4000000',
-    floor: '3600000',
-    opening: 'Quy dãy em ơi, cọc 2 tháng, đóng 3 tháng một lần, tổng đâu vào khoảng 20 triệu.',
+    key: 'trust',
+    label: '3️⃣ Phòng 1 · Cần thêm niềm tin',
+    desc: 'Khách muốn hiểu rõ chất lượng và chính sách',
+    opening: 'Anh muốn tìm hiểu thêm về chất lượng và bảo hành trước khi quyết định mua.',
+  },
+  {
+    key: 'timing',
+    label: '4️⃣ Phòng 1 · Chưa đúng thời điểm',
+    desc: 'Khách chưa sẵn sàng quyết định ngay',
+    opening: 'Anh thấy sản phẩm phù hợp, nhưng có lẽ tháng sau anh mới cần. Có lý do gì nên mua hôm nay không?',
   },
 ];
 
 export default function App({ onExit }: { onExit?: () => void }) {
   // --- setup state (đơn giản hóa cho demo: nhập trước khi bấm Bắt đầu) ---
   const [started, setStarted] = useState(false);
-  const [tenantName, setTenantName] = useState('Minh');
+  const [sellerName, setSellerName] = useState('Minh');
   const [city, setCity] = useState('TP.HCM');
-  const [roomType, setRoomType] = useState('phòng trọ có gác lửng');
-  const [listedPrice, setListedPrice] = useState('3500000');
-  const [floorPrice, setFloorPrice] = useState('3000000');
+  const [productName, setProductName] = useState('Máy pha cà phê mini');
+  const [listedPrice, setListedPrice] = useState('5000000');
+  const [targetPrice, setTargetPrice] = useState('4500000');
 
   const [scenario, setScenario] = useState<Scenario | null>(null);
   const [turns, setTurns] = useState<Turn[]>([]);
   const [busy, setBusy] = useState(false);
-  const [busyPhase, setBusyPhase] = useState<'transcribe' | 'landlord' | null>(null);
+  const [busyPhase, setBusyPhase] = useState<'transcribe' | 'customer' | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [lastFailedText, setLastFailedText] = useState<string | null>(null);
   const [agreedPrice, setAgreedPrice] = useState<number | null>(null);
@@ -154,7 +150,7 @@ export default function App({ onExit }: { onExit?: () => void }) {
     recordedRef.current = agreedPrice;
     const s = scoreNegotiation(turns, scenario, agreedPrice);
     setResult(s);
-    recordSession(scenario.listedPrice - agreedPrice, s.percent)
+    recordSession(agreedPrice - scenario.targetPrice, s.percent)
       .then(setProgress)
       .catch(() => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -180,12 +176,12 @@ export default function App({ onExit }: { onExit?: () => void }) {
 
   const startNegotiation = (preset?: typeof TWISTS[number]) => {
     const s: Scenario = {
-      tenantName: tenantName.trim() || 'bạn',
-      city: preset?.city ?? (city.trim() || 'Hà Nội'),
-      roomType: preset?.room ?? (roomType.trim() || 'phòng trọ'),
-      listedPrice: Number(preset?.listed ?? listedPrice) || 3500000,
-      floorPrice: Number(preset?.floor ?? floorPrice) || 3000000,
-      moveIn: 'tháng tới',
+      sellerName: sellerName.trim() || 'bạn',
+      city: city.trim() || 'TP.HCM',
+      productName: productName.trim() || 'Máy pha cà phê mini',
+      listedPrice: Number(listedPrice) || 5_000_000,
+      targetPrice: Number(targetPrice) || 4_500_000,
+      maxBudget: CUSTOMER_MAX_BUDGET,
       twist: preset?.key,
       opening: preset?.opening,
     };
@@ -193,7 +189,7 @@ export default function App({ onExit }: { onExit?: () => void }) {
     setScenario(s);
     setStarted(true);
     if (s.opening) {
-      const opening: Turn = { speaker: 'landlord', text: s.opening };
+      const opening: Turn = { speaker: 'customer', text: s.opening };
       setTurns([opening]);
       speak(s.opening);
     }
@@ -205,26 +201,28 @@ export default function App({ onExit }: { onExit?: () => void }) {
     startNegotiation(preset);
   };
 
-  // Gọi chủ trọ (không thêm lượt người thuê — dùng cho Thử lại, P0-5).
-  const callLandlord = async (tenantText: string) => {
+  // Gọi khách hàng (không thêm lượt người bán — dùng cho Thử lại, P0-5).
+  const callCustomer = async (sellerText: string) => {
     if (!scenario) return;
     setBusy(true);
-    setBusyPhase('landlord');
+    setBusyPhase('customer');
     if (MOCK) {
       // MOCK MODE: luật cứng, không gọi API
-      const reply = mockLandlordTurn(scenario, turns, tenantText);
+      const reply = mockCustomerTurn(scenario, turns, sellerText);
       setTurns((t) => [
         ...t,
-        { speaker: 'landlord', text: reply.message, price: reply.currentPrice ?? undefined, emotion: reply.emotion },
+        { speaker: 'customer', text: reply.message, price: reply.currentPrice ?? undefined, emotion: reply.emotion },
       ]);
-      if (reply.agreed && reply.agreedPrice && reply.agreedPrice >= scenario.floorPrice) {
+      if (
+        reply.agreed &&
+        reply.agreedPrice &&
+        reply.agreedPrice >= scenario.targetPrice &&
+        reply.agreedPrice <= scenario.maxBudget
+      ) {
         setAgreedPrice(reply.agreedPrice);
       } else if (reply.agreed && reply.agreedPrice) {
-        // Chủ trọ đồng ý dưới sàn — không chốt được: nói rõ để người chơi đề
-        // nghị lại, thay vì nuốt im (trước đây landlord nói "chốt rồi" nhưng
-        // không có thẻ thắng / màn hình điểm).
-        const msg = `Giá ${reply.agreedPrice.toLocaleString('vi-VN')}đ thấp hơn sàn rồi, không chốt được đâu em — đề nghị lại giúp anh nhé.`;
-        setTurns((t) => [...t, { speaker: 'landlord', text: msg, emotion: 'annoyed' }]);
+        const msg = 'Mức giá này chưa thể chốt. Hãy tiếp tục tư vấn hoặc điều chỉnh đề xuất của bạn nhé.';
+        setTurns((t) => [...t, { speaker: 'customer', text: msg, emotion: 'annoyed' }]);
         speak(msg);
       } else speak(reply.message);
       setBusy(false);
@@ -235,14 +233,14 @@ export default function App({ onExit }: { onExit?: () => void }) {
     let usedFallback = false;
     try {
       try {
-        reply = await landlordTurn(scenario, turns, tenantText);
+        reply = await customerTurn(scenario, turns, sellerText);
       } catch (geminiErr) {
         if (!GROQ_API_KEY) throw geminiErr;
         usedFallback = true;
-        reply = await groqLandlordTurn(scenario, turns, tenantText);
+        reply = await groqCustomerTurn(scenario, turns, sellerText);
       }
     } catch (e) {
-      setLastFailedText(tenantText);
+      setLastFailedText(sellerText);
       setError(friendlyError(e));
       setBusy(false);
       setBusyPhase(null);
@@ -250,16 +248,18 @@ export default function App({ onExit }: { onExit?: () => void }) {
     }
     setTurns((t) => [
       ...t,
-      { speaker: 'landlord', text: reply.message, price: reply.currentPrice ?? undefined, emotion: reply.emotion },
+      { speaker: 'customer', text: reply.message, price: reply.currentPrice ?? undefined, emotion: reply.emotion },
     ]);
-    if (reply.agreed && reply.agreedPrice && reply.agreedPrice >= scenario.floorPrice) {
+    if (
+      reply.agreed &&
+      reply.agreedPrice &&
+      reply.agreedPrice >= scenario.targetPrice &&
+      reply.agreedPrice <= scenario.maxBudget
+    ) {
       setAgreedPrice(reply.agreedPrice);
     } else if (reply.agreed && reply.agreedPrice) {
-      // Chủ trọ (AI) đồng ý dưới sàn — không chốt được: nói rõ để người chơi
-      // đề nghị lại, thay vì nuốt im (landlord nói "chốt rồi" nhưng không có
-      // thẻ thắng / màn hình điểm).
-      const msg = `Giá ${reply.agreedPrice.toLocaleString('vi-VN')}đ thấp hơn sàn rồi, không chốt được đâu em — đề nghị lại giúp anh nhé.`;
-      setTurns((t) => [...t, { speaker: 'landlord', text: msg, emotion: 'annoyed' }]);
+      const msg = 'Mức giá này chưa thể chốt. Hãy tiếp tục tư vấn hoặc điều chỉnh đề xuất của bạn nhé.';
+      setTurns((t) => [...t, { speaker: 'customer', text: msg, emotion: 'annoyed' }]);
       speak(msg);
     } else {
       speak(reply.message);
@@ -269,16 +269,16 @@ export default function App({ onExit }: { onExit?: () => void }) {
     setBusyPhase(null);
   };
 
-  const sendToLandlord = async (tenantText: string) => {
+  const sendToCustomer = async (sellerText: string) => {
     if (!scenario) return;
-    const text = tenantText.trim();
+    const text = sellerText.trim();
     if (!text) return;
     setBusy(true);
-    setBusyPhase('landlord');
+    setBusyPhase('customer');
     setError(null);
     setLastFailedText(null);
-    setTurns((t) => [...t, { speaker: 'tenant', text }]);
-    await callLandlord(text);
+    setTurns((t) => [...t, { speaker: 'seller', text }]);
+    await callCustomer(text);
   };
 
   const retryLast = () => {
@@ -286,7 +286,7 @@ export default function App({ onExit }: { onExit?: () => void }) {
     if (!t) return;
     setError(null);
     setLastFailedText(null);
-    void callLandlord(t);
+    void callCustomer(t);
   };
 
   // Nhập text dự phòng khi voice lỗi (P0-2).
@@ -294,7 +294,7 @@ export default function App({ onExit }: { onExit?: () => void }) {
     const t = textDraft.trim();
     if (!t || busy || agreedPrice != null) return;
     setTextDraft('');
-    void sendToLandlord(t);
+    void sendToCustomer(t);
   };
 
   const onRecordPress = async () => {
@@ -328,7 +328,7 @@ export default function App({ onExit }: { onExit?: () => void }) {
           setError('Chưa nghe rõ, bấm mic nói lại nhé.');
           return;
         }
-        await sendToLandlord(transcript);
+        await sendToCustomer(transcript);
       } catch (e) {
         setBusy(false);
         setBusyPhase(null);
@@ -347,15 +347,12 @@ export default function App({ onExit }: { onExit?: () => void }) {
     }
   };
 
-  const saved = agreedPrice != null && scenario ? scenario.listedPrice - agreedPrice : 0;
-  // twist "cọc 2 tháng": tiền mặt ban đầu trước/sau khi đàm phán điều khoản
-  const upfrontBefore = agreedPrice != null && scenario ? scenario.listedPrice * 5 : 0; // cọc 2 tháng + đóng 3 tháng
-  const upfrontAfter = agreedPrice != null && scenario ? agreedPrice * 2 : 0; // cọc 1 tháng + đóng tháng đầu
+  const gain = agreedPrice != null && scenario ? agreedPrice - scenario.targetPrice : 0;
 
-  // Giá chủ trọ đang giữ (P1-7): lượt landlord gần nhất có giá, nếu không thì giá rao.
+  // Giá gần nhất được nêu trong hội thoại.
   const lastPriced = [...turns].reverse().find((t) => t.price != null);
   const currentPrice = lastPriced?.price ?? scenario?.listedPrice ?? 0;
-  const twistLabel = TWISTS.find((t) => t.key === scenario?.twist)?.label ?? 'Phòng 1 · Thuê trọ';
+  const twistLabel = TWISTS.find((t) => t.key === scenario?.twist)?.label ?? 'Phòng 1 · Khách mua hàng';
 
   if (!started) {
     return (
@@ -366,39 +363,39 @@ export default function App({ onExit }: { onExit?: () => void }) {
           </Pressable>
         ) : null}
         <Text style={styles.h1}>🤝 Đàm Phán Sống</Text>
-        <Text style={styles.sub}>Luyện kỹ năng đàm phán / nói chuyện khó — bằng giọng nói thật.</Text>
-        <Text style={styles.roomChip}>🏠 Phòng 1 · Đàm phán tiền trọ — phòng tập đầu tiên trong 5 phòng luyện nói chuyện khó.</Text>
+        <Text style={styles.sub}>Luyện kỹ năng thuyết phục khách hàng — bằng giọng nói thật.</Text>
+        <Text style={styles.roomChip}>🛍️ Phòng 1 · Thuyết phục khách mua hàng — phòng tập đầu tiên trong 5 phòng.</Text>
         {progress && progress.sessions > 0 ? (
           <Text style={styles.progressStrip}>
-            📈 Tiến bộ: {progress.sessions} phiên • Tiết kiệm tổng {fmt(progress.totalSaved)}đ • Điểm tốt nhất{' '}
+            📈 Tiến bộ: {progress.sessions} phiên • Phần chênh cộng dồn {fmt(progress.totalSaved)}đ • Điểm tốt nhất{' '}
             {progress.bestScore}%
           </Text>
         ) : null}
         <Text style={styles.sectionHead}>Thiết lập tình huống — Phòng 1</Text>
-        <Text style={styles.label}>Tên bạn</Text>
-        <TextInput style={styles.input} value={tenantName} onChangeText={setTenantName} placeholder="Minh" />
-        <Text style={styles.label}>Thành phố</Text>
+        <Text style={styles.label}>Tên người bán</Text>
+        <TextInput style={styles.input} value={sellerName} onChangeText={setSellerName} placeholder="Minh" />
+        <Text style={styles.label}>Khu vực</Text>
         <TextInput style={styles.input} value={city} onChangeText={setCity} placeholder="TP.HCM" />
-        <Text style={styles.label}>Loại phòng</Text>
-        <TextInput style={styles.input} value={roomType} onChangeText={setRoomType} placeholder="phòng trọ có gác lửng" />
-        <Text style={styles.label}>Giá rao (đ/tháng)</Text>
+        <Text style={styles.label}>Sản phẩm</Text>
+        <TextInput style={styles.input} value={productName} onChangeText={setProductName} placeholder="Máy pha cà phê mini" />
+        <Text style={styles.label}>Giá niêm yết (đ)</Text>
         <TextInput
           style={styles.input}
           value={listedPrice}
           onChangeText={setListedPrice}
-          placeholder="3500000"
+          placeholder="5000000"
           keyboardType="number-pad"
         />
-        <Text style={styles.label}>Giá sàn của đối phương (bí mật — AI không chốt thấp hơn)</Text>
+        <Text style={styles.label}>Giá mục tiêu — mức thấp nhất bạn chấp nhận (đ)</Text>
         <TextInput
           style={styles.input}
-          value={floorPrice}
-          onChangeText={setFloorPrice}
-          placeholder="3000000"
+          value={targetPrice}
+          onChangeText={setTargetPrice}
+          placeholder="4500000"
           keyboardType="number-pad"
         />
-        <Pressable style={styles.bigBtn} onPress={() => startNegotiation()}>
-          <Text style={styles.bigBtnText}>Bắt đầu đàm phán →</Text>
+        <Pressable style={styles.bigBtn} onPress={() => startNegotiation(TWISTS[0])}>
+          <Text style={styles.bigBtnText}>Bắt đầu luyện →</Text>
         </Pressable>
         <Text style={styles.twistTitle}>🎯 Phòng 1 — Luyện tình huống khó:</Text>
         {TWISTS.map((t) => (
@@ -424,7 +421,7 @@ export default function App({ onExit }: { onExit?: () => void }) {
         </Text>
         {agreedPrice != null ? (
           <Text style={styles.winSaved}>
-            💰 Tiết kiệm {fmt(saved)}đ/tháng = {fmt(saved * 12)}đ/năm
+            💰 Phần chênh so với mục tiêu: {fmt(gain)}đ
           </Text>
         ) : null}
         <Text style={styles.sectionTitle}>Chấm từng tiêu chí</Text>
@@ -477,7 +474,7 @@ export default function App({ onExit }: { onExit?: () => void }) {
     <View style={styles.screen}>
       {MOCK && (
         <View style={styles.mockBanner}>
-          <Text style={styles.mockText}>⚠️ MOCK MODE — đối phương giả, chỉ test UI</Text>
+          <Text style={styles.mockText}>⚠️ KHÁCH MÔ PHỎNG — chế độ trình diễn</Text>
         </View>
       )}
       <View style={styles.header}>
@@ -488,10 +485,10 @@ export default function App({ onExit }: { onExit?: () => void }) {
         ) : null}
         <View style={styles.headerText}>
           <Text style={styles.h2}>
-            🎯 Phòng 1 · Luyện đàm phán
+            🎯 Phòng 1 · Luyện bán hàng
           </Text>
           <Text style={styles.headerSub}>
-            {twistLabel} • {scenario?.roomType} {fmt(scenario?.listedPrice ?? 0)}đ/tháng • Đối phương đang giữ: {fmt(currentPrice)}đ/tháng
+            {twistLabel} • {scenario?.productName} • Niêm yết {fmt(scenario?.listedPrice ?? 0)}đ • Mức gần nhất: {fmt(currentPrice)}đ
           </Text>
         </View>
         <Pressable style={styles.muteBtn} onPress={() => setMuted((m) => !m)}>
@@ -500,19 +497,19 @@ export default function App({ onExit }: { onExit?: () => void }) {
       </View>
       <ScrollView ref={scrollRef} style={styles.chat} contentContainerStyle={{ padding: 12, gap: 8 }}>
         {turns.map((t, i) => (
-          <View key={i} style={[styles.bubble, t.speaker === 'tenant' ? styles.me : styles.them]}>
+          <View key={i} style={[styles.bubble, t.speaker === 'seller' ? styles.me : styles.them]}>
             <Text style={styles.speaker}>
-              {t.speaker === 'tenant' ? 'Bạn' : `Đối phương${t.emotion ? ` ${EMOJI[t.emotion]}` : ''}`}
+              {t.speaker === 'seller' ? 'Bạn' : `Đối phương${t.emotion ? ` ${EMOJI[t.emotion]}` : ''}`}
             </Text>
             <Text style={styles.bubbleText}>{t.text}</Text>
-            {t.price ? <Text style={styles.price}>→ {fmt(t.price)}đ/tháng</Text> : null}
+            {t.price ? <Text style={styles.price}>→ {fmt(t.price)}đ</Text> : null}
           </View>
         ))}
         {busy && (
           <View style={styles.busyRow}>
             <ActivityIndicator />
             <Text style={styles.busyText}>
-              {busyPhase === 'transcribe' ? 'Đang nghe lại…' : 'Đối phương đang trả lời…'}
+              {busyPhase === 'transcribe' ? 'Đang nghe lại…' : 'Khách hàng đang trả lời…'}
             </Text>
           </View>
         )}
@@ -527,22 +524,12 @@ export default function App({ onExit }: { onExit?: () => void }) {
           </View>
         ) : null}
       </ScrollView>
-      {agreedPrice != null && (
+      {agreedPrice != null && scenario != null && (
         <View style={styles.winCard}>
-          <Text style={styles.winTitle}>✅ CHỐT ĐƯỢC RỒI!</Text>
-          <Text style={styles.winPrice}>{fmt(agreedPrice)}đ/tháng</Text>
-          {saved > 0 ? (
-            <Text style={styles.winSaved}>💰 Tiết kiệm {fmt(saved)}đ/tháng = {fmt(saved * 12)}đ/năm</Text>
-          ) : scenario?.twist === 'deposit' ? (
-            <Text style={styles.winSaved}>✅ Chốt ở giá rao — thành công nhờ điều khoản thanh toán</Text>
-          ) : (
-            <Text style={styles.winSaved}>🤝 Chốt ở giá rao — lần sau thử đưa giá mục tiêu + lý do để mặc cả nhé</Text>
-          )}
-          {scenario?.twist === 'deposit' ? (
-            <Text style={styles.winSub}>
-              Tiền mặt ban đầu: {fmt(upfrontBefore)}đ → {fmt(upfrontAfter)}đ (cọc 1 tháng, đóng theo tháng)
-            </Text>
-          ) : null}
+          <Text style={styles.winTitle}>✅ ĐƠN HÀNG ĐÃ CHỐT!</Text>
+          <Text style={styles.winSaved}>Khách hàng đồng ý mua {scenario.productName}</Text>
+          <Text style={styles.winPrice}>{fmt(agreedPrice)}đ</Text>
+          <Text style={styles.winSaved}>💰 Cao hơn giá mục tiêu {fmt(gain)}đ</Text>
           <Pressable
             style={styles.bigBtn}
             onPress={() => {
@@ -554,7 +541,7 @@ export default function App({ onExit }: { onExit?: () => void }) {
             <Text style={styles.bigBtnText}>📊 Xem chấm điểm</Text>
           </Pressable>
           <Pressable style={styles.bigBtn} onPress={backToSetup}>
-            <Text style={styles.bigBtnText}>Đàm phán tình huống khác →</Text>
+            <Text style={styles.bigBtnText}>Thử băn khoăn khác →</Text>
           </Pressable>
         </View>
       )}

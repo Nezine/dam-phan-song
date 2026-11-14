@@ -1,31 +1,30 @@
-# Đàm Phán Sống — Pitch (3 minutes, 6 beats × 30 seconds)
+# Đàm Phán Sống — Pitch 3 phút
 
-Judges' required structure, from the venue slide. Total **3:00, not 5:00**. Rehearse with a timer — 30 seconds per beat, no overrun.
+## 1. Vấn đề (00:00–00:30)
 
-## The six beats
+Nhiều người ngại mở lời khi cần thuyết phục khách mua, trao đổi thu nhập hoặc trình bày ý tưởng. Họ chỉ nhận ra mình thiếu kỹ năng sau một cuộc trò chuyện có tiền bạc và cơ hội thật.
 
-### 1. PROBLEM (00:00–00:30) — Who has the pain?
-People freeze in difficult conversations: asking the landlord to cut rent, keeping a deposit, asking for a raise, job interviews. There is nowhere to practice. You only get one real shot — and failing it costs real money.
+## 2. Giải pháp (00:30–01:00)
 
-### 2. SOLUTION (00:30–01:00) — What changes for them?
-Duolingo for negotiation: open the app, pick a training room, practice the conversation by voice against an AI character that pushes back with its own goal. After the round, a fixed-scale score names exactly which line was weak and why, plus a learning roadmap. Rent is only Room 1 — the app trains negotiation as a skill, not one situation.
+Đàm Phán Sống là Duolingo cho kỹ năng thuyết phục: người dùng chọn phòng luyện, thực hành bằng giọng nói với nhân vật AI có mục tiêu và băn khoăn riêng, rồi nhận điểm theo thang cố định cùng bài học tiếp theo.
 
-### 3. WHY NOW + US (01:00–01:30) — Why this moment, this team?
-Why now: voice AI is finally good and cheap enough to roleplay a stubborn landlord in real time — this was not possible at this quality two years ago. Why us: a team of four humans + four AI assistants who built the working app in one day, on a real phone, live.
+Phòng 1 là bán hàng: người chơi tư vấn một chiếc máy pha cà phê mini cho khách đang cân nhắc giá, nhu cầu, niềm tin hoặc thời điểm mua.
 
-### 4. MARKET (01:30–02:00) — TAM → SAM → SOM
-- TAM: everyone who negotiates in daily life — rent, salary, purchases, business deals.
-- SAM: Vietnamese young adults learning skills on their phones.
-- SOM: first users from the hackathon demo + short-form video — target: first 100 practicing users in week 1.
-- NOTE: put real, sourced numbers on these three tiers before the pitch. Do not invent statistics.
+## 3. Vì sao lúc này, vì sao đội này (01:00–01:30)
 
-### 5. PROOF + MODEL (02:00–02:30) — What did users do? Who pays?
-- Proof: the live demo — a full negotiation round on a real phone, scored live. No real users yet; the app was built today. Say so.
-- Model: freemium — core rooms free; advanced rooms, detailed scoring, and progress tracking paid.
+AI giọng nói đã đủ tự nhiên để tạo một cuộc hội thoại luyện tập trên điện thoại. Nhóm đã dựng được luồng thực hành, phản hồi giọng nói, chấm điểm và tiến độ trong một ngày.
 
-### 6. ASK (02:30–03:00) — What do you need next?
-Try the demo now; be one of the first 100 practice users; tell us which room to build next.
+## 4. Thị trường (01:30–02:00)
 
-## Demo notes
-- The demo IS the proof beat. Run the full round live on the OPPO A60; kill and reopen the app first.
-- The person demoing speaks the PROBLEM beat while the phone is in hand — no slides during the demo.
+- TAM: người cần thuyết phục trong công việc và đời sống.
+- SAM: người trẻ Việt Nam muốn rèn kỹ năng qua điện thoại.
+- SOM: người dùng đầu tiên từ buổi demo và video ngắn; mục tiêu thử nghiệm là 100 lượt luyện trong tuần đầu.
+- Trước khi trình bày, bổ sung số liệu có nguồn cho từng nhóm; không tự tạo thống kê.
+
+## 5. Bằng chứng và mô hình (02:00–02:30)
+
+Demo trực tiếp một phiên từ thiết lập sản phẩm đến chốt đơn và xem điểm. Chưa có người dùng trả phí; cần nói rõ đây là sản phẩm nguyên mẫu. Hướng doanh thu là miễn phí cho bài học cơ bản, thu phí cho phòng nâng cao và phân tích chi tiết.
+
+## 6. Đề nghị (02:30–03:00)
+
+Mời ban giám khảo thử một phiên, góp ý tình huống cần luyện và tham gia nhóm người dùng đầu tiên.

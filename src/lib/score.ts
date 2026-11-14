@@ -1,4 +1,4 @@
-// Rule-based scoring for the Room 1 negotiation (thuê trọ).
+// Rule-based scoring for Room 1 sales persuasion.
 // RULE-BASED, NOT AI: every rule is a transparent keyword/number check on the
 // real transcript. The result screen labels it as such. Milo's rubric should
 // replace/augment these rules when ready.
@@ -10,7 +10,7 @@ export type RuleResult = {
   id: RuleId;
   label: string;
   passed: boolean;
-  evidence: string | null; // exact tenant sentence that proves the rule
+  evidence: string | null; // exact seller sentence that proves the rule
   tip: string; // what to do better when the rule fails
 };
 
@@ -98,13 +98,13 @@ export function scoreNegotiation(
   scenario: Scenario,
   agreedPrice: number | null,
 ): ScoreResult {
-  const tenantTurns = turns.filter((t) => t.speaker === 'tenant');
-  const tenantTexts = tenantTurns.map((t) => t.text);
-  const allText = tenantTexts.join(' ');
+  const sellerTurns = turns.filter((t) => t.speaker === 'seller');
+  const sellerTexts = sellerTurns.map((t) => t.text);
+  const allText = sellerTexts.join(' ');
 
   // R1 — concrete target price below listed
   let targetEvidence: string | null = null;
-  for (const text of tenantTexts) {
+  for (const text of sellerTexts) {
     const nums = extractVnd(text);
     if (nums.some((n) => n > 0 && n < scenario.listedPrice)) {
       targetEvidence = text;
@@ -113,26 +113,24 @@ export function scoreNegotiation(
   }
 
   // R2 — a concrete reason
-  const reasonEvidence = tenantTexts.find((t) => hasAny(t, REASON_WORDS)) ?? null;
+  const reasonEvidence = sellerTexts.find((t) => hasAny(t, REASON_WORDS)) ?? null;
 
   // R3 — payment terms
-  const termsEvidence = tenantTexts.find((t) => hasAny(t, TERM_WORDS)) ?? null;
+  const termsEvidence = sellerTexts.find((t) => hasAny(t, TERM_WORDS)) ?? null;
 
-  // R4 — persistence: 3+ tenant turns, or 2+ distinct counter-offers
+  // R4 — persistence: 3+ seller turns, or 2+ distinct counter-offers
   const offers = new Set<number>();
-  for (const text of tenantTexts) {
+  for (const text of sellerTexts) {
     for (const n of extractVnd(text)) {
       if (n > 0 && n < scenario.listedPrice) offers.add(n);
     }
   }
-  const persistPassed = tenantTurns.length >= 3 || offers.size >= 2;
+  const persistPassed = sellerTurns.length >= 3 || offers.size >= 2;
 
   // R5 — polite tone
-  const politeEvidence = tenantTexts.find((t) => hasAny(t, POLITE_WORDS)) ?? null;
+  const politeEvidence = sellerTexts.find((t) => hasAny(t, POLITE_WORDS)) ?? null;
 
-  // R6 — closed below listed price, OR at listed price on better terms
-  // (deposit twist: the win is terms — cọc 1 tháng, đóng theo tháng —
-  // so a perfect deposit round closing at listed price still counts).
+  // R6 — closed below listed price, OR at listed price on better terms.
   const closePassed =
     agreedPrice != null &&
     (agreedPrice < scenario.listedPrice ||
@@ -140,8 +138,8 @@ export function scoreNegotiation(
   const closeEvidence =
     agreedPrice != null
       ? agreedPrice < scenario.listedPrice
-        ? `Chốt ${fmt(agreedPrice)}đ/tháng (giá rao ${fmt(scenario.listedPrice)}đ)`
-        : `Chốt ${fmt(agreedPrice)}đ/tháng (giá rao ${fmt(scenario.listedPrice)}đ) — giữ giá nhưng đổi được điều khoản`
+        ? `Chốt ${fmt(agreedPrice)}đ (giá niêm yết ${fmt(scenario.listedPrice)}đ)`
+        : `Chốt ${fmt(agreedPrice)}đ (giá niêm yết ${fmt(scenario.listedPrice)}đ) — đổi được điều khoản`
       : null;
   const closeOnTerms =
     agreedPrice != null &&
@@ -155,27 +153,27 @@ export function scoreNegotiation(
       label: 'Đưa ra giá mục tiêu cụ thể',
       passed: targetEvidence != null,
       evidence: targetEvidence,
-      tip: 'Luôn mở đầu bằng một con số cụ thể thấp hơn giá rao — đối phương chỉ nhượng bộ khi có số để trả giá.',
+      tip: 'Nêu một mức giá cụ thể thấp hơn giá niêm yết để khách hàng có cơ sở cân nhắc.',
     },
     {
       id: 'reason',
-      label: 'Nêu lý do cụ thể để giảm giá',
+      label: 'Nêu lý do cụ thể để khách hàng cân nhắc',
       passed: reasonEvidence != null,
       evidence: reasonEvidence,
-      tip: 'Mỗi lần mặc cả cần một lý do cụ thể (chất lượng, vị trí, ngân sách) — lý do càng cụ thể càng khó bị gạt.',
+      tip: 'Nêu lý do gắn với nhu cầu, chất lượng hoặc ngân sách để khách hàng thấy rõ giá trị.',
     },
     {
       id: 'terms',
-      label: 'Mặc cả bằng điều khoản thanh toán',
+      label: 'Đưa ra điều kiện mua hàng rõ ràng',
       passed: termsEvidence != null,
       evidence: termsEvidence,
-      tip: 'Khi đối phương cứng giá, đổi hướng sang điều khoản (tiền cọc, đóng theo tháng) thay vì ép giá.',
+      tip: 'Có thể làm rõ điều kiện thanh toán hoặc quyền lợi đi kèm thay vì chỉ lặp lại mức giá.',
     },
     {
       id: 'persist',
       label: 'Kiên trì ít nhất 2–3 lượt',
       passed: persistPassed,
-      evidence: persistPassed ? `${tenantTurns.length} lượt nói, ${offers.size} mức giá đã đưa` : null,
+      evidence: persistPassed ? `${sellerTurns.length} lượt nói, ${offers.size} mức giá đã đưa` : null,
       tip: 'Đừng gật ngay ở lượt đầu — mặc cả tốt cần ít nhất 2–3 lượt đưa ra và giữ lập trường.',
     },
     {
@@ -183,26 +181,26 @@ export function scoreNegotiation(
       label: 'Giữ giọng lịch sự',
       passed: politeEvidence != null,
       evidence: politeEvidence,
-      tip: "Giữ giọng lịch sự ('ạ', 'anh ơi') giúp đối phương khó nổi nóng và dễ nhượng bộ hơn.",
+      tip: "Giữ giọng lịch sự ('ạ', 'anh ơi') giúp cuộc trò chuyện cởi mở và dễ đi tới quyết định hơn.",
     },
     {
       id: 'close',
-      label: closeOnTerms ? 'Chốt với điều khoản tốt hơn' : 'Chốt thấp hơn giá rao',
+      label: closeOnTerms ? 'Chốt với điều khoản tốt hơn' : 'Chốt thấp hơn giá niêm yết',
       passed: closePassed,
       evidence: closeEvidence,
-      tip: 'Chỉ chốt khi giá đã thấp hơn giá rao — hoặc, với tình huống cọc, khi đã đổi được điều khoản (cọc 1 tháng, đóng theo tháng).',
+      tip: 'Xác nhận rõ giá cuối cùng và những điều kiện đã thống nhất trước khi chốt đơn.',
     },
   ];
 
   // Weak sentences (fair-persuasion rule): a turn is weak ONLY if it adds no
-  // NEW persuasive content vs previous tenant turns — no new price, reason
+  // NEW persuasive content vs previous seller turns — no new price, reason
   // word, or term word. Repeating the same ask is not itself penalised; an
   // ask that brings a new reason/term still counts as persuasion, not nagging.
   const weakSentences: WeakSentence[] = [];
   const seenPrices = new Set<number>();
   const seenReasons = new Set<string>();
   const seenTerms = new Set<string>();
-  for (const text of tenantTexts) {
+  for (const text of sellerTexts) {
     const prices = extractVnd(text).filter((n) => n > 0 && n < scenario.listedPrice);
     const reasons = REASON_WORDS.filter((w) => norm(text).includes(w));
     const terms = TERM_WORDS.filter((w) => norm(text).includes(w));
