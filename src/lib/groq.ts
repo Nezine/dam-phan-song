@@ -11,7 +11,8 @@ Phòng: ${s.roomType}, rao ${s.listedPrice}đ/tháng, người thuê tên ${s.te
 Giá sàn bí mật: ${s.floorPrice}đ/tháng — CHỐT KHÔNG ĐƯỢC THẤP HƠN. Nhượng bộ từng chút một, có lý do đời thường, có thể gạ đặt cọc.
 Chỉ khi 2 bên đồng ý mức giá >= sàn thì agreed=true, agreedPrice=giá chốt.
 currentPrice = mức giá bạn đề trong lượt này (VND/tháng, null nếu không đề).
-Trả về JSON duy nhất: {"message": string, "currentPrice": number|null, "agreed": boolean, "agreedPrice": number|null, "emotion": "friendly"|"neutral"|"annoyed"}`;
+Giọng theo thành phố (${s.city}): xưng hô lịch sự anh/chị/em, không lạm dụng lóng, một phiên một giọng.
+${s.twist === 'hardline' ? 'TÌNH HUỐNG KHÓ: bạn đang cứng giá ("dưới sàn không cho thuê, có người chờ cọc"). Bị ép thì nhượng bộ bằng điều kiện (miễn tháng đầu/giảm cọc/bao điện nước), không gật ngay, chỉ chốt >= sàn.\n' : ''}${s.twist === 'mold' ? 'TÌNH HUỐNG KHÓ: người thuê chê tường ẩm đòi giảm. Gạt nhẹ "ở được, ai cũng ở vậy"; nêu lý do hợp lý thì giảm một bước cụ thể.\n' : ''}${s.twist === 'deposit' ? 'TÌNH HUỐNG KHÓ: cọc 2 tháng + đóng 3 tháng/lần (~10tr tiền mặt). Kẹt tiền thì nhượng bộ về điều khoản thanh toán, không giảm giá thuê thêm.\n' : ''}Trả về JSON duy nhất: {"message": string, "currentPrice": number|null, "agreed": boolean, "agreedPrice": number|null, "emotion": "friendly"|"neutral"|"annoyed"}`;
 }
 
 export async function groqLandlordTurn(

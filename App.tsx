@@ -22,9 +22,45 @@ import {
 import * as FileSystem from 'expo-file-system';
 import { landlordTurn, transcribeAudio, GEMINI_API_KEY } from './src/lib/gemini';
 import { groqLandlordTurn, GROQ_API_KEY } from './src/lib/groq';
+import { mockLandlordTurn } from './src/lib/mock';
 import type { Scenario, Turn } from './src/lib/types';
 
 const fmt = (n: number) => n.toLocaleString('vi-VN');
+
+const MOCK = !GEMINI_API_KEY; // không có key → MOCK MODE (banner đỏ trên màn hình, không đem demo như AI thật)
+
+const TWISTS: { key: Scenario['twist']; label: string; desc: string; city: string; room: string; listed: string; floor: string; opening: string }[] = [
+  {
+    key: 'hardline',
+    label: '1️⃣ Giá sàn cứng',
+    desc: 'Chủ trọ chốt 3tr2, có người chờ cọc',
+    city: 'Hà Nội',
+    room: 'phòng trọ có gác lửng',
+    listed: '3500000',
+    floor: '3200000',
+    opening: 'Giá này là giá sàn rồi em, dưới 3 triệu 2 anh không cho thuê đâu, có người khác đang chờ cọc rồi.',
+  },
+  {
+    key: 'mold',
+    label: '2️⃣ Phòng ẩm mốc',
+    desc: 'Tường ẩm, chủ trọ gạt "ở được"',
+    city: 'TP.HCM',
+    room: 'phòng trọ 20m2',
+    listed: '3000000',
+    floor: '2700000',
+    opening: 'Phòng này ở được em ơi, ai cũng ở vậy thôi, tường ẩm chút thì sơn lại là hết.',
+  },
+  {
+    key: 'deposit',
+    label: '3️⃣ Cọc 2 tháng',
+    desc: 'Đóng 3 tháng/lần, tiền mặt ~10tr',
+    city: 'Đà Nẵng',
+    room: 'căn hộ mini 25m2',
+    listed: '4000000',
+    floor: '3600000',
+    opening: 'Quy dãy em ơi, cọc 2 tháng, đóng 3 tháng một lần, tổng đâu vào khoảng 10 triệu.',
+  },
+];
 
 export default function App() {
   // --- setup state (đơn giản hóa cho demo: nhập trước khi bấm Bắt đầu) ---
@@ -57,19 +93,27 @@ export default function App() {
     scrollRef.current?.scrollToEnd({ animated: true });
   }, [turns]);
 
-  const startNegotiation = () => {
+  const startNegotiation = (preset?: typeof TWISTS[number]) => {
     const s: Scenario = {
       tenantName: tenantName.trim() || 'bạn',
-      city: city.trim() || 'TP.HCM',
-      roomType: roomType.trim() || 'phòng trọ',
-      listedPrice: Number(listedPrice) || 3500000,
-      floorPrice: Number(floorPrice) || 3000000,
+      city: preset?.city ?? (city.trim() || 'Hà Nội'),
+      roomType: preset?.room ?? (roomType.trim() || 'phòng trọ'),
+      listedPrice: Number(preset?.listed ?? listedPrice) || 3500000,
+      floorPrice: Number(preset?.floor ?? floorPrice) || 3000000,
       moveIn: 'tháng tới',
+      twist: preset?.key,
+      opening: preset?.opening,
     };
     setScenario(s);
     setTurns([]);
+    setAgreedPrice(null);
     setError(null);
     setStarted(true);
+    if (s.opening) {
+      const opening: Turn = { speaker: 'landlord', text: s.opening };
+      setTurns([opening]);
+      Speech.speak(s.opening, { language: 'vi-VN', rate: 1.0 });
+    }
   };
 
   const sendToLandlord = async (tenantText: string) => {
@@ -77,6 +121,18 @@ export default function App() {
     setBusy(true);
     setError(null);
     setTurns((t) => [...t, { speaker: 'tenant', text: tenantText }]);
+    if (MOCK) {
+      // MOCK MODE: luật cứng, không gọi API
+      const reply = mockLandlordTurn(scenario, turns, tenantText);
+      setTurns((t) => [
+        ...t,
+        { speaker: 'landlord', text: reply.message, price: reply.currentPrice ?? undefined },
+      ]);
+      if (reply.agreed && reply.agreedPrice) setAgreedPrice(reply.agreedPrice);
+      else Speech.speak(reply.message, { language: 'vi-VN', rate: 1.0 });
+      setBusy(false);
+      return;
+    }
     let reply;
     let usedFallback = false;
     try {
@@ -152,16 +208,28 @@ export default function App() {
           placeholder="Giá bạn muốn chốt (đ/tháng)"
           keyboardType="number-pad"
         />
-        <Pressable style={styles.bigBtn} onPress={startNegotiation}>
+        <Pressable style={styles.bigBtn} onPress={() => startNegotiation()}>
           <Text style={styles.bigBtnText}>Bắt đầu đàm phán →</Text>
         </Pressable>
-        {!GEMINI_API_KEY && <Text style={styles.err}>Chưa có EXPO_PUBLIC_GEMINI_API_KEY</Text>}
+        <Text style={styles.twistTitle}>🎯 Luyện tình huống khó (giám khảo ra):</Text>
+        {TWISTS.map((t) => (
+          <Pressable key={t.key} style={styles.twistBtn} onPress={() => startNegotiation(t)}>
+            <Text style={styles.twistLabel}>{t.label}</Text>
+            <Text style={styles.twistDesc}>{t.desc}</Text>
+          </Pressable>
+        ))}
+        {!GEMINI_API_KEY && <Text style={styles.err}>Chưa có EXPO_PUBLIC_GEMINI_API_KEY — sẽ chạy MOCK MODE</Text>}
       </KeyboardAvoidingView>
     );
   }
 
   return (
     <View style={styles.screen}>
+      {MOCK && (
+        <View style={styles.mockBanner}>
+          <Text style={styles.mockText}>⚠️ MOCK MODE — landlord giả, chỉ test UI</Text>
+        </View>
+      )}
       <View style={styles.header}>
         <Text style={styles.h2}>
           🏠 {scenario?.roomType} — {fmt(scenario?.listedPrice ?? 0)}đ/tháng
@@ -239,6 +307,12 @@ const styles = StyleSheet.create({
   winTitle: { color: '#8ce99a', fontWeight: '900', fontSize: 18 },
   winPrice: { color: '#fff', fontWeight: '800', fontSize: 26 },
   winSaved: { color: '#ffd43b', fontWeight: '700', textAlign: 'center', marginBottom: 8 },
+  mockBanner: { backgroundColor: '#e03131', paddingVertical: 6, alignItems: 'center', marginTop: 32 },
+  mockText: { color: '#fff', fontWeight: '800', fontSize: 12 },
+  twistTitle: { color: '#9fb0bf', fontSize: 12, marginTop: 12 },
+  twistBtn: { backgroundColor: '#243040', borderRadius: 10, padding: 10 },
+  twistLabel: { color: '#fff', fontWeight: '700', fontSize: 14 },
+  twistDesc: { color: '#9fb0bf', fontSize: 11, marginTop: 2 },
   micBtn: { backgroundColor: '#243040', borderRadius: 24, paddingVertical: 16, alignItems: 'center' },
   micBtnActive: { backgroundColor: '#e03131' },
   micText: { color: '#fff', fontWeight: '700' },

@@ -6,6 +6,8 @@ export type Scenario = {
   listedPrice: number; // giá rao (VND/tháng)
   floorPrice: number; // giá sàn của chủ trọ — AI không bao giờ chốt thấp hơn
   moveIn: string; // e.g. "01/12"
+  twist?: 'hardline' | 'mold' | 'deposit'; // tình huống khó của giám khảo
+  opening?: string; // câu mở đầu của chủ trọ (nếu có twist)
 };
 
 export type Turn = {
