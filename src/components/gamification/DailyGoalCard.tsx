@@ -1,6 +1,7 @@
 // Thẻ mục tiêu ngày: luyện đủ N vòng trong ngày để nhận thưởng XP.
 import { useEffect, useRef, useState } from 'react';
 import { Animated, Easing, StyleSheet, Text, View } from 'react-native';
+import { AppIcon } from '../icons';
 
 type Props = {
   roundsToday: number;
@@ -38,8 +39,11 @@ export const DailyGoalCard = ({ roundsToday, targetRounds = 1, rewardXp = 50 }: 
     <View style={styles.wrap}>
       <View style={styles.row}>
         <View style={styles.textCol}>
-          <Text style={styles.title}>Mục tiêu hôm nay</Text>
-          <Text style={styles.sub}>
+          <View style={styles.titleRow}>
+            <AppIcon name="target" size={16} color="#2f81f7" />
+            <Text style={styles.title}>Mục tiêu hôm nay</Text>
+          </View>
+          <Text style={[styles.sub, done && styles.subDone]}>
             {done
               ? `Xong! Bạn đã luyện ${roundsToday}/${targetRounds} vòng — +${rewardXp} XP`
               : `Luyện thêm ${remaining} vòng nữa để nhận +${rewardXp} XP`}
@@ -57,11 +61,13 @@ export const DailyGoalCard = ({ roundsToday, targetRounds = 1, rewardXp = 50 }: 
 };
 
 const styles = StyleSheet.create({
-  wrap: { backgroundColor: '#1b232b', borderRadius: 12, padding: 12, gap: 8 },
+  wrap: { backgroundColor: '#1b232b', borderRadius: 14, padding: 14, gap: 8 },
   row: { flexDirection: 'row', alignItems: 'center', gap: 10 },
   textCol: { flex: 1, gap: 2 },
+  titleRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   title: { color: '#fff', fontWeight: '800', fontSize: 14 },
   sub: { color: '#9fb0bf', fontSize: 12 },
+  subDone: { color: '#8ce99a' },
   count: { color: '#2f81f7', fontWeight: '800', fontSize: 14 },
   track: { height: 8, borderRadius: 4, backgroundColor: '#243040', overflow: 'hidden' },
   fill: { height: '100%', borderRadius: 4, backgroundColor: '#2f81f7' },

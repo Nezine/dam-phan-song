@@ -26,6 +26,7 @@ import { landlordTurn, transcribeAudio, mimeTypeForAudioUri, GEMINI_API_KEY } fr
 import { groqLandlordTurn, GROQ_API_KEY } from './src/lib/groq';
 import { mockLandlordTurn } from './src/lib/mock';
 import { scoreNegotiation, type ScoreResult } from './src/lib/score';
+import { AppIcon } from './src/components/icons';
 import { loadProgress, recordSession, type Progress } from './src/lib/progress';
 import { randomQuote } from './src/lib/highlights';
 import type { Scenario, Turn } from './src/lib/types';
@@ -43,6 +44,13 @@ const MOOD_LABEL: Record<NonNullable<Turn['emotion']>, string> = {
   friendly: 'Vui vẻ',
   neutral: 'Bình thường',
   annoyed: 'Khó chịu',
+};
+
+// Mặt đối phương theo tâm trạng — icon có nghĩa, đi kèm chữ (không thay chữ).
+const MOOD_ICON: Record<NonNullable<Turn['emotion']>, { name: 'face-smile' | 'face-neutral' | 'face-annoyed'; color: string }> = {
+  friendly: { name: 'face-smile', color: '#8ce99a' },
+  neutral: { name: 'face-neutral', color: '#9fb0bf' },
+  annoyed: { name: 'face-annoyed', color: '#ff8787' },
 };
 
 // Lỗi kỹ thuật -> câu tiếng Việt thân thiện cho người dùng (P0-5).
@@ -471,7 +479,10 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
             <Text style={styles.backText}>‹ Trang chủ</Text>
           </Pressable>
         ) : null}
-        <Text style={styles.h1}>Đàm Phán Sống</Text>
+        <View style={styles.titleRow}>
+          <AppIcon name="deal" size={30} color="#2f81f7" />
+          <Text style={styles.h1}>Đàm Phán Sống</Text>
+        </View>
         <Text style={styles.sub}>Luyện kỹ năng đàm phán / nói chuyện khó — bằng giọng nói thật.</Text>
         <Text style={styles.roomChip}>Phòng 1 · Đàm phán tiền trọ — phòng tập đầu tiên trong 5 phòng luyện nói chuyện khó.</Text>
         {progress && progress.sessions > 0 ? (
@@ -509,8 +520,11 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
         <Text style={styles.twistTitle}>Phòng 1 — Luyện tình huống khó:</Text>
         {TWISTS.map((t) => (
           <Pressable key={t.key} style={styles.twistBtn} onPress={() => startNegotiation(t)}>
-            <Text style={styles.twistLabel}>{t.label}</Text>
-            <Text style={styles.twistDesc}>{t.desc}</Text>
+            <AppIcon name="target" size={20} color="#2f81f7" />
+            <View style={styles.twistTextCol}>
+              <Text style={styles.twistLabel}>{t.label}</Text>
+              <Text style={styles.twistDesc}>{t.desc}</Text>
+            </View>
           </Pressable>
         ))}
         {!GEMINI_API_KEY && <Text style={styles.err}>Chưa có EXPO_PUBLIC_GEMINI_API_KEY — sẽ chạy MOCK MODE</Text>}
@@ -524,6 +538,9 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
       <ScrollView style={styles.screen} contentContainerStyle={styles.resultPad}>
         <Text style={styles.h1}>Kết quả đàm phán</Text>
         <Text style={styles.sub}>Thang chấm cố định — tính từ phiên của bạn (không phải AI chấm).</Text>
+        <View style={styles.scoreHero}>
+          <AppIcon name="trophy" size={36} color="#ffd43b" />
+        </View>
         <Text style={styles.scoreBig}>{result.percent}%</Text>
         <Text style={styles.gradeText}>
           {result.grade} • {result.points}/{result.max} tiêu chí
@@ -536,9 +553,12 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
         <Text style={styles.sectionTitle}>Chấm từng tiêu chí</Text>
         {result.rules.map((r) => (
           <View key={r.id} style={styles.ruleRow}>
-            <Text style={styles.ruleLabel}>
-              {r.passed ? 'Đạt' : 'Chưa đạt'} — {r.label}
-            </Text>
+            <View style={styles.ruleHead}>
+              <AppIcon name={r.passed ? 'check' : 'x'} size={18} color={r.passed ? '#8ce99a' : '#ff8787'} />
+              <Text style={styles.ruleLabel}>
+                {r.passed ? 'Đạt' : 'Chưa đạt'} — {r.label}
+              </Text>
+            </View>
             {r.evidence ? <Text style={styles.ruleEvidence}>“{r.evidence}”</Text> : null}
             {!r.passed ? <Text style={styles.ruleTip}>Gợi ý: {r.tip}</Text> : null}
           </View>
@@ -601,7 +621,10 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
           </Text>
         </View>
         <Pressable style={styles.muteBtn} onPress={() => setMuted((m) => !m)}>
-          <Text style={styles.muteText}>{muted ? 'Tắt tiếng' : 'Bật tiếng'}</Text>
+          <View style={styles.btnRowSm}>
+            <AppIcon name={muted ? 'volume-off' : 'volume-on'} size={16} color={muted ? '#9fb0bf' : '#fff'} />
+            <Text style={styles.muteText}>{muted ? 'Tắt tiếng' : 'Bật tiếng'}</Text>
+          </View>
         </Pressable>
       </View>
       <ScrollView ref={scrollRef} style={styles.chat} contentContainerStyle={{ padding: 12, gap: 8 }}>
@@ -617,9 +640,14 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
               },
             ]}
           >
-            <Text style={styles.speaker}>
-              {t.speaker === 'tenant' ? 'Bạn' : `Đối phương${t.emotion ? ` · ${MOOD_LABEL[t.emotion]}` : ''}`}
-            </Text>
+            <View style={styles.speakerRow}>
+              {t.speaker === 'landlord' && t.emotion ? (
+                <AppIcon name={MOOD_ICON[t.emotion].name} size={14} color={MOOD_ICON[t.emotion].color} />
+              ) : null}
+              <Text style={styles.speaker}>
+                {t.speaker === 'tenant' ? 'Bạn' : `Đối phương${t.emotion ? ` · ${MOOD_LABEL[t.emotion]}` : ''}`}
+              </Text>
+            </View>
             <Text style={styles.bubbleText}>{t.text}</Text>
             {t.price ? <Text style={styles.price}>→ {fmt(t.price)}đ/tháng</Text> : null}
           </Animated.View>
@@ -653,6 +681,7 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
       </ScrollView>
       {agreedPrice != null && (
         <Animated.View style={[styles.winCard, { transform: [{ scale: winPulse }] }]}>
+          <AppIcon name="trophy" size={40} color="#ffd43b" />
           <Text style={styles.winTitle}>CHỐT ĐƯỢC RỒI!</Text>
           <Text style={styles.winPrice}>{fmt(agreedPrice)}đ/tháng</Text>
           {saved > 0 ? (
@@ -678,7 +707,10 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
               setShowResult(true);
             }}
           >
-            <Text style={styles.bigBtnText}>Xem chấm điểm</Text>
+            <View style={styles.btnRow}>
+              <AppIcon name="chart-bar" size={18} color="#fff" />
+              <Text style={styles.bigBtnText}>Xem chấm điểm</Text>
+            </View>
           </Pressable>
           <Pressable style={styles.bigBtn} onPress={backToSetup}>
             <Text style={styles.bigBtnText}>Đàm phán tình huống khác →</Text>
@@ -713,7 +745,14 @@ export default function App({ onExit, quickStart }: { onExit?: () => void; quick
             onPress={onRecordPress}
             disabled={busy || agreedPrice != null}
           >
-            <Text style={styles.micText}>{recState.isRecording ? 'Bấm để gửi' : 'Bấm để nói'}</Text>
+            <View style={styles.btnRow}>
+              <AppIcon
+                name={recState.isRecording ? 'stop' : 'mic'}
+                size={18}
+                color={recState.isRecording ? '#ff8787' : '#fff'}
+              />
+              <Text style={styles.micText}>{recState.isRecording ? 'Bấm để gửi' : 'Bấm để nói'}</Text>
+            </View>
           </Pressable>
         </Animated.View>
       </View>
@@ -743,11 +782,16 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: '#1b232b',
     color: '#fff',
-    borderRadius: 10,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
+    borderColor: '#232c35',
+    borderWidth: 1,
+    borderRadius: 12,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
   },
-  bigBtn: { backgroundColor: '#2f81f7', borderRadius: 12, paddingVertical: 14, alignItems: 'center', marginTop: 8 },
+  titleRow: { flexDirection: 'row', alignItems: 'center', gap: 10 },
+  btnRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 },
+  btnRowSm: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  bigBtn: { backgroundColor: '#2f81f7', borderRadius: 14, paddingVertical: 14, alignItems: 'center', marginTop: 8 },
   bigBtnText: { color: '#fff', fontWeight: '700', fontSize: 16 },
   header: {
     paddingTop: 48,
@@ -763,14 +807,15 @@ const styles = StyleSheet.create({
   headerText: { flex: 1 },
   headerSub: { color: '#9fb0bf', fontSize: 12, marginTop: 2 },
   muteBtn: { backgroundColor: '#243040', borderRadius: 20, paddingVertical: 8, paddingHorizontal: 12 },
-  muteText: { fontSize: 16 },
+  muteText: { color: '#fff', fontSize: 14, fontWeight: '700' },
   backBtn: { backgroundColor: '#243040', borderRadius: 20, paddingVertical: 8, paddingHorizontal: 12 },
   backText: { color: '#fff', fontWeight: '700', fontSize: 14 },
   chat: { flex: 1 },
-  bubble: { maxWidth: '85%', borderRadius: 14, padding: 10 },
-  me: { alignSelf: 'flex-end', backgroundColor: '#2f81f7' },
-  them: { alignSelf: 'flex-start', backgroundColor: '#243040' },
-  speaker: { color: '#c3fae8', fontSize: 11, fontWeight: '800', marginBottom: 2 },
+  bubble: { maxWidth: '85%', borderRadius: 16, padding: 12 },
+  me: { alignSelf: 'flex-end', backgroundColor: '#2f81f7', borderBottomRightRadius: 4 },
+  them: { alignSelf: 'flex-start', backgroundColor: '#243040', borderBottomLeftRadius: 4 },
+  speakerRow: { flexDirection: 'row', alignItems: 'center', gap: 5, marginBottom: 2 },
+  speaker: { color: '#c3fae8', fontSize: 11, fontWeight: '800' },
   bubbleText: { color: '#fff' },
   price: { color: '#8ce99a', fontWeight: '700', marginTop: 4 },
   busyRow: { flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 4 },
@@ -802,32 +847,49 @@ const styles = StyleSheet.create({
     backgroundColor: '#0b2518',
     borderColor: '#2f9e44',
     borderWidth: 2,
-    borderRadius: 16,
-    padding: 16,
+    borderRadius: 20,
+    padding: 20,
     alignItems: 'center',
-    gap: 4,
+    gap: 6,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.4,
+    shadowRadius: 16,
+    elevation: 8,
   },
-  winTitle: { color: '#8ce99a', fontWeight: '900', fontSize: 18 },
-  winPrice: { color: '#fff', fontWeight: '800', fontSize: 26 },
+  winTitle: { color: '#8ce99a', fontWeight: '900', fontSize: 20, letterSpacing: 1 },
+  winPrice: { color: '#fff', fontWeight: '800', fontSize: 30 },
   winSaved: { color: '#ffd43b', fontWeight: '700', textAlign: 'center', marginBottom: 4 },
   winSub: { color: '#c3fae8', fontSize: 12, textAlign: 'center', marginBottom: 8 },
   winQuote: { color: '#c3fae8', fontSize: 13, fontStyle: 'italic', textAlign: 'center', marginTop: 8 },
   mockBanner: { backgroundColor: '#e03131', paddingVertical: 6, alignItems: 'center', marginTop: 32 },
   mockText: { color: '#fff', fontWeight: '800', fontSize: 12 },
-  twistTitle: { color: '#9fb0bf', fontSize: 12, marginTop: 12 },
-  twistBtn: { backgroundColor: '#243040', borderRadius: 10, padding: 10 },
+  twistTitle: { color: '#9fb0bf', fontSize: 12, fontWeight: '700', marginTop: 12 },
+  twistBtn: {
+    backgroundColor: '#1b232b',
+    borderColor: '#232c35',
+    borderWidth: 1,
+    borderRadius: 12,
+    padding: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  twistTextCol: { flex: 1, gap: 2 },
   twistLabel: { color: '#fff', fontWeight: '700', fontSize: 14 },
-  twistDesc: { color: '#9fb0bf', fontSize: 11, marginTop: 2 },
+  twistDesc: { color: '#9fb0bf', fontSize: 12, lineHeight: 16 },
   micBtn: { backgroundColor: '#243040', borderRadius: 24, paddingVertical: 16, alignItems: 'center' },
   micBtnActive: { backgroundColor: '#e03131' },
   micText: { color: '#fff', fontWeight: '700' },
   err: { color: '#ff8787', fontSize: 12 },
   resultPad: { padding: 20, paddingBottom: 40, gap: 10 },
-  scoreBig: { color: '#ffd43b', fontSize: 56, fontWeight: '900', textAlign: 'center' },
+  scoreHero: { alignItems: 'center', marginTop: 8 },
+  scoreBig: { color: '#ffd43b', fontSize: 64, fontWeight: '900', textAlign: 'center', marginTop: -4 },
   gradeText: { color: '#fff', fontSize: 16, fontWeight: '700', textAlign: 'center' },
   sectionTitle: { color: '#fff', fontSize: 16, fontWeight: '800', marginTop: 12 },
-  ruleRow: { backgroundColor: '#1b232b', borderRadius: 10, padding: 10, gap: 4 },
-  ruleLabel: { color: '#fff', fontWeight: '700' },
+  ruleRow: { backgroundColor: '#1b232b', borderColor: '#232c35', borderWidth: 1, borderRadius: 12, padding: 12, gap: 4 },
+  ruleHead: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  ruleLabel: { color: '#fff', fontWeight: '700', flex: 1 },
   ruleEvidence: { color: '#c3fae8', fontSize: 13, fontStyle: 'italic' },
   ruleTip: { color: '#ffd43b', fontSize: 13 },
   lessonText: { color: '#e7f5ff', fontSize: 14, lineHeight: 20 },

@@ -7,6 +7,7 @@ import type { RoomProgress } from '../lib/roomProgress';
 import { LEVELS } from '../lib/roadmap';
 import { BadgeGrid, DailyGoalCard, XpBar, unlockedBadgeCount, xpForLevel } from '../components/gamification';
 import { todayChallenge } from '../lib/highlights';
+import { AppIcon, RoomIconImage } from '../components/icons';
 import type { GamificationStats } from '../lib/gamification';
 
 type Props = {
@@ -61,6 +62,7 @@ export default function HomeScreen({ progress, onOpenMap, onStartRoom, onQuickSt
 
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.pad}>
+      <Text style={styles.eyebrow}>ĐÀM PHÁN SỐNG</Text>
       <Text style={styles.h1}>{greeting()}</Text>
       <Text style={styles.sub}>Luyện nói chuyện khó — mỗi ngày một vòng.</Text>
 
@@ -73,19 +75,28 @@ export default function HomeScreen({ progress, onOpenMap, onStartRoom, onQuickSt
       {/* Luyện hôm nay */}
       <View style={styles.todayCard}>
         <Text style={styles.cardLabel}>LUYỆN HÔM NAY</Text>
-        <Text style={styles.todayTitle}>
-          {currentRoom.icon} {currentRoom.title}
-        </Text>
+        <View style={styles.todayTitleRow}>
+          <View style={styles.roomTile}>
+            <RoomIconImage room={currentRoom.id} size={28} />
+          </View>
+          <Text style={styles.todayTitle}>{currentRoom.title}</Text>
+        </View>
         <Text style={styles.todayDesc}>Tình huống gợi ý: “{suggested}” — {currentRoom.tagline.toLowerCase()}.</Text>
         <Pressable style={styles.bigBtn} onPress={() => onStartRoom(currentRoom.id)}>
-          <Text style={styles.bigBtnText}>Luyện ngay →</Text>
+          <View style={styles.btnRow}>
+            <Text style={styles.bigBtnText}>Luyện ngay</Text>
+            <AppIcon name="arrow-right" size={18} color="#fff" />
+          </View>
         </Pressable>
       </View>
 
       {/* Tóm tắt tiến bộ */}
       <View style={styles.statsRow}>
         <View style={styles.stat}>
-          <Text style={styles.statNum}>{progress.streakDays}</Text>
+          <View style={styles.statNumRow}>
+            <AppIcon name="streak-flame" size={16} color="#ffd43b" />
+            <Text style={styles.statNum}>{progress.streakDays}</Text>
+          </View>
           <Text style={styles.statLabel}>ngày liên tiếp</Text>
         </View>
         <View style={styles.stat}>
@@ -127,7 +138,10 @@ export default function HomeScreen({ progress, onOpenMap, onStartRoom, onQuickSt
 
       {/* Vào bản đồ phòng tập */}
       <Pressable style={styles.mapBtn} onPress={onOpenMap}>
-        <Text style={styles.mapBtnText}>Xem bản đồ phòng tập →</Text>
+        <View style={styles.btnRow}>
+          <AppIcon name="map" size={18} color="#2f81f7" />
+          <Text style={styles.mapBtnText}>Xem bản đồ phòng tập</Text>
+        </View>
         <Text style={styles.mapBtnSub}>5 phòng tập · từ mặc cả đến gọi vốn</Text>
       </Pressable>
     </ScrollView>
@@ -136,28 +150,47 @@ export default function HomeScreen({ progress, onOpenMap, onStartRoom, onQuickSt
 
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: '#101418' },
-  pad: { padding: 20, paddingTop: 56, gap: 12, paddingBottom: 32 },
+  pad: { padding: 20, paddingTop: 56, gap: 14, paddingBottom: 32 },
+  eyebrow: { color: '#2f81f7', fontSize: 11, fontWeight: '800', letterSpacing: 2, marginBottom: -6 },
   h1: { color: '#fff', fontSize: 28, fontWeight: '800' },
-  sub: { color: '#9fb0bf', marginBottom: 4 },
+  sub: { color: '#9fb0bf', marginBottom: 4, fontSize: 14, lineHeight: 20 },
   cardLabel: { color: '#9fb0bf', fontSize: 11, fontWeight: '800', letterSpacing: 1 },
-  todayCard: { backgroundColor: '#1b232b', borderRadius: 16, padding: 16, gap: 8 },
-  todayTitle: { color: '#fff', fontSize: 20, fontWeight: '800' },
-  todayDesc: { color: '#c3d0dc', fontSize: 13, lineHeight: 18 },
-  bigBtn: { backgroundColor: '#2f81f7', borderRadius: 12, paddingVertical: 14, alignItems: 'center', marginTop: 4 },
+  todayCard: {
+    backgroundColor: '#16283d',
+    borderColor: '#2f81f7',
+    borderWidth: 1,
+    borderRadius: 20,
+    padding: 18,
+    gap: 10,
+  },
+  todayTitleRow: { flexDirection: 'row', alignItems: 'center', gap: 12 },
+  roomTile: {
+    width: 48,
+    height: 48,
+    borderRadius: 14,
+    backgroundColor: '#22384f',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  todayTitle: { color: '#fff', fontSize: 20, fontWeight: '800', flex: 1 },
+  todayDesc: { color: '#c3d0dc', fontSize: 13, lineHeight: 19 },
+  bigBtn: { backgroundColor: '#2f81f7', borderRadius: 14, paddingVertical: 14, alignItems: 'center', marginTop: 4 },
+  btnRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 },
   bigBtnText: { color: '#fff', fontWeight: '700', fontSize: 16 },
   statsRow: { flexDirection: 'row', gap: 10 },
-  stat: { flex: 1, backgroundColor: '#243040', borderRadius: 12, paddingVertical: 12, alignItems: 'center', gap: 2 },
-  statNum: { color: '#fff', fontSize: 18, fontWeight: '800' },
+  stat: { flex: 1, backgroundColor: '#1b232b', borderRadius: 14, paddingVertical: 12, alignItems: 'center', gap: 2 },
+  statNumRow: { flexDirection: 'row', alignItems: 'center', gap: 4 },
+  statNum: { color: '#fff', fontSize: 20, fontWeight: '800' },
   statLabel: { color: '#9fb0bf', fontSize: 11 },
-  levelBox: { backgroundColor: '#1b232b', borderRadius: 12, padding: 12 },
-  badgeBox: { backgroundColor: '#1b232b', borderRadius: 12, padding: 12, gap: 8 },
+  levelBox: { backgroundColor: '#1b232b', borderRadius: 14, padding: 14 },
+  badgeBox: { backgroundColor: '#1b232b', borderRadius: 14, padding: 14, gap: 8 },
   quickBtn: { backgroundColor: '#2f81f7', borderRadius: 12, padding: 14, gap: 2 },
   quickBtnText: { color: '#ffffff', fontSize: 17, fontWeight: '800' },
   quickBtnSub: { color: '#dbeafe', fontSize: 12 },
-  lessonCard: { backgroundColor: '#0b2518', borderColor: '#2f9e44', borderWidth: 1, borderRadius: 16, padding: 16, gap: 6 },
+  lessonCard: { backgroundColor: '#0b2518', borderColor: '#2f9e44', borderWidth: 1, borderRadius: 18, padding: 16, gap: 6 },
   lessonTitle: { color: '#8ce99a', fontWeight: '800', fontSize: 16 },
   lessonText: { color: '#c3fae8', fontSize: 13, lineHeight: 19 },
-  mapBtn: { backgroundColor: '#243040', borderRadius: 12, padding: 14, alignItems: 'center', gap: 2 },
+  mapBtn: { backgroundColor: '#1b232b', borderColor: '#232c35', borderWidth: 1, borderRadius: 14, padding: 14, alignItems: 'center', gap: 2 },
   mapBtnText: { color: '#fff', fontWeight: '700', fontSize: 15 },
   mapBtnSub: { color: '#9fb0bf', fontSize: 11 },
 });

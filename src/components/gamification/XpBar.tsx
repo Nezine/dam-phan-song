@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Animated, Easing, StyleSheet, Text, View } from 'react-native';
 import { levelFromXp, levelTitle } from '../../lib/gamification';
+import { AppIcon } from '../icons';
 
 type Props = {
   totalXp: number;
@@ -37,9 +38,12 @@ export const XpBar = ({ totalXp, compact = false }: Props) => {
       <View style={styles.row}>
         <Text style={styles.level}>Cấp {level}</Text>
         {!compact && <Text style={styles.title}>{levelTitle(level)}</Text>}
-        <Text style={styles.xp}>
-          {xpInLevel}/{xpToNext} XP
-        </Text>
+        <View style={styles.xpWrap}>
+          <AppIcon name="xp-star" size={14} color="#ffd43b" />
+          <Text style={styles.xp}>
+            {xpInLevel}/{xpToNext} XP
+          </Text>
+        </View>
       </View>
       <View style={styles.track}>
         <Animated.View style={[styles.fill, { width: fillWidth }]} />
@@ -56,8 +60,9 @@ const styles = StyleSheet.create({
   row: { flexDirection: 'row', alignItems: 'baseline', gap: 8 },
   level: { color: '#2f81f7', fontWeight: '800', fontSize: 15 },
   title: { color: '#9fb0bf', fontSize: 12, flex: 1 },
+  xpWrap: { flexDirection: 'row', alignItems: 'center', gap: 4 },
   xp: { color: '#fff', fontWeight: '700', fontSize: 12 },
   remaining: { color: '#9fb0bf', fontSize: 12 },
-  track: { height: 10, borderRadius: 5, backgroundColor: '#243040', overflow: 'hidden' },
-  fill: { height: '100%', borderRadius: 5, backgroundColor: '#2f81f7' },
+  track: { height: 12, borderRadius: 6, backgroundColor: '#243040', overflow: 'hidden' },
+  fill: { height: '100%', borderRadius: 6, backgroundColor: '#2f81f7' },
 });
