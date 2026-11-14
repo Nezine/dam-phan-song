@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
+  Animated,
+  Easing,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -109,6 +111,10 @@ export default function App({ onExit }: { onExit?: () => void }) {
   const [result, setResult] = useState<ScoreResult | null>(null);
   const [progress, setProgress] = useState<Progress | null>(null);
   const scrollRef = useRef<ScrollViewInstance | null>(null);
+  const [messageEntry] = useState(() => new Animated.Value(1));
+  const [micPulse] = useState(() => new Animated.Value(1));
+  const [typingDots] = useState(() => [new Animated.Value(0.35), new Animated.Value(0.35), new Animated.Value(0.35)]);
+  const [winPulse] = useState(() => new Animated.Value(1));
   const mutedRef = useRef(false);
   const recordedRef = useRef<number | null>(null); // agreedPrice đã ghi tiến bộ
 
@@ -139,6 +145,93 @@ export default function App({ onExit }: { onExit?: () => void }) {
   useEffect(() => {
     scrollRef.current?.scrollToEnd({ animated: true });
   }, [turns]);
+
+  useEffect(() => {
+    if (!turns.length) return;
+    messageEntry.setValue(0);
+    const animation = Animated.timing(messageEntry, {
+      toValue: 1,
+      duration: 180,
+      easing: Easing.out(Easing.quad),
+      useNativeDriver: true,
+    });
+    animation.start();
+    return () => animation.stop();
+  }, [turns, messageEntry]);
+
+  useEffect(() => {
+    if (!recState.isRecording) {
+      micPulse.setValue(1);
+      return;
+    }
+    const pulse = Animated.loop(
+      Animated.sequence([
+        Animated.timing(micPulse, {
+          toValue: 1.025,
+          duration: 420,
+          easing: Easing.inOut(Easing.quad),
+          useNativeDriver: true,
+        }),
+        Animated.timing(micPulse, {
+          toValue: 1,
+          duration: 420,
+          easing: Easing.inOut(Easing.quad),
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+    pulse.start();
+    return () => pulse.stop();
+  }, [recState.isRecording, micPulse]);
+
+  useEffect(() => {
+    typingDots.forEach((dot) => dot.setValue(0.35));
+    if (busyPhase !== 'landlord') return;
+    const pulse = Animated.loop(
+      Animated.sequence(
+        typingDots.flatMap((dot) => [
+          Animated.timing(dot, {
+            toValue: 1,
+            duration: 120,
+            easing: Easing.out(Easing.quad),
+            useNativeDriver: true,
+          }),
+          Animated.timing(dot, {
+            toValue: 0.35,
+            duration: 120,
+            easing: Easing.out(Easing.quad),
+            useNativeDriver: true,
+          }),
+        ]),
+      ),
+    );
+    pulse.start();
+    return () => pulse.stop();
+  }, [busyPhase, typingDots]);
+
+  useEffect(() => {
+    if (agreedPrice == null) {
+      winPulse.setValue(1);
+      return;
+    }
+    winPulse.setValue(0.98);
+    const pulse = Animated.sequence([
+      Animated.timing(winPulse, {
+        toValue: 1.035,
+        duration: 120,
+        easing: Easing.out(Easing.quad),
+        useNativeDriver: true,
+      }),
+      Animated.timing(winPulse, {
+        toValue: 1,
+        duration: 220,
+        easing: Easing.out(Easing.quad),
+        useNativeDriver: true,
+      }),
+    ]);
+    pulse.start();
+    return () => pulse.stop();
+  }, [agreedPrice, winPulse]);
 
   // Đồng hồ ghi âm (P1-4).
   useEffect(() => {
@@ -500,17 +593,35 @@ export default function App({ onExit }: { onExit?: () => void }) {
       </View>
       <ScrollView ref={scrollRef} style={styles.chat} contentContainerStyle={{ padding: 12, gap: 8 }}>
         {turns.map((t, i) => (
-          <View key={i} style={[styles.bubble, t.speaker === 'tenant' ? styles.me : styles.them]}>
+          <Animated.View
+            key={i}
+            style={[
+              styles.bubble,
+              t.speaker === 'tenant' ? styles.me : styles.them,
+              i === turns.length - 1 && {
+                opacity: messageEntry,
+                transform: [{ translateY: messageEntry.interpolate({ inputRange: [0, 1], outputRange: [6, 0] }) }],
+              },
+            ]}
+          >
             <Text style={styles.speaker}>
               {t.speaker === 'tenant' ? 'Bạn' : `Đối phương${t.emotion ? ` ${EMOJI[t.emotion]}` : ''}`}
             </Text>
             <Text style={styles.bubbleText}>{t.text}</Text>
             {t.price ? <Text style={styles.price}>→ {fmt(t.price)}đ/tháng</Text> : null}
-          </View>
+          </Animated.View>
         ))}
         {busy && (
           <View style={styles.busyRow}>
-            <ActivityIndicator />
+            {busyPhase === 'landlord' ? (
+              <View style={styles.typingDots}>
+                {typingDots.map((dot, i) => (
+                  <Animated.View key={i} style={[styles.typingDot, { opacity: dot }]} />
+                ))}
+              </View>
+            ) : (
+              <ActivityIndicator />
+            )}
             <Text style={styles.busyText}>
               {busyPhase === 'transcribe' ? 'Đang nghe lại…' : 'Đối phương đang trả lời…'}
             </Text>
@@ -528,7 +639,7 @@ export default function App({ onExit }: { onExit?: () => void }) {
         ) : null}
       </ScrollView>
       {agreedPrice != null && (
-        <View style={styles.winCard}>
+        <Animated.View style={[styles.winCard, { transform: [{ scale: winPulse }] }]}>
           <Text style={styles.winTitle}>✅ CHỐT ĐƯỢC RỒI!</Text>
           <Text style={styles.winPrice}>{fmt(agreedPrice)}đ/tháng</Text>
           {saved > 0 ? (
@@ -556,7 +667,7 @@ export default function App({ onExit }: { onExit?: () => void }) {
           <Pressable style={styles.bigBtn} onPress={backToSetup}>
             <Text style={styles.bigBtnText}>Đàm phán tình huống khác →</Text>
           </Pressable>
-        </View>
+        </Animated.View>
       )}
       <View style={styles.footer}>
         {recState.isRecording ? (
@@ -580,13 +691,15 @@ export default function App({ onExit }: { onExit?: () => void }) {
             <Text style={styles.sendBtnText}>Gửi</Text>
           </Pressable>
         </View>
-        <Pressable
-          style={[styles.micBtn, recState.isRecording && styles.micBtnActive]}
-          onPress={onRecordPress}
-          disabled={busy || agreedPrice != null}
-        >
-          <Text style={styles.micText}>{recState.isRecording ? '⏹ Bấm để gửi' : '🎤 Bấm để nói'}</Text>
-        </Pressable>
+        <Animated.View style={{ transform: [{ scale: micPulse }] }}>
+          <Pressable
+            style={[styles.micBtn, recState.isRecording && styles.micBtnActive]}
+            onPress={onRecordPress}
+            disabled={busy || agreedPrice != null}
+          >
+            <Text style={styles.micText}>{recState.isRecording ? '⏹ Bấm để gửi' : '🎤 Bấm để nói'}</Text>
+          </Pressable>
+        </Animated.View>
       </View>
     </View>
   );
@@ -645,6 +758,8 @@ const styles = StyleSheet.create({
   bubbleText: { color: '#fff' },
   price: { color: '#8ce99a', fontWeight: '700', marginTop: 4 },
   busyRow: { flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 4 },
+  typingDots: { flexDirection: 'row', alignItems: 'center', gap: 4 },
+  typingDot: { width: 6, height: 6, borderRadius: 3, backgroundColor: '#9fb0bf' },
   busyText: { color: '#9fb0bf', fontSize: 13 },
   errBox: { backgroundColor: '#2b1a1a', borderRadius: 10, padding: 10, gap: 8 },
   retryBtn: { backgroundColor: '#e03131', borderRadius: 8, paddingVertical: 8, alignItems: 'center' },

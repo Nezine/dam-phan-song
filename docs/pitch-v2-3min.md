@@ -14,10 +14,10 @@ nhịp chốt 20 giây. Tổng vẫn đúng 3:00. **Tập với đồng hồ b�
 
 ## Nhịp MARKET — lưu ý về số liệu
 
-`MARKET-NUMBERS.md` **chưa có trong repo** (đã tìm toàn bộ repo, chỉ có `PITCH.md` và `docs/pitch-v2.md`).
-Vì vậy nhịp MARKET trong bản cắt này **không đọc bất kỳ con số TAM/SAM nào** — chỉ dùng 2 số đã có nguồn
-trong repo: ví dụ tiết kiệm 2,4 triệu/năm từ buổi demo, và mục tiêu 100 người luyện đầu tiên trong tuần 1
-(từ `PITCH.md`). Cần bổ sung số liệu thị trường có nguồn trích dẫn trước giờ pitch — **không bịa số**.
+`MARKET-NUMBERS.md` **đã có trên master** (Milo giao, merge 9d340fe, nguồn truy cập 2026-11-14).
+Nhịp MARKET đọc 2 số có nguồn: EdTech Việt Nam 1,1 tỷ USD (2025, IMARC) và SAM ~5,7 triệu người trẻ
+thuê trọ ở thành phố (18–34, thành thị). SOM trong file là **giả định** (2% SAM × 100k/tháng) — **không đọc SOM**.
+Mục tiêu 100 người luyện đầu tiên trong tuần 1 vẫn giữ (từ `PITCH.md`).
 
 ---
 
@@ -44,8 +44,8 @@ trong repo: ví dụ tiết kiệm 2,4 triệu/năm từ buổi demo, và mục 
 
 ## 1:00–1:20 · Nhịp 4 — MARKET (ai dùng, bắt đầu từ đâu)
 
-> "Ai cũng phải đàm phán — thuê trọ, xin lương, mua bán, làm ăn.
-> Bọn em bắt đầu từ người trẻ Việt học kỹ năng trên điện thoại.
+> "Ai cũng phải đàm phán — thuê trọ, xin lương, mua bán.
+> EdTech Việt Nam đã 1,1 tỷ đô, có khoảng 5,7 triệu người trẻ thuê trọ ở thành phố — đó là nơi bọn em bắt đầu.
 > Mục tiêu tuần đầu: **100 người luyện đầu tiên**, từ demo hôm nay và video ngắn."
 
 ## 1:20–2:40 · Nhịp 5 — PROOF (demo live, đây là nhịp ăn điểm)
