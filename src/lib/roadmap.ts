@@ -48,9 +48,9 @@ export const RUBRIC: { label: string; hint: string }[] = [
 export const MAX_SCORE = RUBRIC.length * 2; // 10
 
 export const KIND_LABEL: Record<RoadmapItemKind, string> = {
-  exercise: '📝 Bài tập',
-  test: '🧪 Bài test',
-  practice: '🎤 Thực hành',
+  exercise: 'Bài tập',
+  test: 'Bài test',
+  practice: 'Thực hành',
 };
 
 export const LEVELS: RoadmapLevel[] = [
